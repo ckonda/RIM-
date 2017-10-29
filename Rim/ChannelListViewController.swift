@@ -72,7 +72,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         // Use the observe method to listen for new
         // channels being written to the Firebase DB
         channelRefHandle = channelRef.observe(DataEventType.childAdded, with: { (snapshot) in
-            let id = snapshot.key
+            let id = snapshot.key//accessing the id key of each channel to dig in later on
             let newRef = snapshot.ref
 
             newRef.observe(DataEventType.value, with: { (snapshot) in
@@ -81,17 +81,16 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 if let name = channelNames?["channelName"] as! String!{
                     
-                    print(name)
                     
                     self.channels.insert(Channel(channelID: id, channelName: name, latestMessageTimeStamp: nil), at: 0)
-                    self.tableView.reloadData()
+                   // self.tableView.reloadData()
                     
                 }
                 self.tableView.reloadData()
                 
             })
             
-            self.tableView.reloadData()
+           // self.tableView.reloadData()
             
         })
     }

@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 public class Inventory: NSObject
-
 {
-    
     var profileImageUrl: String?
     var priorityTag: String?
     var username: String?
@@ -22,10 +20,10 @@ public class Inventory: NSObject
     var position: String?
     var password: String?
     var userID: String?
-    var postID: String?
+    var inventoryID: String?
     
     
-    init(username: String?, company: String?, profileImageUrl: String?, timeStamp: String?, userPic: String?, priority: String?, item_name: String?, position: String?, postID: String? )
+    init(username: String?, company: String?, profileImageUrl: String?, timeStamp: String?, userPic: String?, priority: String?, item_name: String?, position: String?, inventoryID: String? )
     {
         
         self.username = username
@@ -37,7 +35,7 @@ public class Inventory: NSObject
         self.item_name = item_name
         self.position = position
         
-        self.postID = postID
+        self.inventoryID = inventoryID
         
         
     }

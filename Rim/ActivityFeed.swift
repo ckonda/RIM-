@@ -34,6 +34,7 @@ public class ActivityFeed: NSObject
         self.priorityTag = priority
         
         self.postID = postID
+        
     }
     
 }

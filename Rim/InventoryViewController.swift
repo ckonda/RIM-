@@ -44,14 +44,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate,UITableView
 //                for inventory in snapshot.children.allObjects as! [DataSnapshot]{
 //                    
 //                    let feed = inventory.value as? [String: AnyObject]
-//                    
-//                    
-//             
-//                    
-//                    
-//                    
-//                    
-//                    
+//                   
 //                }
             }
             
