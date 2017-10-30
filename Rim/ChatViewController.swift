@@ -30,9 +30,6 @@ class ChatViewController: JSQMessagesViewController {
     private lazy var messageRef: DatabaseReference = self.channelRef!.child("messages")
     private var newMessageRefHandle: DatabaseHandle?
     
-    
-    
-    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
@@ -111,25 +108,26 @@ class ChatViewController: JSQMessagesViewController {
     
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        let itemRef = messageRef.childByAutoId() // 1
+        let itemRef = messageRef.childByAutoId()
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let stringDate = dateFormatter.string(from: date)
+        
+        
         let messageItem = [ // 2
             "senderId": senderId!,
             "senderName": senderDisplayName!,
             "text": text!,
+            "timestamp": stringDate
             ]
         
-        itemRef.setValue(messageItem) // 3
+        itemRef.setValue(messageItem)
         
-        JSQSystemSoundPlayer.jsq_playMessageSentSound() // 4
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
-        finishSendingMessage() // 5
+        finishSendingMessage()
     }
-    
-    
-    
-    
-    
-    
     
     
     

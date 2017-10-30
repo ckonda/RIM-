@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseStorage
 
 
-class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITextFieldDelegate, UIPickerViewDelegate,UIPickerViewDataSource{
+class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITextFieldDelegate{
     
     
     
@@ -30,9 +30,7 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         
-        pickerData = ["Individual", "Dozen", "Sets", "Boxes", "Crates", "Shipments"]
-        self.unitPicker.delegate = self
-        self.unitPicker.dataSource = self
+
         
         itemName.delegate = self
         numberofItems.delegate = self
@@ -65,35 +63,16 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @IBOutlet weak var unitPicker: UIPickerView!
     
-    var pickerData: [String] = [String]()//loading array of the picker
+
     
-    
-    // The number of rows of data
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // The data to return for the row and component (column) that's being passed in
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // This method is triggered whenever the user makes a change to the picker selection.
-        // The parameter named row and component represents what was selected.
-    }
-    
+       
     
     
     @IBAction func sendButton(_ sender: Any) {
-        
-        print("SENDD IT")
         addProduct()
-        dismiss(animated: true, completion: nil)
+       // dismiss(animated: true, completion: nil)
+        
+        navigationController?.popViewController(animated: true)
         
         
     }

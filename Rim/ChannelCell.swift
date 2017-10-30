@@ -15,6 +15,7 @@ class ChannelCell: UITableViewCell {
     
     @IBOutlet weak var channelName: UILabel!
     
+    @IBOutlet weak var timeStamp: UILabel!
     
     
 }

@@ -54,12 +54,38 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         
         if (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue {
             if let createNewChannelCell = cell as? CreateChannelCell {
-                newChannelTextField = createNewChannelCell.newChannelNameField//setting newly created channel from ChannelCell to the text field
+                
+                    newChannelTextField = createNewChannelCell.newChannelNameField//setting newly created channel from ChannelCell to the text field
+               
             }
         } else if (indexPath as NSIndexPath).section == Section.currentChannelsSection.rawValue {
             
             if let channelCell = cell as? ChannelCell{
+                
+                let channel = channels[indexPath.row]
+                
                 channelCell.channelName.text = channels[(indexPath as NSIndexPath).row].channelName
+                
+                let timeQuery = Database.database().reference().child("Channels").child(channel.channelID!).child("messages").queryLimited(toLast: 1)
+                
+                timeQuery.observeSingleEvent(of: DataEventType.childAdded, with: { (snapshot) in
+                    
+                    let time = snapshot.value as! [String: Any]
+                    
+                    let messageTime = time["timestamp"] as? String
+                    //
+                    let dateString = messageTime
+                    let dateformatter = DateFormatter()
+                    dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+                    dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+                    let dateFromString = dateformatter.date(from: dateString!)
+                    let timeAgo:String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+                    
+                    channelCell.timeStamp.text = timeAgo
+                    
+                    
+                })
+            
                 
             }
             
@@ -78,20 +104,22 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
             newRef.observe(DataEventType.value, with: { (snapshot) in
                 
                 let channelNames = snapshot.value as? [String: AnyObject]
+                //print(channelNames)
                 
-                if let name = channelNames?["channelName"] as! String!{
+                if let name = channelNames?["channelName"] as? String{
+         
+                    let isUnique = !self.channels.contains { channel in//bug fix to stop channel load duplication
+                        return channel.channelID == id
+                    }
                     
-                    
-                    self.channels.insert(Channel(channelID: id, channelName: name, latestMessageTimeStamp: nil), at: 0)
-                   // self.tableView.reloadData()
-                    
+                    if isUnique {
+                        self.channels.insert(Channel(channelID: id, channelName: name, latestMessageTimeStamp: nil), at: 0)
+                    }
                 }
                 self.tableView.reloadData()
                 
             })
-            
-           // self.tableView.reloadData()
-            
+                        
         })
     }
     
@@ -99,14 +127,17 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func createChannel(_ sender: Any) {
         
         if let name = newChannelTextField?.text { //
-            let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
-            let channelItem = [
-                "channelName": name
-            ]
-            newChannelRef.setValue(channelItem)
+            
+            if name.characters.count > 0 {
+ 
+                let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
+                let channelItem = [
+                    "channelName": name
+                ]
+                newChannelRef.setValue(channelItem)
+                
+            }
         }
-        
-        
     }
     
     
@@ -149,26 +180,91 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
     
     
 
-    
-    
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // title = "El Dios"
         observeChannels()
+        
+         self.hideKeyboardWhenTappedAround()//when view is tapped outside of the box, dismiss
+        
+
+        
     }
     
+    
+
     deinit {
         if let refHandle = channelRefHandle {
             channelRef.removeObserver(withHandle: refHandle)
         }
     }
     
-
-  
-
-   
     
+    func timeAgoSinceDate(_ date:Date, numericDates:Bool = false) -> String {//returns string of time of message sent
+        let calendar = Calendar.current
+        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
+        let now = Date()
+        let earliest = now < date ? now : date
+        let latest = (earliest == now) ? date : now
+        let components = calendar.dateComponents(unitFlags, from: earliest,  to: latest)
+        
+        if (components.year! >= 2) {
+            return "\(components.year!) years ago"
+        } else if (components.year! >= 1){
+            if (numericDates){
+                return "1 year ago"
+            } else {
+                return "Last year"
+            }
+        } else if (components.month! >= 2) {
+            return "\(components.month!) months ago"
+        } else if (components.month! >= 1){
+            if (numericDates){
+                return "1 month ago"
+            } else {
+                return "Last month"
+            }
+        } else if (components.weekOfYear! >= 2) {
+            return "\(components.weekOfYear!) weeks ago"
+        } else if (components.weekOfYear! >= 1){
+            if (numericDates){
+                return "1 week ago"
+            } else {
+                return "Last week"
+            }
+        } else if (components.day! >= 2) {
+            return "\(components.day!) days ago"
+        } else if (components.day! >= 1){
+            if (numericDates){
+                return "1 day ago"
+            } else {
+                return "Yesterday"
+            }
+        } else if (components.hour! >= 2) {
+            return "\(components.hour!) hours ago"
+        } else if (components.hour! >= 1){
+            if (numericDates){
+                return "1 hour ago"
+            } else {
+                return "An hour ago"
+            }
+        } else if (components.minute! >= 2) {
+            return "\(components.minute!) minutes ago"
+        } else if (components.minute! >= 1){
+            if (numericDates){
+                return "1 minute ago"
+            } else {
+                return "A minute ago"
+            }
+        } else if (components.second! >= 3) {
+            return "\(components.second!) seconds ago"
+        } else {
+            return "Just now"
+        }
+        
+    }
+
     
     
 

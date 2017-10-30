@@ -19,6 +19,12 @@ class Channel: NSObject{
 
         self.mostRecentTimestamp = latestMessageTimeStamp
     }
+    
+    
+    
+    
+    
+    
 }
 
 
