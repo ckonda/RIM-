@@ -128,7 +128,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         
         if let name = newChannelTextField?.text { //
             
-            if name.characters.count > 0 {
+            if name.characters.count > 0 {//nil checker
  
                 let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
                 let channelItem = [

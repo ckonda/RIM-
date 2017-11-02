@@ -17,6 +17,7 @@
 		EE0AA0F41F9E98A800F0A486 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */; };
 		EE0AA0F61F9FF26500F0A486 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F51F9FF26500F0A486 /* TransactionViewController.swift */; };
 		EE0AA0F81F9FF31500F0A486 /* ShipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F71F9FF31500F0A486 /* ShipmentViewController.swift */; };
+		EE0AA0FA1FAAD31A00F0A486 /* unitCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */; };
 		EE1AF5741F66165D0024AA01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5731F66165D0024AA01 /* AppDelegate.swift */; };
 		EE1AF5761F66165D0024AA01 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5751F66165D0024AA01 /* loginViewController.swift */; };
 		EE1AF5791F66165D0024AA01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5771F66165D0024AA01 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		EE0AA0F51F9FF26500F0A486 /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		EE0AA0F71F9FF31500F0A486 /* ShipmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipmentViewController.swift; sourceTree = "<group>"; };
+		EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = unitCollectionView.swift; sourceTree = "<group>"; };
 		EE1AF5701F66165D0024AA01 /* Rim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1AF5731F66165D0024AA01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE1AF5751F66165D0024AA01 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				EEA511101F82E27A00EC97C9 /* CreateChannelCell.swift */,
 				EE0AA0EF1F9E607A00F0A486 /* InventoryCell.swift */,
 				EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */,
+				EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				EEA5110C1F82DB0100EC97C9 /* ChannelListViewController.swift in Sources */,
 				A8E0DA801F8D9ED1005AFB0E /* ActivityFeed.swift in Sources */,
 				EE77E0911F7082140055745A /* registerViewController.swift in Sources */,
+				EE0AA0FA1FAAD31A00F0A486 /* unitCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

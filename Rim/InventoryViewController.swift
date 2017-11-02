@@ -27,11 +27,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate,UITableView
         
         observechannels()//pull channel data from the inventory feed
         
-    
-
     }
-    
-    
     
     func observechannels(){
     
@@ -41,21 +37,48 @@ class InventoryViewController: UIViewController, UITableViewDelegate,UITableView
             if snapshot.childrenCount>0{
                 self.inventModel.removeAll()
                 
-//                for inventory in snapshot.children.allObjects as! [DataSnapshot]{
-//                    
-//                    let feed = inventory.value as? [String: AnyObject]
-//                   
-//                }
+                for inventory in snapshot.children.allObjects as! [DataSnapshot]{
+                    
+                    let feed = inventory.value as? [String: AnyObject]
+                    let profileImageUrl = feed?["profileImageUrl"] as! String?
+                    let timestamp = feed?["timestamp"] as! String?
+                    let shipDate = feed?["shipdate"] as! String?
+                    let itemName = feed?["itemName"] as! String?
+                    let units = feed?["units"] as! String?
+                    let amount = feed?["amount"] as! String?
+                    let inventoryID = feed?["inventoryID"] as! String?
+                    let userID = feed?["userID"] as! String?
+                    let username = feed?["username"] as! String?
+                    let company = feed?["company"] as! String?
+                    
+                    
+                    let date = Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+                    let current = dateFormatter.string(from: date)
+                    dateFormatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+                    let currentDate = dateFormatter.date(from: current)
+
+                    let shippingDate = dateFormatter.date(from: shipDate!)
+                    
+                    
+                    let productObject = Inventory(username: username, profileImageUrl: profileImageUrl, timeStamp: timestamp, item_name: itemName, inventoryID: inventoryID, amount: amount, userID: userID, shipDate: shipDate, units: units, company: company)
+                    
+                    if AppDelegate.user.company == company, shippingDate! < currentDate!  {
+                        
+                        self.inventModel.insert(productObject, at: 0)
+                        
+                    }
+                    
+                  
+                }
             }
             
             
             
         })
-
-        
     
     }
-    
     
     
     

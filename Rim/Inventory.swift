@@ -12,31 +12,36 @@ import UIKit
 public class Inventory: NSObject
 {
     var profileImageUrl: String?
-    var priorityTag: String?
     var username: String?
-    var company: String?
     var timeStamp: String?
+    var shipDate: String?
     var item_name: String?
-    var position: String?
-    var password: String?
+    var units: String?
+    var amount: String?
+    
     var userID: String?
     var inventoryID: String?
+    var company: String?
     
     
-    init(username: String?, company: String?, profileImageUrl: String?, timeStamp: String?, userPic: String?, priority: String?, item_name: String?, position: String?, inventoryID: String? )
+    
+    
+    init(username: String?, profileImageUrl: String?, timeStamp: String?, item_name: String?,  inventoryID: String?, amount: String? , userID: String?, shipDate: String?, units: String?, company: String?)//constructer
     {
         
         self.username = username
-        self.company =  company
         self.timeStamp = timeStamp
         self.profileImageUrl = profileImageUrl
-        self.priorityTag = priority
+        
+        self.company = company
+
         
         self.item_name = item_name
-        self.position = position
-        
+        self.amount = amount
+        self.shipDate = shipDate
+        self.units = units
+        self.userID = userID
         self.inventoryID = inventoryID
-        
         
     }
     

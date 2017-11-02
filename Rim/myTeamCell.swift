@@ -32,7 +32,14 @@ public class myTeamCell: UITableViewCell {
         self.name.text = name
         self.position.text = position
         self.profileImage.image = profileImage
-        
+    
     }
+ 
+    
+    
+    
+    
+    
+    
     
 }

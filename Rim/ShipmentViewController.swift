@@ -24,11 +24,28 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var numberofItems: UITextField!
     
     
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    var collectionData = ["Units", "Dozen", "Box", "Crate"]
+    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        
+        
+        
+        
+        
+        self.collectionView.allowsSelection = true
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+   
+        self.collectionView.reloadData()
         
 
         
@@ -40,9 +57,17 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
         picturePicker.isUserInteractionEnabled = true
         picturePicker.addGestureRecognizer(tapGestureRecognizer)
         
-   
-        
+
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+    }
+    
+    
+ 
 
     @IBOutlet weak var picturePicker: UIImageView!
     
@@ -61,18 +86,28 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     
-    @IBOutlet weak var unitPicker: UIPickerView!
     
-
+//    if let name = newChannelTextField?.text { //
+//        
+//        if name.characters.count > 0 {/
     
-       
+    
     
     
     @IBAction func sendButton(_ sender: Any) {
-        addProduct()
-       // dismiss(animated: true, completion: nil)
         
-        navigationController?.popViewController(animated: true)
+        
+        if let itemName = itemName?.text, let number = numberofItems?.text {
+            
+            if itemName.characters.count > 0, number.characters.count > 0 {
+                addProduct()
+                
+                navigationController?.popViewController(animated: true)//remove from stack of controllers
+            }
+            
+        }
+
+ 
         
         
     }
@@ -135,26 +170,35 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                 }
                 if let profileImageUrl = metadata?.downloadURL()?.absoluteString{
                     
+                    
+                    
                     let date = Date()
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
                     let stringDate = dateFormatter.string(from: date)
                     
+                    let dateOnPicker = self.datePicker.date
+                    let shipDate = dateFormatter.string(from: dateOnPicker)
+                    
                     let item = self.itemName.text
                     let amount = self.numberofItems.text
                     
-                    let myTeamRef = self.Ref.childByAutoId()
+                    let myTeamRef = self.Ref.childByAutoId()//
                     
                     let product = [//to make sure the team aligns with each company
                         "profileImageUrl": profileImageUrl,
                         "timestamp": stringDate,
+                        "shipdate": shipDate,
                         "itemName": item!,
+                        "units":"placeholder",
                         "amount": amount!,
                         "inventoryID": myTeamRef.key,
+                        "userID": AppDelegate.user.userID!,
+                        "username": AppDelegate.user.username!,
+                        "company": AppDelegate.user.company!
                     ] as [String : Any]
                     
                     myTeamRef.setValue(product)
-
                 }
             })
         }
@@ -163,11 +207,78 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
     
-    
-    
-    
-    
-    
 
 
 }
+
+
+extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return collectionData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! unitCell
+        
+        if let label = cell.viewWithTag(100) as? UILabel {
+            
+            label.text = collectionData[indexPath.row]
+        }
+        
+        
+        if (indexPath.row == 0){
+            
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+            cell.layer.borderColor = UIColor.gray.cgColor
+        }else{
+            
+            cell.layer.borderColor = UIColor.white.cgColor
+        }
+        
+        
+  
+        return cell
+        
+    }
+    
+  
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("Selected row is ", indexPath.row)
+        
+        let cell = self.collectionView.cellForItem(at: indexPath) as! unitCell
+        
+        
+        if cell.isSelected{
+            cell.layer.borderColor = UIColor.gray.cgColor
+        }
+     
+        
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        let cell = self.collectionView.cellForItem(at: indexPath) as! unitCell
+        
+        cell.layer.borderColor = UIColor.white.cgColor
+        
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        
+    }
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
+
