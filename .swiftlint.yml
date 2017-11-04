@@ -1,0 +1,14 @@
+disabled_rules:
+- cyclomatic_complexity
+- trailing_whitespace
+- unused_optional_binding
+- identifier_name
+- force_cast
+excluded:
+- Carthage
+- Pods
+- Zip
+line_length: 250
+type_body_length: 600
+function_body_length: 80
+file_length: 2000
