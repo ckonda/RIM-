@@ -13,18 +13,14 @@ import UIKit
 
 public class myTeamCell: UITableViewCell {
     
-    
     @IBOutlet weak var name: UILabel!
     
     @IBOutlet weak var position: UILabel!
     
     @IBOutlet weak var profileImage: UIImageView!
     
-    
-    
     public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
     
     public func configure(name: String, position: String,profileImage:UIImage){
@@ -32,14 +28,5 @@ public class myTeamCell: UITableViewCell {
         self.name.text = name
         self.position.text = position
         self.profileImage.image = profileImage
-    
     }
- 
-    
-    
-    
-    
-    
-    
-    
 }

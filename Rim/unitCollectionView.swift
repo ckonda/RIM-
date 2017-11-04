@@ -13,10 +13,6 @@ class unitCell: UICollectionViewCell {
     
     //put actual cell objects here
     
-    
     @IBOutlet weak var unitTag: UILabel!
     
-
-    
 }
-

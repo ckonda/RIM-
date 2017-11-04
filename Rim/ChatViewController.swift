@@ -26,7 +26,6 @@ class ChatViewController: JSQMessagesViewController {
         }
     }
     
-    
     private lazy var messageRef: DatabaseReference = self.channelRef!.child("messages")
     private var newMessageRefHandle: DatabaseHandle?
     
@@ -34,7 +33,6 @@ class ChatViewController: JSQMessagesViewController {
         return nil
     }
 
-    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.item]
     }
@@ -80,10 +78,9 @@ class ChatViewController: JSQMessagesViewController {
         return cell
     }
     
-    
     private func observeMessages() {
         messageRef = channelRef!.child("messages")
-        let messageQuery = messageRef.queryLimited(toLast:25)
+        let messageQuery = messageRef.queryLimited(toLast: 25)
         
         // 2. We can use the observe method to listen for new
         // messages being written to the Firebase DB
@@ -103,17 +100,12 @@ class ChatViewController: JSQMessagesViewController {
         })
     }
     
-    
-    
-    
-    
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let itemRef = messageRef.childByAutoId()
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         let stringDate = dateFormatter.string(from: date)
-        
         
         let messageItem = [ // 2
             "senderId": senderId!,
@@ -129,29 +121,15 @@ class ChatViewController: JSQMessagesViewController {
         finishSendingMessage()
     }
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         observeMessages()//observe messages on channel
         // Do any additional setup after loading the view.
         
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
-        
         self.senderId = Auth.auth().currentUser?.uid
     }
-
-   
-    
-    
-    
-    
-
-   
 
 }

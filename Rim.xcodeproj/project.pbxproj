@@ -19,14 +19,14 @@
 		EE0AA0F81F9FF31500F0A486 /* ShipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F71F9FF31500F0A486 /* ShipmentViewController.swift */; };
 		EE0AA0FA1FAAD31A00F0A486 /* unitCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */; };
 		EE1AF5741F66165D0024AA01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5731F66165D0024AA01 /* AppDelegate.swift */; };
-		EE1AF5761F66165D0024AA01 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5751F66165D0024AA01 /* loginViewController.swift */; };
+		EE1AF5761F66165D0024AA01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5751F66165D0024AA01 /* LoginViewController.swift */; };
 		EE1AF5791F66165D0024AA01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5771F66165D0024AA01 /* Main.storyboard */; };
 		EE1AF57B1F66165D0024AA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57A1F66165D0024AA01 /* Assets.xcassets */; };
 		EE1AF57E1F66165D0024AA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57C1F66165D0024AA01 /* LaunchScreen.storyboard */; };
 		EE1AF58A1F661C6B0024AA01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */; };
 		EE77E0911F7082140055745A /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0901F7082140055745A /* registerViewController.swift */; };
 		EE77E0931F7091150055745A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0921F7091150055745A /* User.swift */; };
-		EE98C25F1F73297000056C80 /* myTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C25E1F73297000056C80 /* myTeamViewController.swift */; };
+		EE98C25F1F73297000056C80 /* MyTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C25E1F73297000056C80 /* MyTeamViewController.swift */; };
 		EE98C2631F7982FE00056C80 /* myTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2621F7982FE00056C80 /* myTeamCell.swift */; };
 		EE98C2661F79D33B00056C80 /* myTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2651F79D33B00056C80 /* myTeam.swift */; };
 		EE98C2691F79DBC900056C80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2681F79DBC900056C80 /* Extensions.swift */; };
@@ -53,7 +53,7 @@
 		EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = unitCollectionView.swift; sourceTree = "<group>"; };
 		EE1AF5701F66165D0024AA01 /* Rim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1AF5731F66165D0024AA01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE1AF5751F66165D0024AA01 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		EE1AF5751F66165D0024AA01 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EE1AF5781F66165D0024AA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE1AF57A1F66165D0024AA01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE1AF57D1F66165D0024AA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 		EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE77E0901F7082140055745A /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
 		EE77E0921F7091150055745A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		EE98C25E1F73297000056C80 /* myTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTeamViewController.swift; sourceTree = "<group>"; };
+		EE98C25E1F73297000056C80 /* MyTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTeamViewController.swift; sourceTree = "<group>"; };
 		EE98C2621F7982FE00056C80 /* myTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTeamCell.swift; sourceTree = "<group>"; };
 		EE98C2651F79D33B00056C80 /* myTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTeam.swift; sourceTree = "<group>"; };
 		EE98C2681F79DBC900056C80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 				EE98C26A1F7C7E0D00056C80 /* Login Controllers */,
 				A829F1091F929D6800B7AC82 /* ActivitySelectedController.swift */,
 				EE0747E11F69E4B50055CC52 /* ActivityViewController.swift */,
-				EE98C25E1F73297000056C80 /* myTeamViewController.swift */,
+				EE98C25E1F73297000056C80 /* MyTeamViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 		EE98C26A1F7C7E0D00056C80 /* Login Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EE1AF5751F66165D0024AA01 /* loginViewController.swift */,
+				EE1AF5751F66165D0024AA01 /* LoginViewController.swift */,
 				EE77E0901F7082140055745A /* registerViewController.swift */,
 			);
 			name = "Login Controllers";
@@ -223,6 +223,7 @@
 				EE1AF56E1F66165D0024AA01 /* Resources */,
 				53D762D2460885C28F77A5C3 /* [CP] Embed Pods Frameworks */,
 				C2A35AD907E0799B73045265 /* [CP] Copy Pods Resources */,
+				EE0AA0FB1FABE1C000F0A486 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -298,7 +299,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		53D762D2460885C28F77A5C3 /* [CP] Embed Pods Frameworks */ = {
@@ -344,6 +345,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rim/Pods-Rim-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EE0AA0FB1FABE1C000F0A486 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -356,9 +370,9 @@
 				EEA5110F1F82DD0F00EC97C9 /* Channel.swift in Sources */,
 				EE0AA0F01F9E607A00F0A486 /* InventoryCell.swift in Sources */,
 				EE98C2691F79DBC900056C80 /* Extensions.swift in Sources */,
-				EE1AF5761F66165D0024AA01 /* loginViewController.swift in Sources */,
+				EE1AF5761F66165D0024AA01 /* LoginViewController.swift in Sources */,
 				EE0AA0F81F9FF31500F0A486 /* ShipmentViewController.swift in Sources */,
-				EE98C25F1F73297000056C80 /* myTeamViewController.swift in Sources */,
+				EE98C25F1F73297000056C80 /* MyTeamViewController.swift in Sources */,
 				EE1AF5741F66165D0024AA01 /* AppDelegate.swift in Sources */,
 				A8562AD01F8D31D100419B62 /* ActivityViewCell.swift in Sources */,
 				EEA511111F82E27A00EC97C9 /* CreateChannelCell.swift in Sources */,

@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-public class Inventory: NSObject
-{
+public class Inventory: NSObject {
     var profileImageUrl: String?
     var username: String?
     var timeStamp: String?
@@ -23,18 +22,12 @@ public class Inventory: NSObject
     var inventoryID: String?
     var company: String?
     
-    
-    
-    
-    init(username: String?, profileImageUrl: String?, timeStamp: String?, item_name: String?,  inventoryID: String?, amount: String? , userID: String?, shipDate: String?, units: String?, company: String?)//constructer
-    {
+    init(username: String?, profileImageUrl: String?, timeStamp: String?, item_name: String?,  inventoryID: String?, amount: String? , userID: String?, shipDate: String?, units: String?, company: String?) {
         
         self.username = username
         self.timeStamp = timeStamp
         self.profileImageUrl = profileImageUrl
-        
         self.company = company
-
         
         self.item_name = item_name
         self.amount = amount
@@ -44,10 +37,4 @@ public class Inventory: NSObject
         self.inventoryID = inventoryID
         
     }
-    
-    
-    
-    
-    
-    
 }

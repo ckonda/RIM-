@@ -13,12 +13,5 @@ class TransactionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-    
     }
-
-
-    
-    
-
 }

@@ -11,9 +11,8 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-class loginViewController: UIViewController ,UITextFieldDelegate{
+class LoginViewController: UIViewController , UITextFieldDelegate {
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,8 +23,7 @@ class loginViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet weak var emailtextField: UITextField!
     
     @IBOutlet weak var passwordtextField: UITextField!
-    
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailtextField.resignFirstResponder()
         passwordtextField.resignFirstResponder()
@@ -39,28 +37,20 @@ class loginViewController: UIViewController ,UITextFieldDelegate{
         
     }
     
-
-    func handleLogin(){//log back in using email and password only
-        
+    func handleLogin() {//log back in using email and password only
+    
         var FBRef: DatabaseReference!
-        
-        FBRef = Database.database().reference();
-        
-        
-        guard let email = emailtextField.text, let password = passwordtextField.text else{
-            
+        FBRef = Database.database().reference()
+
+        guard let email = emailtextField.text, let password = passwordtextField.text else {
             print("Service Unavailable, Please try again")
             return
             
         }
         Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in  //login with email
             
-            
             if user != nil {
-                
-                
                 let userID: String = (Auth.auth().currentUser?.uid)!
-                
                 
                 FBRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                     let dict = snapshot.value as? NSDictionary
@@ -72,25 +62,17 @@ class loginViewController: UIViewController ,UITextFieldDelegate{
                     let position = dict?["position"] as? String!
                     let company = dict?["company"] as? String!
                     
-                    AppDelegate.user.initialize(username: username, email: email, password: password, userID: userID, profileImageUrl: profileImageUrl, position:position, company: company)
-                    
-                
+                    AppDelegate.user.initialize(username: username, email: email, password: password, userID: userID, profileImageUrl: profileImageUrl, position: position, company: company)
                     //  UserDefaults.standard.object(forKey: "username") as String? = username
                     self.performSegue(withIdentifier: "gotoMain", sender: self)
                 })
-            }
-            else {
+            } else {
                 //ERROR: catch handle
                 print("login error")
             }
         })
-        
         //self.performSegue(withIdentifier: "gotoMain", sender: self)
     }
-
-    
-    
-    
 
     @IBAction func loginButton(_ sender: Any) {
 
@@ -104,18 +86,5 @@ class loginViewController: UIViewController ,UITextFieldDelegate{
         performSegue(withIdentifier: "gotoRegister", sender: self)
        // dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 
+}

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 public class myTeam: NSObject {
     var username: String?
     var email: String?
@@ -20,13 +19,12 @@ public class myTeam: NSObject {
     
     
     init(username: String?, email: String?,userID: String?, profileImageUrl: String?,position: String?, company: String?){
-        self.username = username;
-        self.email = email;
-        self.userID = userID;
-        self.profileImageUrl = profileImageUrl;
-        self.position = position;
-        self.company = company;
+        self.username = username
+        self.email = email
+        self.userID = userID
+        self.profileImageUrl = profileImageUrl
+        self.position = position
+        self.company = company
     }
-    
-}
 
+}

@@ -12,8 +12,6 @@ import UIKit
 
 class InventoryCell: UITableViewCell {
     
-    
-    
     @IBOutlet weak var inventoryName: UILabel!
     
     @IBOutlet weak var productPic: UIImageView!
@@ -24,15 +22,8 @@ class InventoryCell: UITableViewCell {
     
     @IBOutlet weak var units: UILabel!
     
-    
     public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
-    
-    
-    
-    
-    
-    
+
 }

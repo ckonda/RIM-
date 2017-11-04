@@ -8,23 +8,16 @@
 
 import Foundation
 
-class Channel: NSObject{
+class Channel: NSObject {
     var channelName: String?
-    var channelID:String?
+    var channelID: String?
     var mostRecentTimestamp: String?
     
-    init(channelID: String, channelName: String?, latestMessageTimeStamp: String?){
+    init(channelID: String, channelName: String?, latestMessageTimeStamp: String?) {
         self.channelName = channelName
         self.channelID = channelID
 
         self.mostRecentTimestamp = latestMessageTimeStamp
     }
     
-    
-    
-    
-    
-    
 }
-
-

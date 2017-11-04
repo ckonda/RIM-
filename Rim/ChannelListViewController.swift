@@ -22,12 +22,9 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
     
     private lazy var channelRef: DatabaseReference = Database.database().reference().child("Channels")
     private var channelRefHandle: DatabaseHandle?
-    
-    
+
     @IBOutlet weak var tableView: UITableView!
 
-
-    
      func numberOfSections(in tableView: UITableView) -> Int {
         return 2 // # of sections in Tableview
     }
@@ -45,7 +42,6 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let reuseIdentifier = (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue ? "NewChannel" : "ExistingChannel"//to switch between reuse identifiers on new and existing cells
@@ -60,7 +56,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
             }
         } else if (indexPath as NSIndexPath).section == Section.currentChannelsSection.rawValue {
             
-            if let channelCell = cell as? ChannelCell{
+            if let channelCell = cell as? ChannelCell {
                 
                 let channel = channels[indexPath.row]
                 
@@ -79,17 +75,14 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                     dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
                     dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
                     let dateFromString = dateformatter.date(from: dateString!)
-                    let timeAgo:String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+                    let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
                     
                     channelCell.timeStamp.text = timeAgo
                     
-                    
                 })
-            
-                
+
             }
-            
-   
+    
         }
         return cell
     }
@@ -106,7 +99,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                 let channelNames = snapshot.value as? [String: AnyObject]
                 //print(channelNames)
                 
-                if let name = channelNames?["channelName"] as? String{
+                if let name = channelNames?["channelName"] as? String {
          
                     let isUnique = !self.channels.contains { channel in//bug fix to stop channel load duplication
                         return channel.channelID == id
@@ -122,7 +115,6 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                         
         })
     }
-    
     
     @IBAction func createChannel(_ sender: Any) {
         
@@ -140,12 +132,10 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
  
-        
-        if (segue.identifier == "ShowChannel") {
-            if let channel = sender as? Channel{
+        if segue.identifier == "ShowChannel" {
+            if let channel = sender as? Channel {
                 
                 let chatVc = segue.destination as! ChatViewController
                 
@@ -163,11 +153,6 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    
-    
-
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let message = channels[(indexPath as NSIndexPath).row]
@@ -176,96 +161,82 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    
-    
-
-  
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         observeChannels()
         
          self.hideKeyboardWhenTappedAround()//when view is tapped outside of the box, dismiss
-        
 
-        
     }
     
-    
-
     deinit {
         if let refHandle = channelRefHandle {
             channelRef.removeObserver(withHandle: refHandle)
         }
     }
     
-    
-    func timeAgoSinceDate(_ date:Date, numericDates:Bool = false) -> String {//returns string of time of message sent
+    func timeAgoSinceDate(_  date:Date, numericDates:Bool = false) -> String {//returns string of time of message sent
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
         let now = Date()
         let earliest = now < date ? now : date
         let latest = (earliest == now) ? date : now
-        let components = calendar.dateComponents(unitFlags, from: earliest,  to: latest)
+        let components = calendar.dateComponents(unitFlags, from: earliest, to: latest)
         
-        if (components.year! >= 2) {
+        if components.year! >= 2 {
             return "\(components.year!) years ago"
-        } else if (components.year! >= 1){
-            if (numericDates){
+        } else if components.year! >= 1 {
+            if numericDates {
                 return "1 year ago"
             } else {
                 return "Last year"
             }
-        } else if (components.month! >= 2) {
+        } else if components.month! >= 2 {
             return "\(components.month!) months ago"
-        } else if (components.month! >= 1){
-            if (numericDates){
+        } else if components.month! >= 1 {
+            if numericDates {
                 return "1 month ago"
             } else {
                 return "Last month"
             }
-        } else if (components.weekOfYear! >= 2) {
+        } else if components.weekOfYear! >= 2 {
             return "\(components.weekOfYear!) weeks ago"
-        } else if (components.weekOfYear! >= 1){
-            if (numericDates){
+        } else if components.weekOfYear! >= 1 {
+            if numericDates {
                 return "1 week ago"
             } else {
                 return "Last week"
             }
-        } else if (components.day! >= 2) {
+        } else if components.day! >= 2 {
             return "\(components.day!) days ago"
-        } else if (components.day! >= 1){
-            if (numericDates){
+        } else if components.day! >= 1 {
+            if numericDates {
                 return "1 day ago"
             } else {
                 return "Yesterday"
             }
-        } else if (components.hour! >= 2) {
+        } else if components.hour! >= 2 {
             return "\(components.hour!) hours ago"
-        } else if (components.hour! >= 1){
-            if (numericDates){
+        } else if components.hour! >= 1 {
+            if numericDates {
                 return "1 hour ago"
             } else {
                 return "An hour ago"
             }
-        } else if (components.minute! >= 2) {
+        } else if components.minute! >= 2 {
             return "\(components.minute!) minutes ago"
-        } else if (components.minute! >= 1){
-            if (numericDates){
+        } else if components.minute! >= 1 {
+            if numericDates {
                 return "1 minute ago"
             } else {
                 return "A minute ago"
             }
-        } else if (components.second! >= 3) {
+        } else if components.second! >= 3 {
             return "\(components.second!) seconds ago"
         } else {
             return "Just now"
         }
         
     }
-
-    
-    
 
 }

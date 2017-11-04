@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-public class ActivityViewCell: UITableViewCell
-{
+public class ActivityViewCell: UITableViewCell {
     
     @IBOutlet var activityImage: UIImageView!
     @IBOutlet var userName: UILabel!

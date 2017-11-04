@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="loginViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -702,7 +702,7 @@
         <!--My Team View Controller-->
         <scene sceneID="nMa-KV-i3q">
             <objects>
-                <viewController storyboardIdentifier="A" id="g1d-Ls-qmz" customClass="myTeamViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="A" id="g1d-Ls-qmz" customClass="MyTeamViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cn3-Vz-9Yw"/>
                         <viewControllerLayoutGuide type="bottom" id="TUM-N6-pgF"/>
@@ -870,6 +870,6 @@
         <image name="PicturePicker" width="191" height="191"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KRp-th-sXQ"/>
+        <segue reference="GEU-Fj-Jjf"/>
     </inferredMetricsTieBreakers>
 </document>

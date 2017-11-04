@@ -11,9 +11,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-
-class ActivitySelectedController: UIViewController
-{
+class ActivitySelectedController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var activityImage: UIImageView!
     
@@ -27,15 +25,13 @@ class ActivitySelectedController: UIViewController
     var activity_title: String?
     var activtiy_image: UIImage?
     
-    
     override func viewDidLoad() {
         
         populate_info()
         
     }
     
-    func populate_info()
-    {
+    func populate_info(){
         userName?.text = username
         userTeamName?.text = userteam
         timeStamp?.text = timestamp

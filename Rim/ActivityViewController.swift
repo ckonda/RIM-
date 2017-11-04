@@ -5,7 +5,6 @@
 //  Created by Chatan Konda on 9/13/17.
 //  Copyright © 2017 Apple. All rights reserved.
 
-
 import UIKit
 import Firebase
 import FirebaseDatabase
@@ -43,7 +42,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         databaseHandle = ref.observe(DataEventType.value, with: { (snapshot) in
             //:: Executed code when a new "User" has been added
             //:: Take the data from snapshot and append it inside the feed array
-            self.feed.removeAll();
+            self.feed.removeAll()
             for information in snapshot.children.allObjects as! [DataSnapshot]
             {
                 guard let firebaseResponse = snapshot.value as? [String: Any] else
@@ -87,7 +86,6 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         activity_feed_cell.timeStamp.text = activity_feed.timeStamp
         return activity_feed_cell
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {

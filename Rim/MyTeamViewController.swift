@@ -10,16 +10,12 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class myTeamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var teamModel = [myTeam]()
     
     var ref: DatabaseReference!
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +51,6 @@ class myTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return teamModel.count
     }
@@ -64,10 +59,6 @@ class myTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    
-   
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -82,18 +73,11 @@ class myTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let profileImage = team.profileImageUrl {
             
-            
             cell.profileImage.loadImageUsingCacheWithUrlString(urlString: profileImage)
 
         }
     
-        
         return cell
     }
     
-    
-    
-    
-    
-
 }

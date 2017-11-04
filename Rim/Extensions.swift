@@ -19,7 +19,7 @@ extension UIImageView{
         
         //check cache for an image first
         
-        if let cachedImage = imageCache.object(forKey: urlString as AnyObject){
+        if let cachedImage = imageCache.object(forKey: urlString as AnyObject) {
             self.image = (cachedImage as! UIImage)
             
             return
@@ -29,32 +29,26 @@ extension UIImageView{
         let url = URL(string: urlString)
 
         URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-            if error != nil{
+            if error != nil {
                 print(error!)//download hit error so return out
             }
             DispatchQueue.main.async(execute: {
                 
-                if let downloadedImage = UIImage(data: data!){
+                if let downloadedImage = UIImage(data: data!) {
                     imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                     
                     self.image = downloadedImage
                 }
-                
-                
             })
         }).resume()
-        
-        
     }
-    
-    
+
 }
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
-
         
         view.addGestureRecognizer(tap)
     }

@@ -12,10 +12,7 @@ import UIKit
 class ChannelCell: UITableViewCell {
     
     //put actual cell objects here 
-    
     @IBOutlet weak var channelName: UILabel!
     
     @IBOutlet weak var timeStamp: UILabel!
-    
-    
 }
