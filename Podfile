@@ -11,5 +11,6 @@ target 'Rim' do
   pod ‘Firebase/Storage’
   pod ‘Firebase’
   pod ‘JSQMessagesViewController'
+  pod 'SlackTextViewController'
 
 end
