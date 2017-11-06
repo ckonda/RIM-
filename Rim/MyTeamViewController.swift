@@ -1,5 +1,5 @@
 //
-//  myTeamViewController.swift
+//  MyTeamViewController.swift
 //  Rim
 //
 //  Created by Chatan Konda on 9/20/17.
@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var teamModel = [myTeam]()
+    var teamModel = [MyTeam]()
     
     var ref: DatabaseReference!
     
@@ -36,9 +36,9 @@ class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     let email = team?["email"] as! String?
                     let company = team?["company"] as! String?
                     
-                    let teamObject = myTeam(username: name, email: email, userID: userID, profileImageUrl: teamImage, position: position, company: company)
+                    let teamObject = MyTeam(username: name, email: email, userID: userID, profileImageUrl: teamImage, position: position, company: company)
                     
-                    if AppDelegate.user.company == company{//checks if it is the same company
+                    if AppDelegate.user.company == company {//checks if it is the same company
                         self.teamModel.insert(teamObject, at: 0)
                     }
                     
@@ -64,7 +64,7 @@ class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath) as! myTeamCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath) as! MyTeamCell
         
         let team = teamModel[indexPath.row]
         

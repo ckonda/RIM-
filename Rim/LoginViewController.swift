@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-class LoginViewController: UIViewController , UITextFieldDelegate {
+final class LoginViewController: UIViewController , UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
         
     }
     
-    func handleLogin() {//log back in using email and password only
+    private func handleLogin() {//log back in using email and password only
     
         var FBRef: DatabaseReference!
         FBRef = Database.database().reference()
@@ -47,20 +47,33 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
             return
             
         }
+        
+        
+        // Force - Unwrapping
+        // Force - Casting
+        
         Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in  //login with email
             
             if user != nil {
                 let userID: String = (Auth.auth().currentUser?.uid)!
                 
                 FBRef.child("Users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let dict = snapshot.value as? NSDictionary
-                    let username = dict?["username"] as? String!
-                    let profileImageUrl = dict?["profileImageUrl"] as? String!
-                    let userID = dict?["userID"] as? String!
-                    let password = dict?["password"] as? String!
-                    let email = dict?["email"] as? String!
-                    let position = dict?["position"] as? String!
-                    let company = dict?["company"] as? String!
+                    
+                    //I want to make sure that the dictionary is found
+                    guard let dict = snapshot.value as? [String: AnyObject] else {
+                        print("Error")
+                        return
+                    }
+                    
+                    let username = dict["username"] as? String
+                    let profileImageUrl = dict["profileImageUrl"] as? String
+                    let userID = dict["userID"] as? String
+                    let password = dict["password"] as? String
+                    let email = dict["email"] as? String
+                    let position = dict["position"] as? String
+                    let company = dict["company"] as? String
+
+
                     
                     AppDelegate.user.initialize(username: username, email: email, password: password, userID: userID, profileImageUrl: profileImageUrl, position: position, company: company)
                     //  UserDefaults.standard.object(forKey: "username") as String? = username

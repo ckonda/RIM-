@@ -17,18 +17,18 @@
 		EE0AA0F41F9E98A800F0A486 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */; };
 		EE0AA0F61F9FF26500F0A486 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F51F9FF26500F0A486 /* TransactionViewController.swift */; };
 		EE0AA0F81F9FF31500F0A486 /* ShipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F71F9FF31500F0A486 /* ShipmentViewController.swift */; };
-		EE0AA0FA1FAAD31A00F0A486 /* unitCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */; };
+		EE0AA0FA1FAAD31A00F0A486 /* UnitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0AA0F91FAAD31A00F0A486 /* UnitCell.swift */; };
 		EE1AF5741F66165D0024AA01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5731F66165D0024AA01 /* AppDelegate.swift */; };
 		EE1AF5761F66165D0024AA01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AF5751F66165D0024AA01 /* LoginViewController.swift */; };
 		EE1AF5791F66165D0024AA01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5771F66165D0024AA01 /* Main.storyboard */; };
 		EE1AF57B1F66165D0024AA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57A1F66165D0024AA01 /* Assets.xcassets */; };
 		EE1AF57E1F66165D0024AA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57C1F66165D0024AA01 /* LaunchScreen.storyboard */; };
 		EE1AF58A1F661C6B0024AA01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */; };
-		EE77E0911F7082140055745A /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0901F7082140055745A /* registerViewController.swift */; };
+		EE77E0911F7082140055745A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0901F7082140055745A /* RegisterViewController.swift */; };
 		EE77E0931F7091150055745A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0921F7091150055745A /* User.swift */; };
 		EE98C25F1F73297000056C80 /* MyTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C25E1F73297000056C80 /* MyTeamViewController.swift */; };
-		EE98C2631F7982FE00056C80 /* myTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2621F7982FE00056C80 /* myTeamCell.swift */; };
-		EE98C2661F79D33B00056C80 /* myTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2651F79D33B00056C80 /* myTeam.swift */; };
+		EE98C2631F7982FE00056C80 /* MyTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2621F7982FE00056C80 /* MyTeamCell.swift */; };
+		EE98C2661F79D33B00056C80 /* MyTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2651F79D33B00056C80 /* MyTeam.swift */; };
 		EE98C2691F79DBC900056C80 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C2681F79DBC900056C80 /* Extensions.swift */; };
 		EE98C26C1F7C7E4600056C80 /* InventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C26B1F7C7E4600056C80 /* InventoryViewController.swift */; };
 		EEA5110C1F82DB0100EC97C9 /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA5110B1F82DB0100EC97C9 /* ChannelListViewController.swift */; };
@@ -50,7 +50,7 @@
 		EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		EE0AA0F51F9FF26500F0A486 /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		EE0AA0F71F9FF31500F0A486 /* ShipmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipmentViewController.swift; sourceTree = "<group>"; };
-		EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = unitCollectionView.swift; sourceTree = "<group>"; };
+		EE0AA0F91FAAD31A00F0A486 /* UnitCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitCell.swift; sourceTree = "<group>"; };
 		EE1AF5701F66165D0024AA01 /* Rim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1AF5731F66165D0024AA01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE1AF5751F66165D0024AA01 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -59,11 +59,11 @@
 		EE1AF57D1F66165D0024AA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE1AF57F1F66165D0024AA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EE77E0901F7082140055745A /* registerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		EE77E0901F7082140055745A /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EE77E0921F7091150055745A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE98C25E1F73297000056C80 /* MyTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTeamViewController.swift; sourceTree = "<group>"; };
-		EE98C2621F7982FE00056C80 /* myTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTeamCell.swift; sourceTree = "<group>"; };
-		EE98C2651F79D33B00056C80 /* myTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTeam.swift; sourceTree = "<group>"; };
+		EE98C2621F7982FE00056C80 /* MyTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTeamCell.swift; sourceTree = "<group>"; };
+		EE98C2651F79D33B00056C80 /* MyTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTeam.swift; sourceTree = "<group>"; };
 		EE98C2681F79DBC900056C80 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EE98C26B1F7C7E4600056C80 /* InventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
 		EEA5110B1F82DB0100EC97C9 /* ChannelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelListViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				EE77E0921F7091150055745A /* User.swift */,
-				EE98C2651F79D33B00056C80 /* myTeam.swift */,
+				EE98C2651F79D33B00056C80 /* MyTeam.swift */,
 				EEA5110E1F82DD0F00EC97C9 /* Channel.swift */,
 				A8E0DA7F1F8D9ED1005AFB0E /* ActivityFeed.swift */,
 				EE0AA0F11F9E636700F0A486 /* Inventory.swift */,
@@ -130,11 +130,11 @@
 			isa = PBXGroup;
 			children = (
 				A8562ACF1F8D31D100419B62 /* ActivityViewCell.swift */,
-				EE98C2621F7982FE00056C80 /* myTeamCell.swift */,
+				EE98C2621F7982FE00056C80 /* MyTeamCell.swift */,
 				EEA511101F82E27A00EC97C9 /* CreateChannelCell.swift */,
 				EE0AA0EF1F9E607A00F0A486 /* InventoryCell.swift */,
 				EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */,
-				EE0AA0F91FAAD31A00F0A486 /* unitCollectionView.swift */,
+				EE0AA0F91FAAD31A00F0A486 /* UnitCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -196,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				EE1AF5751F66165D0024AA01 /* LoginViewController.swift */,
-				EE77E0901F7082140055745A /* registerViewController.swift */,
+				EE77E0901F7082140055745A /* RegisterViewController.swift */,
 			);
 			name = "Login Controllers";
 			sourceTree = "<group>";
@@ -356,7 +356,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -365,7 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE98C2631F7982FE00056C80 /* myTeamCell.swift in Sources */,
+				EE98C2631F7982FE00056C80 /* MyTeamCell.swift in Sources */,
 				EE0AA0F61F9FF26500F0A486 /* TransactionViewController.swift in Sources */,
 				EEA5110F1F82DD0F00EC97C9 /* Channel.swift in Sources */,
 				EE0AA0F01F9E607A00F0A486 /* InventoryCell.swift in Sources */,
@@ -377,7 +377,7 @@
 				A8562AD01F8D31D100419B62 /* ActivityViewCell.swift in Sources */,
 				EEA511111F82E27A00EC97C9 /* CreateChannelCell.swift in Sources */,
 				EE0AA0F41F9E98A800F0A486 /* ChannelCell.swift in Sources */,
-				EE98C2661F79D33B00056C80 /* myTeam.swift in Sources */,
+				EE98C2661F79D33B00056C80 /* MyTeam.swift in Sources */,
 				EE0747E21F69E4B50055CC52 /* ActivityViewController.swift in Sources */,
 				EE0AA0F21F9E636700F0A486 /* Inventory.swift in Sources */,
 				A829F10A1F929D6800B7AC82 /* ActivitySelectedController.swift in Sources */,
@@ -386,8 +386,8 @@
 				EE77E0931F7091150055745A /* User.swift in Sources */,
 				EEA5110C1F82DB0100EC97C9 /* ChannelListViewController.swift in Sources */,
 				A8E0DA801F8D9ED1005AFB0E /* ActivityFeed.swift in Sources */,
-				EE77E0911F7082140055745A /* registerViewController.swift in Sources */,
-				EE0AA0FA1FAAD31A00F0A486 /* unitCollectionView.swift in Sources */,
+				EE77E0911F7082140055745A /* RegisterViewController.swift in Sources */,
+				EE0AA0FA1FAAD31A00F0A486 /* UnitCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

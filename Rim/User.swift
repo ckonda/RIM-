@@ -19,14 +19,14 @@ public class User: NSObject {
     var company: String?
     
     
-    func initialize(username: String?, email: String?, password: String?,userID: String?, profileImageUrl: String?,position: String?, company: String?){
-        self.username = username;
-        self.email = email;
-        self.password = password;
-        self.userID = userID;
-        self.profileImageUrl = profileImageUrl;
-        self.position = position;
-        self.company = company;
+    func initialize(username: String?, email: String?, password: String?,userID: String?, profileImageUrl: String?,position: String?, company: String?) {
+        self.username = username
+        self.email = email
+        self.password = password
+        self.userID = userID
+        self.profileImageUrl = profileImageUrl
+        self.position = position
+        self.company = company
     }
     
 }

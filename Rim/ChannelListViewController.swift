@@ -62,26 +62,59 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 channelCell.channelName.text = channels[(indexPath as NSIndexPath).row].channelName
                 
-                let timeQuery = Database.database().reference().child("Channels").child(channel.channelID!).child("messages").queryLimited(toLast: 1)
+                channelCell.timeStamp.text = ""
                 
-                timeQuery.observeSingleEvent(of: DataEventType.childAdded, with: { (snapshot) in
-                    
-                    let time = snapshot.value as! [String: Any]
-                    
-                    let messageTime = time["timestamp"] as? String
-                    //
-                    let dateString = messageTime
-                    let dateformatter = DateFormatter()
-                    dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-                    dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-                    let dateFromString = dateformatter.date(from: dateString!)
-                    let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
-                    
-                    channelCell.timeStamp.text = timeAgo
-                    
-                })
+                let timeQuery = Database.database().reference().child("Channels")//.child(channel.channelID!)//.child("messages").queryLimited(toLast: 1)
+                
+//                let timeQuery2 = timeQuery.child("messages").queryLimited(toLast: 1)
+//                
+//                timeQuery.observe(DataEventType.value, with: { (snapshot) in
+//                    
+//                    
+//              //      print(snapshot.childrenCount)
+//      
+//                  
+////                    if snapshot.childrenCount > 2{
+////                        print("present")
+////                        channelCell.timeStamp.text = "Activity Here"
+////                    
+////                    }else if !snapshot.hasChild("messages"){
+////                    
+////                        channelCell.timeStamp.text = ""
+////                    }
+//                    
+//                    
+//                })
+                
+            //    timeQuery.observeEvent(of: DataEventType.childAdded, with: { (snapshot) in
+                
+//                    if snapshot.hasChild(<#T##childPathString: String##String#>){
+//                        print("present")
+//                        
+//                    }else{
+//                        
+//                        print("null")
+//                    }
+//                    
 
-            }
+                   // let time = snapshot.value as! [String: Any]
+                    
+                    //print(time)
+                
+//                    let messageTime = time["timestamp"] as? String
+//                    //
+//                    let dateString = messageTime
+//                    let dateformatter = DateFormatter()
+//                    dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+//                    dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+//                    let dateFromString = dateformatter.date(from: dateString!)
+//                    let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+//                
+//                    channelCell.timeStamp.text = timeAgo
+                    
+              //  })
+
+           }
     
         }
         return cell
@@ -175,7 +208,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    func timeAgoSinceDate(_  date:Date, numericDates:Bool = false) -> String {//returns string of time of message sent
+    func timeAgoSinceDate(_ date:Date, numericDates:Bool = false) -> String {//returns string of time of message sent
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
         let now = Date()

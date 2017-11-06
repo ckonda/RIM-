@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-class registerViewController: UIViewController , UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     var ref = Database.database().reference()
 
@@ -167,7 +167,7 @@ class registerViewController: UIViewController , UITextFieldDelegate, UIImagePic
                         
                         AppDelegate.user.initialize(username: name, email: self.emailTextField.text, password: self.passwordTextField.text, userID: uid, profileImageUrl: profileImageUrl, position: position, company: company)
                         
-                        let myTeamRef = self.ref.child("myTeam").child(uid)
+                        let MyTeamRef = self.ref.child("MyTeam").child(uid)
                         
                         let teamJSON = [//to make sure the team aligns with each company
                             "position": position,
@@ -177,7 +177,7 @@ class registerViewController: UIViewController , UITextFieldDelegate, UIImagePic
                             "userID": uid,
                             "email": email
                         ]
-                        myTeamRef.setValue(teamJSON)
+                        MyTeamRef.setValue(teamJSON)
                         
                         self.registerUserintoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
                     }

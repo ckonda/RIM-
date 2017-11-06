@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class unitCell: UICollectionViewCell {
+class UnitCell: UICollectionViewCell {
     
     //put actual cell objects here
     

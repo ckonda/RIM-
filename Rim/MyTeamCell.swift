@@ -1,5 +1,5 @@
 //
-//  myTeamCell.swift
+//  MyTeamCell.swift
 //  Rim
 //
 //  Created by Chatan Konda on 9/25/17.
@@ -11,7 +11,7 @@ import UIKit
 
 
 
-public class myTeamCell: UITableViewCell {
+public class MyTeamCell: UITableViewCell {
     
     @IBOutlet weak var name: UILabel!
     

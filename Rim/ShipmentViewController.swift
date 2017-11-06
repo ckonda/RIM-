@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
-class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITextFieldDelegate {
+class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     var ref: DatabaseReference!
     
@@ -25,10 +25,12 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     var collectionData = ["Units", "Dozen", "Box", "Crate"]
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var unitType = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+     
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         
         self.collectionView.allowsSelection = true
@@ -69,10 +71,6 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
         
     }
     
-//    if let name = newChannelTextField?.text { //
-//        
-//        if name.characters.count > 0 {/
-    
     @IBAction func sendButton(_ sender: Any) {
         
         if let itemName = itemName?.text, let number = numberofItems?.text {
@@ -109,7 +107,7 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
             selectedImageFromPicker = originalImage
         }
         if let selectedImage = selectedImageFromPicker {
-            picturePicker.image = #imageLiteral(resourceName: "Checkmark")//set image placeholder for after
+            picturePicker.image = selectedImage//set image placeholder for after
         }
         dismiss(animated: true, completion: nil)
     }
@@ -143,24 +141,25 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                     let shipDate = dateFormatter.string(from: dateOnPicker)
                     
                     let item = self.itemName.text
-                    let amount = self.numberofItems.text
+               
                     
-                    let myTeamRef = self.Ref.childByAutoId()//
+                    let MyTeamRef = self.Ref.childByAutoId()//
+                    let convertedAmount = Int(self.numberofItems.text!)
                     
                     let product = [//to make sure the team aligns with each company
                         "profileImageUrl": profileImageUrl,
                         "timestamp": stringDate,
                         "shipdate": shipDate,
                         "itemName": item!,
-                        "units": "placeholder",
-                        "amount": amount!,
-                        "inventoryID": myTeamRef.key,
+                        "units": self.unitType,
+                        "amount": convertedAmount!,
+                        "inventoryID": MyTeamRef.key,
                         "userID": AppDelegate.user.userID!,
                         "username": AppDelegate.user.username!,
                         "company": AppDelegate.user.company!
                     ] as [String: Any]
                     
-                    myTeamRef.setValue(product)
+                    MyTeamRef.setValue(product)
                 }
             })
         } else {
@@ -177,7 +176,7 @@ extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! unitCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! UnitCell
         
         if let label = cell.viewWithTag(100) as? UILabel {
             
@@ -199,24 +198,39 @@ extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("Selected row is ", indexPath.row)
+        let cell = self.collectionView.cellForItem(at: indexPath) as! UnitCell
         
-        let cell = self.collectionView.cellForItem(at: indexPath) as! unitCell
         if cell.isSelected {
-            cell.layer.borderColor = UIColor.gray.cgColor
+            cell.layer.borderColor = UIColor(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
+            
+            switch indexPath.row {
+            case 0:
+                 unitType = collectionData[0]
+                print(unitType)
+            case 1:
+                 unitType = collectionData[1]
+                 print(unitType)
+            case 2:
+                 unitType = collectionData[2]
+                 print(unitType)
+            case 3:
+                 unitType = collectionData[3]
+                 print(unitType)
+            default:
+                print("nothing selected yet")
+            }
         }
-     
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
-        let cell = self.collectionView.cellForItem(at: indexPath) as! unitCell
+        let cell = self.collectionView.cellForItem(at: indexPath) as! UnitCell
         
         cell.layer.borderColor = UIColor.white.cgColor
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
     }
-
+    
 }

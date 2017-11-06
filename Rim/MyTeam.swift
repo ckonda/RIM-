@@ -1,5 +1,5 @@
 //
-//  myTeam.swift
+//  MyTeam.swift
 //  Rim
 //
 //  Created by Chatan Konda on 9/25/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class myTeam: NSObject {
+public class MyTeam: NSObject {
     var username: String?
     var email: String?
     var password: String?
