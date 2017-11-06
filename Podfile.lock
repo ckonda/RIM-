@@ -54,6 +54,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SlackTextViewController (1.9.5)
 
 DEPENDENCIES:
   - Firebase
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - JSQMessagesViewController
+  - SlackTextViewController
 
 SPEC CHECKSUMS:
   Firebase: d83d287bdb6b1c78320561482706d1fcfc8ddfc1
@@ -77,7 +79,8 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   leveldb-library: 9e29a1d913f922444127a7d0f28b025a0e2ba053
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SlackTextViewController: fbcdadbb8090673f604484ff5b6eb8d77baed42a
 
-PODFILE CHECKSUM: 9ff0443d55ce6c89695069980a52aac0e92dde18
+PODFILE CHECKSUM: d68c7180484529d7e0a791217489ba4b7e23a0ab
 
 COCOAPODS: 1.1.1
