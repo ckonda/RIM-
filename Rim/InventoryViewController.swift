@@ -10,16 +10,24 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class InventoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class InventoryViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     private lazy var Ref: DatabaseReference = Database.database().reference().child("Inventory")
     
     var inventModel = [Inventory]()
+    
+    var filteredData = [Inventory]()
+    var isSearching = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
+        searchBar.returnKeyType = UIReturnKeyType.done
+        
+        searchBar.placeholder = "Search"
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -28,6 +36,21 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        searchBar.resignFirstResponder()
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchBar.resignFirstResponder()
+        return true
+    }
+    
+    /**
+     Initalizes our observing of channels
+    */
     func observechannels() {
         
         Ref.observe(DataEventType.value, with: { (snapshot) in
@@ -87,79 +110,76 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         })
     }
     
-                
-//                for inventory in snapshot.children.allObjects as! [DataSnapshot] {
-//
-//                    let feed = inventory.value as? [String: AnyObject]
-//                    let profileImageUrl = feed?["profileImageUrl"] as! String?
-//                    let timestamp = feed?["timestamp"] as! String?
-//                    let shipDate = feed?["shipdate"] as! String?
-//                    let itemName = feed?["itemName"] as! String?
-//                    let units = feed?["units"] as! String?
-//                    let amount = feed?["amount"] as! Int
-//                    let inventoryID = feed?["inventoryID"] as! String?
-//                    let userID = feed?["userID"] as! String?
-//                    let username = feed?["username"] as! String?
-//                    let company = feed?["company"] as! String?
-                    
-                    //something wrong with translation
-                    
-//                    let date = Date()
-//                    let dateFormatter = DateFormatter()
-//                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-//                    let current = dateFormatter.string(from: date)
-//                    dateFormatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-//                    let currentDate = dateFormatter.date(from: current)
-//
-//                    let shippingDate = dateFormatter.date(from: shipDate!)
-//                    
-//                    let productObject = Inventory(username: username, profileImageUrl: profileImageUrl, timeStamp: timestamp, item_name: itemName, inventoryID: inventoryID, amount: amount, userID: userID, shipDate: shipDate, units: units, company: company)
-//                    
-//                    if AppDelegate.user.company == company, shippingDate! <= currentDate! {
-//                        
-//                        self.inventModel.insert(productObject, at: 0)
-//                        
-//                    }
-                    
-//                }
-//                        self.tableView.reloadData()
-//            }
-//        })
+    @IBAction func formButton(_ sender: Any) {//sell action
+        
+        performSegue(withIdentifier: "soldForm", sender: self)//segue to the sold form
+        
+    }
     
-//    }
+    @IBAction func shipForm(_ sender: Any) {
+        
+        performSegue(withIdentifier: "shipForm", sender: self)//segue to the shipment form
+    }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {//search to conform to the filtered data inventory model
+        if searchBar.text == nil || searchBar.text == "" {
+            
+            isSearching = false//if text is empty then return the search bar
+
+            view.endEditing(true)
+            print ("working")
+            tableView.reloadData()
+        } else {
+            isSearching = true//if searching is returned, search for the product name in tableview
+            filteredData = inventModel.filter({($0.item_name?.localizedCaseInsensitiveContains(searchBar.text!))!})
+            tableView.reloadData()
+        }
+    }
+}
+extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching {
+            return filteredData.count
+        }
         return inventModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {//deselect te row once selected, maybe segue in future?
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "InventoryCell", for: indexPath) as! InventoryCell
         
-        let inventory = inventModel[indexPath.row]
-        
-        cell.inventoryName.text = inventory.item_name
-        cell.units.text = inventory.units
-        cell.timeStamp.text = inventory.timeStamp
-        cell.amount.text = String(describing: inventory.amount!)
-
-        if let Image = inventory.profileImageUrl {
-            cell.productPic.loadImageUsingCacheWithUrlString(urlString: Image)
+        //implement of search bar filtration
+        let product: Inventory// to conform cell for at to the isSearching
+        if isSearching {
+            print("\(filteredData.count)")
+            product = filteredData[indexPath.row]
+            
+            cell.inventoryName.text = product.item_name
+            cell.amount.text = String(describing: product.amount!)
+            cell.units.text = product.units
+            cell.timeStamp.text = product.timeStamp
+        } else {
+            print("\(filteredData.count)")
+            product = inventModel[indexPath.row]
+            cell.inventoryName.text = product.item_name
+            cell.amount.text = String(describing: product.amount!)
+            cell.units.text = product.units
+            cell.timeStamp.text = product.timeStamp
+            
+//            job = jobData[indexPath.row]
+//            cell.postLabel.text = job.jobName
+//            cell.postPrice.text = String(describing: job.price!)
+//            cell.locationLabel.text = job.location
         }
         
+        if let Image = product.profileImageUrl {
+            
+            cell.productPic.loadImageUsingCacheWithUrlString(urlString: Image)
+        }
         return cell
-        
     }
-    
-    @IBAction func formButton(_ sender: Any) {//sell action
-        
-        performSegue(withIdentifier: "soldForm", sender: self)
-        
-    }
-    
-    @IBAction func shipForm(_ sender: Any) {
-        
-        performSegue(withIdentifier: "shipForm", sender: self)
-    }
-    
 }

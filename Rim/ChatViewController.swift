@@ -10,19 +10,20 @@ import UIKit
 import JSQMessagesViewController
 import Firebase
 
-
 class ChatViewController: JSQMessagesViewController {
-    
+
     var messages = [JSQMessage]()//model to load messages in
-    
     
     lazy var outgoingBubbleImageView: JSQMessagesBubbleImage = self.setupOutgoingBubble()//block structure for outgoing bubble
     lazy var incomingBubbleImageView: JSQMessagesBubbleImage = self.setupIncomingBubble()//incoming bubble
     
     var channelRef: DatabaseReference?
+    
+    var channelName: String!
+    
     var channel: Channel? {
         didSet {
-            title = channel?.channelName//set channel to name in previous model cell (clicked on)
+            title = channel?.channelName //set channel to name in previous model cell (clicked on)
         }
     }
     
@@ -86,12 +87,11 @@ class ChatViewController: JSQMessagesViewController {
         // messages being written to the Firebase DB
         newMessageRefHandle = messageQuery.observe(.childAdded, with: { (snapshot) -> Void in
             //
-            let messageData = snapshot.value as! Dictionary<String, String>
+            let messageData = snapshot.value as! [String: String]
             
             if let id = messageData["senderId"] as String!, let name = messageData["senderName"] as String!, let text = messageData["text"] as String!, text.characters.count > 0 {
                 //
                 self.addMessage(withId: id, name: name, text: text)
-                
                 //
                 self.finishReceivingMessage()
             } else {
@@ -100,7 +100,7 @@ class ChatViewController: JSQMessagesViewController {
         })
     }
     
-    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+    override func didPressSend(_ button: UIButton, withMessageText text: String, senderId: String, senderDisplayName: String, date: Date) {
         let itemRef = messageRef.childByAutoId()
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -108,9 +108,9 @@ class ChatViewController: JSQMessagesViewController {
         let stringDate = dateFormatter.string(from: date)
         
         let messageItem = [ // 2
-            "senderId": senderId!,
-            "senderName": senderDisplayName!,
-            "text": text!,
+            "senderId": senderId,
+            "senderName": senderDisplayName,
+            "text": text,
             "timestamp": stringDate
             ]
         
@@ -119,6 +119,10 @@ class ChatViewController: JSQMessagesViewController {
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
         finishSendingMessage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {

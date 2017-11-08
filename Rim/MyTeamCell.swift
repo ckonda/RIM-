@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-
-
 public class MyTeamCell: UITableViewCell {
     
     @IBOutlet weak var name: UILabel!
@@ -23,7 +21,7 @@ public class MyTeamCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func configure(name: String, position: String,profileImage:UIImage){
+    public func configure(name: String, position: String, profileImage: UIImage) {
         
         self.name.text = name
         self.position.text = position

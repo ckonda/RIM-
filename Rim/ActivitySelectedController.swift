@@ -31,7 +31,7 @@ class ActivitySelectedController: UIViewController {
         
     }
     
-    func populate_info(){
+    func populate_info() {
         userName?.text = username
         userTeamName?.text = userteam
         timeStamp?.text = timestamp

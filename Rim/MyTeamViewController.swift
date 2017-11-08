@@ -22,12 +22,12 @@ class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
-        ref = Database.database().reference().child("myTeam");
+        ref = Database.database().reference().child("myTeam")
         
         ref.observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount>0 {
                 self.teamModel.removeAll()
-                for teams in snapshot.children.allObjects as![DataSnapshot]{
+                for teams in snapshot.children.allObjects as![DataSnapshot] {
                     let team = teams.value as? [String: AnyObject]
                     let name = team?["username"] as! String?
                     let position = team?["position"] as! String?

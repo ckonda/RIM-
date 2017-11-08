@@ -17,8 +17,7 @@ public class MyTeam: NSObject {
     var position: String?
     var company: String?
     
-    
-    init(username: String?, email: String?,userID: String?, profileImageUrl: String?,position: String?, company: String?){
+    init(username: String?, email: String?, userID: String?, profileImageUrl: String?, position: String?, company: String?) {
         self.username = username
         self.email = email
         self.userID = userID

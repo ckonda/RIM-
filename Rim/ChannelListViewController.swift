@@ -5,66 +5,62 @@
 //  Created by Chatan Konda on 10/2/17.
 //  Copyright © 2017 Apple. All rights reserved.
 //
-
 import UIKit
 import Firebase
 
 class ChannelListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    enum Section: Int {//to hold the different tableview sections
-        case createNewChannelSection = 0
-        case currentChannelsSection
-    }
-    
+//    enum Section: Int {//to hold the different tableview sections
+//        case createNewChannelSection = 0
+//        case currentChannelsSection
+//    }
+//    
     var senderDisplayName: String? // Person sending chat info
-    var newChannelTextField: UITextField? // textfield for new channel input
+
     private var channels: [Channel] = [] //holding for channels model data
     
     private lazy var channelRef: DatabaseReference = Database.database().reference().child("Channels")
     private var channelRefHandle: DatabaseHandle?
 
-    @IBOutlet weak var tableView: UITableView!
-
-     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 // # of sections in Tableview
+    @IBOutlet weak var channelsTableView: UITableView!//ref for the channels tableview
+    
+    @IBOutlet weak var newChannelTextField: UITextField!//new channel text input
+    
+    @IBAction func createChannelButton(_ sender: Any) {
+          performSegue(withIdentifier: "NewChannel", sender: self)
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { //creating the sections on tableview
-        if let currentSection: Section = Section(rawValue: section) {
-            switch currentSection {
-            case .createNewChannelSection:
-                return 1
-            case .currentChannelsSection:
-                return channels.count
-            }
-        } else {
-            return 0
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        observeChannels()
+        
+        self.hideKeyboardWhenTappedAround()//when view is tapped outside of the box, dismiss
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return channels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let reuseIdentifier = (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue ? "NewChannel" : "ExistingChannel"//to switch between reuse identifiers on new and existing cells
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExistingChannel", for: indexPath)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+//        if (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue {
+//            if let createNewChannelCell = cell as? CreateChannelCell {
+//                
+//                    newChannelTextField = createNewChannelCell.newChannelNameField//setting newly created channel from ChannelCell to the text field
+//                
+//            }
+//        } else if (indexPath as NSIndexPath).section == Section.currentChannelsSection.rawValue {
         
-        if (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue {
-            if let createNewChannelCell = cell as? CreateChannelCell {
-                
-                    newChannelTextField = createNewChannelCell.newChannelNameField//setting newly created channel from ChannelCell to the text field
-               
-            }
-        } else if (indexPath as NSIndexPath).section == Section.currentChannelsSection.rawValue {
-            
             if let channelCell = cell as? ChannelCell {
                 
-                let channel = channels[indexPath.row]
+           //     let channel = channels[indexPath.row]
                 
-                channelCell.channelName.text = channels[(indexPath as NSIndexPath).row].channelName
+                channelCell.channelName.text = channels[indexPath.row].channelName
                 
-                channelCell.timeStamp.text = ""
+                channelCell.timeStamp.text = "Just Now"
                 
-                let timeQuery = Database.database().reference().child("Channels")//.child(channel.channelID!)//.child("messages").queryLimited(toLast: 1)
+                //let timeQuery = Database.database().reference().child("Channels")//.child(channel.channelID!)//.child("messages").queryLimited(toLast: 1)
                 
 //                let timeQuery2 = timeQuery.child("messages").queryLimited(toLast: 1)
 //                
@@ -95,8 +91,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
 //                        
 //                        print("null")
 //                    }
-//                    
-
+//
                    // let time = snapshot.value as! [String: Any]
                     
                     //print(time)
@@ -113,11 +108,15 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
 //                    channelCell.timeStamp.text = timeAgo
                     
               //  })
-
            }
-    
-        }
+       // }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = channels[indexPath.row]
+        self.performSegue(withIdentifier: "ShowChannel", sender: message)
+        channelsTableView.deselectRow(at: indexPath, animated: true)
     }
     
     private func observeChannels() {
@@ -142,64 +141,83 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                         self.channels.insert(Channel(channelID: id, channelName: name, latestMessageTimeStamp: nil), at: 0)
                     }
                 }
-                self.tableView.reloadData()
-                
+                self.channelsTableView.reloadData()
             })
-                        
         })
     }
-    
-    @IBAction func createChannel(_ sender: Any) {
+  //  @IBAction func createChannel(_ sender: Any) {
         
-        if let name = newChannelTextField?.text { //
-            
-            if name.characters.count > 0 {//nil checker
- 
-                let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
-                let channelItem = [
-                    "channelName": name
-                ]
-                newChannelRef.setValue(channelItem)
-                
-            }
-        }
-    }
+//        performSegue(withIdentifier: "ShowChannel", sender: self)
+ //   }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       // if let name = newChannelTextField?.text { //
+            
+         //   if name.characters.count > 0 {//nil checker
  
-        if segue.identifier == "ShowChannel" {
-            if let channel = sender as? Channel {
+           //     let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
+             //   let channelItem = [
+               //     "channelName": name
+                //]
+                //newChannelRef.setValue(channelItem)
+                
+//              //  if let createCell = sender as? CreateChannelCell {
+//                    
+//                   // let channel = sender as! Channel
+//                    let chatvc = ChatViewController()
+//                    
+//                    chatvc.senderDisplayName = AppDelegate.user.username
+//                    chatvc.senderId = AppDelegate.user.userID
+//                    chatvc.channelName = name
+//                    chatvc.channelRef = channelRef.child(newChannelRef.key)
+//                    
+//               //     createCell.delegate.callSegueFromCell(myData: mydata as AnyObject)
+//                    self.performSegue(withIdentifier: "ShowChannel", sender: self)
+              //  }
+                
+     //       }
+      //  }
+   // }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Guaranteed to use identifier for now.
+        switch segue.identifier! {
+        case "ShowChannel":
+            if let indexPath = channelsTableView.indexPathForSelectedRow {
+                let channel = channels[indexPath.row]
                 
                 let chatVc = segue.destination as! ChatViewController
-                
-                segue.destination.hidesBottomBarWhenPushed = true
-                
-                chatVc.senderDisplayName = senderDisplayName
                 chatVc.channel = channel
                 chatVc.channelRef = channelRef.child(channel.channelID!)
-                
                 chatVc.senderId = AppDelegate.user.userID
                 chatVc.senderDisplayName = AppDelegate.user.username
                 
+                segue.destination.hidesBottomBarWhenPushed = true
             }
             
+        case "NewChannel":
+            
+            if let channelName = newChannelTextField?.text, channelName != "" {
+                let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
+                let channelItem = ["channelName": channelName]
+                newChannelRef.setValue(channelItem)
+                
+                let channel = Channel(
+                    channelID: newChannelRef.key,
+                    channelName: channelName,
+                    latestMessageTimeStamp: nil
+                )
+                
+                let chatVc = segue.destination as! ChatViewController
+                chatVc.channel = channel
+                chatVc.channelRef = newChannelRef
+                chatVc.senderId = AppDelegate.user.userID
+                chatVc.senderDisplayName = AppDelegate.user.username
+                
+                segue.destination.hidesBottomBarWhenPushed = true
+            }
+        
+        default:
+            print("Trying to perform a segue with unknown identifier")
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let message = channels[(indexPath as NSIndexPath).row]
-        self.performSegue(withIdentifier: "ShowChannel", sender: message)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        observeChannels()
-        
-         self.hideKeyboardWhenTappedAround()//when view is tapped outside of the box, dismiss
-
     }
     
     deinit {
@@ -208,7 +226,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    func timeAgoSinceDate(_ date:Date, numericDates:Bool = false) -> String {//returns string of time of message sent
+    func timeAgoSinceDate(_ date: Date, numericDates: Bool = false) -> String {//returns string of time of message sent
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
         let now = Date()
@@ -269,7 +287,5 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         } else {
             return "Just now"
         }
-        
     }
-
 }

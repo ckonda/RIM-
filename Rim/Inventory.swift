@@ -66,7 +66,6 @@ public class Inventory: NSObject {
     var inventoryID: String?
     var company: String?
     
-    
     init(username: String?, profileImageUrl: String?, timeStamp: String?, item_name: String?, inventoryID: String?, amount: Int?, userID: String?, shipDate: String?, units: String?, company: String?) {
         
         self.username = username

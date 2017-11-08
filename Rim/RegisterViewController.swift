@@ -11,15 +11,13 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var ref = Database.database().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+    
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
     
         profilePicture.isUserInteractionEnabled = true
@@ -31,9 +29,7 @@ class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePic
         jobTextField.delegate = self
         companyTextField.delegate = self
 
-        
     }
-    
     
     @IBOutlet weak var jobTextField: UITextField!//position
     @IBOutlet weak var companyTextField: UITextField!
@@ -61,10 +57,7 @@ class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePic
         
         return true
     }
-    
-    
-    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -72,12 +65,11 @@ class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePic
         present(picker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         
         var selectedImageFromPicker: UIImage?
         
-        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage
-        {
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             
             selectedImageFromPicker = editedImage
         } else if let originalImage =
@@ -85,56 +77,44 @@ class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePic
             
             selectedImageFromPicker = originalImage
         }
-        if let selectedImage = selectedImageFromPicker
-        {
+        if let selectedImage = selectedImageFromPicker {
             profilePicture.image = selectedImage
         }
         dismiss(animated: true, completion: nil)
         
     }
     
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("canceled picker")
         dismiss(animated: true, completion: nil)
     }
     
-
-  
     @IBAction func loginButton(_ sender: Any) {
         print("reached")
         handleRegister()//register and authenticate
     }
     
-    
-    func registerUserintoDatabaseWithUID(uid: String, values: [String: AnyObject]){
+    func registerUserintoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
         
         let ref = Database.database().reference()
         let usersReference  = ref.child("Users").child(uid)//create auto ID for child
         
-        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+        usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in//second part of closure is "ref"
             if err != nil {
                 print(err!)
                 return
             }
             let user = User()//this setter crashes if keys dont match
-            
-            
             //  AppDelegate.user.initialize(username: nil, email: self.emailtextField.text, password: self.passwordtextField.text, userID: uid)
             AppDelegate.user.setValuesForKeys(values)//obsolete
-            
             user.setValuesForKeys(values)
-
             self.performSegue(withIdentifier: "gotoHome", sender: self)
         })
     }
     
-
- 
-    
-    func handleRegister(){
+    func handleRegister() {
         
-        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text, let position = jobTextField.text, let company = companyTextField.text else{
+        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text, let position = jobTextField.text, let company = companyTextField.text else {
             
             print("Service Unavailable, Please try again")
             return//if all fields not filled out completely, logout
@@ -150,19 +130,17 @@ class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePic
             let imageName = NSUUID().uuidString
             let storageRef = Storage.storage().reference().child("\(imageName).png")
             
-            
             let profileImage = self.profilePicture.image!
             
-            if let uploadData = UIImagePNGRepresentation(profileImage){
+            if let uploadData = UIImagePNGRepresentation(profileImage) {
                 
                 storageRef.putData(uploadData, metadata: nil, completion: {(metadata, error) in
                     if error != nil {
                         print(error!)
                         return
                     }
-                    if let profileImageUrl = metadata?.downloadURL()?.absoluteString{
+                    if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
                         
-            
                         let values = ["username": name, "email": email, "password": password, "userID": uid, "profileImageUrl": profileImageUrl, "position": position, "company": company]
                         
                         AppDelegate.user.initialize(username: name, email: self.emailTextField.text, password: self.passwordTextField.text, userID: uid, profileImageUrl: profileImageUrl, position: position, company: company)
@@ -179,22 +157,16 @@ class RegisterViewController: UIViewController , UITextFieldDelegate, UIImagePic
                         ]
                         MyTeamRef.setValue(teamJSON)
                         
-                        self.registerUserintoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
+                        self.registerUserintoDatabaseWithUID(uid: uid, values: values as [String: AnyObject])
                     }
                     
                 })
                 //  AppDelegate.user.initialize(username: nil, email: self.emailtextField.text, password: self.passwordtextField.text, userID: uid, profileImageURL: profileImageUrl )
-            }
-            else {
+            } else {
                 print("register error")
                 //Error: check error
             }
             //user has been authenticated
         })
     }
-
-    
-    
-    
-
 }

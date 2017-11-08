@@ -17,9 +17,7 @@ public class User: NSObject {
     var profileImageUrl: String?
     var position: String?
     var company: String?
-    
-    
-    func initialize(username: String?, email: String?, password: String?,userID: String?, profileImageUrl: String?,position: String?, company: String?) {
+    func initialize(username: String?, email: String?, password: String?, userID: String?, profileImageUrl: String?, position: String?, company: String?) {
         self.username = username
         self.email = email
         self.password = password

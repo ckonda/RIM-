@@ -142,7 +142,6 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                     
                     let item = self.itemName.text
                
-                    
                     let MyTeamRef = self.Ref.childByAutoId()//
                     let convertedAmount = Int(self.numberofItems.text!)
                     

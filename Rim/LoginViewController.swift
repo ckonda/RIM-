@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-final class LoginViewController: UIViewController , UITextFieldDelegate {
+final class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +47,9 @@ final class LoginViewController: UIViewController , UITextFieldDelegate {
             return
             
         }
-        
-        
         // Force - Unwrapping
         // Force - Casting
-        
-        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in  //login with email
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, _) in  //login with email, second part of closure was "error"
             
             if user != nil {
                 let userID: String = (Auth.auth().currentUser?.uid)!
@@ -73,8 +70,6 @@ final class LoginViewController: UIViewController , UITextFieldDelegate {
                     let position = dict["position"] as? String
                     let company = dict["company"] as? String
 
-
-                    
                     AppDelegate.user.initialize(username: username, email: email, password: password, userID: userID, profileImageUrl: profileImageUrl, position: position, company: company)
                     //  UserDefaults.standard.object(forKey: "username") as String? = username
                     self.performSegue(withIdentifier: "gotoMain", sender: self)
