@@ -9,12 +9,6 @@ import UIKit
 import JSQMessagesViewController
 import Firebase
 
-protocol channelTracker{
-   // func reOrderChannels
-    
-    
-}
-
 class ChatViewController: JSQMessagesViewController {
     
     var messages = [JSQMessage]()//model to load messages in
@@ -44,7 +38,6 @@ class ChatViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
-    
     private func setupOutgoingBubble() -> JSQMessagesBubbleImage {
         let bubbleImageFactory = JSQMessagesBubbleImageFactory()
         return bubbleImageFactory!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
