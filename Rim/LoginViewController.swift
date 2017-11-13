@@ -69,9 +69,10 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
                     let email = dict["email"] as? String
                     let position = dict["position"] as? String
                     let company = dict["company"] as? String
+        
 
                     AppDelegate.user.initialize(username: username, email: email, password: password, userID: userID, profileImageUrl: profileImageUrl, position: position, company: company)
-                    //  UserDefaults.standard.object(forKey: "username") as String? = username
+           
                     self.performSegue(withIdentifier: "gotoMain", sender: self)
                 })
             } else {

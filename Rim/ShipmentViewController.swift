@@ -80,9 +80,7 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                 
                 navigationController?.popViewController(animated: true)//remove from stack of controllers
             }
-            
         }
-        
     }
 
     func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -116,6 +114,18 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
         dismiss(animated: true, completion: nil)
     }
     
+    func getCurrentDate() ->  (stringDate: String?, shipDate: String?) {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let stringDate = dateFormatter.string(from: date)
+        
+        let dateOnPicker = self.datePicker.date
+        let shipDate = dateFormatter.string(from: dateOnPicker)
+    
+        return (stringDate, shipDate)
+    }
+
     func addProduct() {
         
         let imageName = NSUUID().uuidString
@@ -130,28 +140,18 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                     print(error!)
                     return
                 }
-                if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                    
-                    let date = Date()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-                    let stringDate = dateFormatter.string(from: date)
-                    
-                    let dateOnPicker = self.datePicker.date
-                    let shipDate = dateFormatter.string(from: dateOnPicker)
-                    
-                    let item = self.itemName.text
-               
+                if let profileImageUrl = metadata?.downloadURL()?.absoluteString, let timeStamp = self.getCurrentDate().stringDate,
+                    let shipDate = self.getCurrentDate().shipDate, let item = self.itemName.text, let convertedAmount = Int(self.numberofItems.text!) {
+    
                     let MyTeamRef = self.Ref.childByAutoId()//
-                    let convertedAmount = Int(self.numberofItems.text!)
-                    
+                   
                     let product = [//to make sure the team aligns with each company
                         "profileImageUrl": profileImageUrl,
-                        "timestamp": stringDate,
+                        "timestamp": timeStamp,
                         "shipdate": shipDate,
-                        "itemName": item!,
+                        "itemName": item,
                         "units": self.unitType,
-                        "amount": convertedAmount!,
+                        "amount": convertedAmount,
                         "inventoryID": MyTeamRef.key,
                         "userID": AppDelegate.user.userID!,
                         "username": AppDelegate.user.username!,
@@ -183,7 +183,6 @@ extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
         if indexPath.row == 0 {
-            
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
             cell.layer.borderColor = UIColor.gray.cgColor
         } else {

@@ -33,7 +33,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     @IBOutlet weak var jobTextField: UITextField!//position
     @IBOutlet weak var companyTextField: UITextField!
-
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -113,20 +112,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
     }
     
     func handleRegister() {
-        
         guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text, let position = jobTextField.text, let company = companyTextField.text else {
-            
             print("Service Unavailable, Please try again")
-            return//if all fields not filled out completely, logout
+            return //if all fields not filled out completely, logout
         }
         //firebase authtification access( if not authenticated then throw error)
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             
-            guard let uid = user?.uid else {
-                return
-            }
-            // if user != nil {
-            
+            guard let uid = user?.uid else { return }
+
             let imageName = NSUUID().uuidString
             let storageRef = Storage.storage().reference().child("\(imageName).png")
             
@@ -142,7 +136,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                     if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
                         
                         let values = ["username": name, "email": email, "password": password, "userID": uid, "profileImageUrl": profileImageUrl, "position": position, "company": company]
-                        
+        
                         AppDelegate.user.initialize(username: name, email: self.emailTextField.text, password: self.passwordTextField.text, userID: uid, profileImageUrl: profileImageUrl, position: position, company: company)
                         
                         let MyTeamRef = self.ref.child("MyTeam").child(uid)
@@ -156,17 +150,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
                             "email": email
                         ]
                         MyTeamRef.setValue(teamJSON)
-                        
                         self.registerUserintoDatabaseWithUID(uid: uid, values: values as [String: AnyObject])
                     }
                     
                 })
-                //  AppDelegate.user.initialize(username: nil, email: self.emailtextField.text, password: self.passwordtextField.text, userID: uid, profileImageURL: profileImageUrl )
             } else {
                 print("register error")
-                //Error: check error
             }
-            //user has been authenticated
         })
     }
 }

@@ -87,20 +87,7 @@ class TransactionViewController: UIViewController, UITextFieldDelegate {
                     self.Ref.child(id).updateChildValues(["amount": newAmount])
                 }
             }
-            
-//            if let amount = dict["amount"] as! Int, let itemName = dict["itemName"] as! String, let intAmount = Int(self.productAmount.text) {
-//
-//                
-//                if itemName.lowercased() == self.productName.text.lowercased() {
-//                    let IntFirAmount = Int(amount)
-//                    if intAmount >= IntFirAmount {
-//                        self.Ref.child(id).removeValue()
-//                    } else {
-//                       let newAmount = IntFirAmount - intAmount
-//                       self.Ref.child(id).updateChildValues(["amount": newAmount])
-//                    }
-//                }
-//            }
+
         })
     }
 }

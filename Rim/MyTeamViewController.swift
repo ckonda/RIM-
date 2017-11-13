@@ -21,29 +21,38 @@ class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+        observeData()
         
+    }
+    
+    
+    
+    func observeData() {
         ref = Database.database().reference().child("myTeam")
         
         ref.observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount>0 {
                 self.teamModel.removeAll()
                 for teams in snapshot.children.allObjects as![DataSnapshot] {
-                    let team = teams.value as? [String: AnyObject]
-                    let name = team?["username"] as! String?
-                    let position = team?["position"] as! String?
-                    let teamImage = team?["profileImageUrl"] as! String?
-                    let userID = team?["userID"] as! String?
-                    let email = team?["email"] as! String?
-                    let company = team?["company"] as! String?
                     
-                    let teamObject = MyTeam(username: name, email: email, userID: userID, profileImageUrl: teamImage, position: position, company: company)
+                    guard let team = teams.value as? [String: AnyObject] else {
+                        print("contains no team data")
+                        return
+                    }
+                    
+                    let company = team["company"] as! String?
+                    
+                    let teamObject = MyTeam(username: team["username"] as! String?,
+                                            email: team["email"] as! String?,
+                                            password: nil,
+                                            userID: team["userID"] as! String?,
+                                            profileImageUrl: team["profileImageUrl"] as! String?,
+                                            position: team["position"] as! String?,
+                                            company: company)
                     
                     if AppDelegate.user.company == company {//checks if it is the same company
                         self.teamModel.insert(teamObject, at: 0)
                     }
-                    
-                    //self.teamModel.insert(teamObject, at: 0)
-                    
                 }
                 self.tableView.reloadData()
             }

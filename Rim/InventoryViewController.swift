@@ -5,7 +5,6 @@
 //  Created by Chatan Konda on 9/27/17.
 //  Copyright © 2017 Apple. All rights reserved.
 //
-
 import UIKit
 import Firebase
 import FirebaseDatabase
@@ -53,7 +52,7 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
     */
     func observechannels() {
         
-        Ref.observe(DataEventType.value, with: { (snapshot) in
+        Ref.observe(DataEventType.value, with: { (snapshot) in 
             if snapshot.childrenCount>0 {
                 self.inventModel.removeAll()
                 
@@ -68,31 +67,29 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
                         return
                     }
                     
-                    let object = Inventory(
-                        username: feed["username"] as? String,
-                        profileImageUrl: feed["profileImageUrl"] as? String,
-                        timeStamp: feed["timestamp"] as? String,
-                        item_name: feed["itemName"] as? String,
-                        inventoryID: feed["inventoryID"] as? String,
-                        amount: feed["amount"] as? Int,
-                        userID: feed["userID"] as? String,
-                        shipDate: feed["shipdate"] as? String,
-                        units: feed["units"] as? String,
-                        company: feed["company"] as? String
-                    )
+                    let object = Inventory(profileImageURL: feed["profileImageUrl"] as? String,
+                                        shipmentSentUsername: feed["username"] as? String,
+                                        timeStamp: feed["timestamp"] as? String,
+                                        shipDate: feed["shipdate"] as? String,
+                                        itemName: feed["itemName"] as? String,
+                                        unitType: feed["units"] as? String,
+                                        quantity: feed["amount"] as? Double,
+                                        userID: feed["userID"] as? String,
+                                        productID: feed["inventoryID"] as? String,
+                                        company: feed["company"] as? String)
                     
                     let date = Date()
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-                    let current = dateFormatter.string(from: date)
+                    let current = dateFormatter.string(from: date)//current timestamp string
+                    
                     dateFormatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-                    let currentDate = dateFormatter.date(from: current)
+                    let currentDate = dateFormatter.date(from: current)//back to date
                     
                     guard let shippingDate = object.shipDate else {
                         print("Failed to find a ship date from object")
                         return
                     }
-                    
                     guard let company = object.company else {
                         print("There is no company")
                         return
@@ -131,7 +128,7 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
             tableView.reloadData()
         } else {
             isSearching = true//if searching is returned, search for the product name in tableview
-            filteredData = inventModel.filter({($0.item_name?.localizedCaseInsensitiveContains(searchBar.text!))!})
+            filteredData = inventModel.filter({($0.itemName?.localizedCaseInsensitiveContains(searchBar.text!))!})
             tableView.reloadData()
         }
     }
@@ -158,16 +155,16 @@ extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
             print("\(filteredData.count)")
             product = filteredData[indexPath.row]
             
-            cell.inventoryName.text = product.item_name
-            cell.amount.text = String(describing: product.amount!)
-            cell.units.text = product.units
+            cell.inventoryName.text = product.itemName
+            cell.amount.text = String(describing: product.quantity!)
+            cell.units.text = product.unitType
             cell.timeStamp.text = product.timeStamp
         } else {
             print("\(filteredData.count)")
             product = inventModel[indexPath.row]
-            cell.inventoryName.text = product.item_name
-            cell.amount.text = String(describing: product.amount!)
-            cell.units.text = product.units
+            cell.inventoryName.text = product.itemName
+            cell.amount.text = String(describing: product.quantity!)
+            cell.units.text = product.unitType
             cell.timeStamp.text = product.timeStamp
             
 //            job = jobData[indexPath.row]
@@ -176,7 +173,7 @@ extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
 //            cell.locationLabel.text = job.location
         }
         
-        if let Image = product.profileImageUrl {
+        if let Image = product.profileImageURL {
             
             cell.productPic.loadImageUsingCacheWithUrlString(urlString: Image)
         }

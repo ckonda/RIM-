@@ -4,38 +4,30 @@
 //
 //  Created by Chatan Konda on 10/2/17.
 //  Copyright © 2017 Apple. All rights reserved.
-//
 import UIKit
 import Firebase
 
 class ChannelListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-//    enum Section: Int {//to hold the different tableview sections
-//        case createNewChannelSection = 0
-//        case currentChannelsSection
-//    }
-//    
-    var senderDisplayName: String? // Person sending chat info
 
+    var senderDisplayName: String? // Person sending chat info
+    
     private var channels: [Channel] = [] //holding for channels model data
     
     private lazy var channelRef: DatabaseReference = Database.database().reference().child("Channels")
-    private var channelRefHandle: DatabaseHandle?
 
     @IBOutlet weak var channelsTableView: UITableView!//ref for the channels tableview
     
     @IBOutlet weak var newChannelTextField: UITextField!//new channel text input
     
     @IBAction func createChannelButton(_ sender: Any) {
-          performSegue(withIdentifier: "NewChannel", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         observeChannels()
-        
         self.hideKeyboardWhenTappedAround()//when view is tapped outside of the box, dismiss
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return channels.count
     }
@@ -44,143 +36,109 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExistingChannel", for: indexPath)
         
-//        if (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue {
-//            if let createNewChannelCell = cell as? CreateChannelCell {
-//                
-//                    newChannelTextField = createNewChannelCell.newChannelNameField//setting newly created channel from ChannelCell to the text field
-//                
-//            }
-//        } else if (indexPath as NSIndexPath).section == Section.currentChannelsSection.rawValue {
-        
             if let channelCell = cell as? ChannelCell {
                 
-           //     let channel = channels[indexPath.row]
+                let channel = channels[indexPath.row]
                 
-                channelCell.channelName.text = channels[indexPath.row].channelName
+                channelCell.channelName.text = channels[indexPath.row].channelName//setting channel name to cell form channel model
                 
-                channelCell.timeStamp.text = "Just Now"
+                let timeQuery = Database.database().reference().child("Channels").child(channel.channelID!)
                 
-                //let timeQuery = Database.database().reference().child("Channels")//.child(channel.channelID!)//.child("messages").queryLimited(toLast: 1)
+                let timeQuery2 = timeQuery.child("messages").queryLimited(toLast: 1)//for time digging if channel created
                 
-//                let timeQuery2 = timeQuery.child("messages").queryLimited(toLast: 1)
-//                
-//                timeQuery.observe(DataEventType.value, with: { (snapshot) in
-//                    
-//                    
-//              //      print(snapshot.childrenCount)
-//      
-//                  
-////                    if snapshot.childrenCount > 2{
-////                        print("present")
-////                        channelCell.timeStamp.text = "Activity Here"
-////                    
-////                    }else if !snapshot.hasChild("messages"){
-////                    
-////                        channelCell.timeStamp.text = ""
-////                    }
-//                    
-//                    
-//                })
+                timeQuery.observe(DataEventType.value, with: { (snapshot) in
+                    switch snapshot.childrenCount {
+                    case 1:
+                        print("Channel was created, not populated")
+                        channelCell.timeStamp.text = ""
+                    case 2:
+                        timeQuery2.observeSingleEvent(of: DataEventType.childAdded, with: { (snapshot) in
+                            guard let time = snapshot.value as? [String: Any] else {
+                                print("error on time snapshot")//guard if does not caputure time JSON
+                                return
+                            }
+                            if let messageTime = time["timestamp"] as? String {//translation from date to string for the cell
+                                let dateformatter = DateFormatter()
+                                dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+                                dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+                                let dateFromString = dateformatter.date(from: messageTime)
+                                let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+                                channelCell.timeStamp.text = timeAgo//time to text
+                            }
+                        })
+                    default:
+                        print("key has no children")//probably wont happen bc tree is meant to handle only two children based on input/creation
+                    }
+                })
                 
-            //    timeQuery.observeEvent(of: DataEventType.childAdded, with: { (snapshot) in
-                
-//                    if snapshot.hasChild(<#T##childPathString: String##String#>){
-//                        print("present")
-//                        
-//                    }else{
-//                        
-//                        print("null")
-//                    }
-//
-                   // let time = snapshot.value as! [String: Any]
-                    
-                    //print(time)
-                
-//                    let messageTime = time["timestamp"] as? String
-//                    //
-//                    let dateString = messageTime
-//                    let dateformatter = DateFormatter()
-//                    dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-//                    dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-//                    let dateFromString = dateformatter.date(from: dateString!)
-//                    let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
-//                
-//                    channelCell.timeStamp.text = timeAgo
-                    
-              //  })
            }
-       // }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let message = channels[indexPath.row]
-        self.performSegue(withIdentifier: "ShowChannel", sender: message)
+        self.performSegue(withIdentifier: "ShowChannel", sender: self)//channel segue for channels created
         channelsTableView.deselectRow(at: indexPath, animated: true)
     }
     
     private func observeChannels() {
         // Use the observe method to listen for new
         // channels being written to the Firebase DB
-        channelRefHandle = channelRef.observe(DataEventType.childAdded, with: { (snapshot) in
+        channelRef.observe(DataEventType.childAdded, with: { (snapshot) in
             let id = snapshot.key//accessing the id key of each channel to dig in later on
             let newRef = snapshot.ref
 
             newRef.observe(DataEventType.value, with: { (snapshot) in
                 
                 let channelNames = snapshot.value as? [String: AnyObject]
-                //print(channelNames)
                 
+//                if snapshot.childSnapshot(forPath: "messages").exists(){
+//                    print("theres messags")
+//                    newRef.child("messages").queryLimited(toLast: 1)
+//
+//                    let timeStamp = snapshot.childSnapshot(forPath: "messages")
+//                    print(timeStamp!)
+//
+//                }else{
+//
+//                    print("no messages yet")
+//                }
+////
+//                print(timeExists!)
+//                guard let timeStamp = snapshot.childSnapshot(forPath: "messages").value as? [String: AnyObject] else {
+//                    print("No timestamp here")
+//                    return
+//                }
+//
+//                guard let newTimeStamp = timeStamp["timestamp"] as? String else {
+//                    print("can't find timestamp")
+//                    return
+//                }
+//                print(newTimeStamp)
+                
+//                if let newTimeStamp = timeStamp["timestamp"] as? String {
+//                    print(newTimeStamp)
+//                }
+//
                 if let name = channelNames?["channelName"] as? String {
          
                     let isUnique = !self.channels.contains { channel in//bug fix to stop channel load duplication
                         return channel.channelID == id
                     }
-                    
                     if isUnique {
-                        self.channels.insert(Channel(channelID: id, channelName: name, latestMessageTimeStamp: nil), at: 0)
+                        self.channels.insert(Channel(channelName: name, channelID: id, mostRecentTimestamp: nil), at: 0)
                     }
                 }
                 self.channelsTableView.reloadData()
             })
         })
     }
-  //  @IBAction func createChannel(_ sender: Any) {
-        
-//        performSegue(withIdentifier: "ShowChannel", sender: self)
- //   }
-    
-       // if let name = newChannelTextField?.text { //
-            
-         //   if name.characters.count > 0 {//nil checker
- 
-           //     let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
-             //   let channelItem = [
-               //     "channelName": name
-                //]
-                //newChannelRef.setValue(channelItem)
-                
-//              //  if let createCell = sender as? CreateChannelCell {
-//                    
-//                   // let channel = sender as! Channel
-//                    let chatvc = ChatViewController()
-//                    
-//                    chatvc.senderDisplayName = AppDelegate.user.username
-//                    chatvc.senderId = AppDelegate.user.userID
-//                    chatvc.channelName = name
-//                    chatvc.channelRef = channelRef.child(newChannelRef.key)
-//                    
-//               //     createCell.delegate.callSegueFromCell(myData: mydata as AnyObject)
-//                    self.performSegue(withIdentifier: "ShowChannel", sender: self)
-              //  }
-                
-     //       }
-      //  }
-   // }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Guaranteed to use identifier for now.
+        
         switch segue.identifier! {
-        case "ShowChannel":
+        case "ShowChannel"://existing channels
             if let indexPath = channelsTableView.indexPathForSelectedRow {
                 let channel = channels[indexPath.row]
                 
@@ -193,39 +151,34 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                 segue.destination.hidesBottomBarWhenPushed = true
             }
             
-        case "NewChannel":
+        case "NewChannel"://for the new channels created through the text bar 
             
             if let channelName = newChannelTextField?.text, channelName != "" {
                 let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
                 let channelItem = ["channelName": channelName]
                 newChannelRef.setValue(channelItem)
                 
-                let channel = Channel(
-                    channelID: newChannelRef.key,
+                let channel = Channel( //json package for firebase
                     channelName: channelName,
-                    latestMessageTimeStamp: nil
+                    channelID: newChannelRef.key,
+                    mostRecentTimestamp: nil
                 )
                 
-                let chatVc = segue.destination as! ChatViewController
+                let chatVc = segue.destination as! ChatViewController//calling next view controller
                 chatVc.channel = channel
                 chatVc.channelRef = newChannelRef
                 chatVc.senderId = AppDelegate.user.userID
                 chatVc.senderDisplayName = AppDelegate.user.username
+                newChannelTextField.text = "" //set channel back to nil after sergue
                 
-                segue.destination.hidesBottomBarWhenPushed = true
+                segue.destination.hidesBottomBarWhenPushed = true//hide the tab bar
             }
         
         default:
-            print("Trying to perform a segue with unknown identifier")
+            print("Trying to perform a segue with unknown identifier")//
         }
     }
-    
-    deinit {
-        if let refHandle = channelRefHandle {
-            channelRef.removeObserver(withHandle: refHandle)
-        }
-    }
-    
+
     func timeAgoSinceDate(_ date: Date, numericDates: Bool = false) -> String {//returns string of time of message sent
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]

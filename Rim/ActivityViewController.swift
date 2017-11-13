@@ -28,7 +28,6 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func fetchInfo() {
-        
         //:: Set up reference for our Firebase (specifically to Users branch)
         ref = Database.database().reference().child("Activity")
         
@@ -54,6 +53,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                 let timeStamp = info?["timeStamp"] as! String?
                 
                 let activity = ActivityFeed(username: username, company: company, profileImageUrl: profileImageUrl, timeStamp: timeStamp, userPic: profileImageUrl, priority: priority, postID: nil)
+                
                 self.feed.append(activity)
             }
             // Gotta Read More About This ****

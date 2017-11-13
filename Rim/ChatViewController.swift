@@ -5,13 +5,18 @@
 //  Created by Chatan Konda on 10/8/17.
 //  Copyright © 2017 Apple. All rights reserved.
 //
-
 import UIKit
 import JSQMessagesViewController
 import Firebase
 
-class ChatViewController: JSQMessagesViewController {
+protocol channelTracker{
+   // func reOrderChannels
+    
+    
+}
 
+class ChatViewController: JSQMessagesViewController {
+    
     var messages = [JSQMessage]()//model to load messages in
     
     lazy var outgoingBubbleImageView: JSQMessagesBubbleImage = self.setupOutgoingBubble()//block structure for outgoing bubble
@@ -33,11 +38,9 @@ class ChatViewController: JSQMessagesViewController {
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
-
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.item]
     }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
@@ -100,18 +103,23 @@ class ChatViewController: JSQMessagesViewController {
         })
     }
     
-    override func didPressSend(_ button: UIButton, withMessageText text: String, senderId: String, senderDisplayName: String, date: Date) {
-        let itemRef = messageRef.childByAutoId()
+    func getCurrentDate() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         let stringDate = dateFormatter.string(from: date)
         
+        return stringDate
+    }
+    
+    override func didPressSend(_ button: UIButton, withMessageText text: String, senderId: String, senderDisplayName: String, date: Date) {
+        let itemRef = messageRef.childByAutoId()
+
         let messageItem = [ // 2
             "senderId": senderId,
             "senderName": senderDisplayName,
             "text": text,
-            "timestamp": stringDate
+            "timestamp": getCurrentDate()
             ]
         
         itemRef.setValue(messageItem)
