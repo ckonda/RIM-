@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -172,7 +171,7 @@
             </objects>
             <point key="canvasLocation" x="2015" y="1071"/>
         </scene>
-        <!--Activity View Controller-->
+        <!--RIM-->
         <scene sceneID="UoY-Tm-8Vd">
             <objects>
                 <viewController id="MM6-tt-Q5A" customClass="ActivityViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
@@ -273,7 +272,7 @@
                             <constraint firstAttribute="bottom" secondItem="tsP-SV-09l" secondAttribute="bottom" id="zKN-ND-aqB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JnE-S9-go1"/>
+                    <navigationItem key="navigationItem" title="RIM" id="JnE-S9-go1"/>
                     <connections>
                         <outlet property="tableView" destination="tsP-SV-09l" id="f6q-6d-KPA"/>
                     </connections>
@@ -462,7 +461,7 @@
             </objects>
             <point key="canvasLocation" x="6360.8000000000002" y="-504.19790104947532"/>
         </scene>
-        <!--Channel List View Controller-->
+        <!--Chat Room-->
         <scene sceneID="mjE-FU-szY">
             <objects>
                 <viewController storyboardIdentifier="E" id="jtW-ln-hEY" customClass="ChannelListViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
@@ -481,15 +480,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMs-lY-yQ2">
-                                <rect key="frame" x="284" y="87" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Create"/>
-                                <connections>
-                                    <action selector="createChannelButton:" destination="jtW-ln-hEY" eventType="touchUpInside" id="mTg-9P-T62"/>
-                                    <segue destination="ujb-it-Ia0" kind="show" identifier="NewChannel" id="fr5-Vk-GWr"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HiP-nl-IMO">
                                 <rect key="frame" x="0.0" y="140" width="375" height="478"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -529,12 +519,19 @@
                                     <outlet property="delegate" destination="jtW-ln-hEY" id="Z7k-62-dWa"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMs-lY-yQ2">
+                                <rect key="frame" x="307" y="82" width="52" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Create" image="chat"/>
+                                <connections>
+                                    <action selector="createChannelButton:" destination="jtW-ln-hEY" eventType="touchUpInside" id="mTg-9P-T62"/>
+                                    <segue destination="ujb-it-Ia0" kind="show" identifier="NewChannel" id="fr5-Vk-GWr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="x8G-jL-z3M">
-                        <nil key="title"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Chat Room" id="x8G-jL-z3M"/>
                     <connections>
                         <outlet property="channelsTableView" destination="HiP-nl-IMO" id="gyO-zj-bP3"/>
                         <outlet property="newChannelTextField" destination="2e4-0R-lHs" id="i1O-2W-Xch"/>
@@ -563,7 +560,7 @@
             </objects>
             <point key="canvasLocation" x="6361" y="892"/>
         </scene>
-        <!--Inventory View Controller-->
+        <!--Inventory-->
         <scene sceneID="z9f-rH-xuj">
             <objects>
                 <viewController storyboardIdentifier="B" id="7Rh-8j-oV8" customClass="InventoryViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
@@ -648,20 +645,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="6F6-ae-Mam">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Sell" id="X1r-40-aed">
-                                <connections>
-                                    <action selector="formButton:" destination="7Rh-8j-oV8" id="3B9-4t-j34"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Ship" id="rHb-1l-Ati">
-                                <connections>
-                                    <action selector="shipForm:" destination="7Rh-8j-oV8" id="UGh-4S-mEb"/>
-                                    <segue destination="3T7-bH-pqA" kind="show" identifier="shipForm" id="1Z6-Xz-7XH"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                    <navigationItem key="navigationItem" title="Inventory" id="6F6-ae-Mam">
+                        <barButtonItem key="leftBarButtonItem" title="Ship" image="delivery" id="rHb-1l-Ati">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="shipForm:" destination="7Rh-8j-oV8" id="UGh-4S-mEb"/>
+                                <segue destination="3T7-bH-pqA" kind="show" identifier="shipForm" id="1Z6-Xz-7XH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Sell" image="transaction" id="X1r-40-aed">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="formButton:" destination="7Rh-8j-oV8" id="3B9-4t-j34"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="4bq-4o-B7A" id="IAe-bh-3E1"/>
@@ -740,7 +737,7 @@
             </objects>
             <point key="canvasLocation" x="6360.8000000000002" y="160.56971514242881"/>
         </scene>
-        <!--My Team View Controller-->
+        <!--Company-->
         <scene sceneID="nMa-KV-i3q">
             <objects>
                 <viewController storyboardIdentifier="A" id="g1d-Ls-qmz" customClass="MyTeamViewController" customModule="Rim" customModuleProvider="target" sceneMemberID="viewController">
@@ -799,7 +796,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="IF1-ra-LAi"/>
+                    <navigationItem key="navigationItem" title="Company" id="IF1-ra-LAi"/>
                     <connections>
                         <outlet property="tableView" destination="Ykn-4o-SUo" id="cta-fy-Ek8"/>
                     </connections>
@@ -909,6 +906,9 @@
     <resources>
         <image name="Beak" width="220" height="165"/>
         <image name="PicturePicker" width="191" height="191"/>
+        <image name="chat" width="50" height="50"/>
+        <image name="delivery" width="50" height="50"/>
+        <image name="transaction" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="KRp-th-sXQ"/>
