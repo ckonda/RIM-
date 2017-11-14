@@ -1,0 +1,6 @@
+framework module Pods_Rim {
+  umbrella header "Pods-Rim-umbrella.h"
+
+  export *
+  module * { export * }
+}
