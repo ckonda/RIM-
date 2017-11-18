@@ -24,6 +24,8 @@
 		EE1AF57B1F66165D0024AA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57A1F66165D0024AA01 /* Assets.xcassets */; };
 		EE1AF57E1F66165D0024AA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57C1F66165D0024AA01 /* LaunchScreen.storyboard */; };
 		EE1AF58A1F661C6B0024AA01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */; };
+		EE3B55C31FBBE3DB00219DFC /* ActivityCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */; };
+		EE3B55C51FBBE4A500219DFC /* ActivityComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3B55C41FBBE4A500219DFC /* ActivityComment.swift */; };
 		EE77E0911F7082140055745A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0901F7082140055745A /* RegisterViewController.swift */; };
 		EE77E0931F7091150055745A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0921F7091150055745A /* User.swift */; };
 		EE98C25F1F73297000056C80 /* MyTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C25E1F73297000056C80 /* MyTeamViewController.swift */; };
@@ -34,6 +36,8 @@
 		EEA5110C1F82DB0100EC97C9 /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA5110B1F82DB0100EC97C9 /* ChannelListViewController.swift */; };
 		EEA5110F1F82DD0F00EC97C9 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA5110E1F82DD0F00EC97C9 /* Channel.swift */; };
 		EEA511111F82E27A00EC97C9 /* CreateChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA511101F82E27A00EC97C9 /* CreateChannelCell.swift */; };
+		EEC6F1D51FC0BB8800958811 /* ActivityCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6F1D41FC0BB8800958811 /* ActivityCommentController.swift */; };
+		EEC6F1D71FC0BBD600958811 /* ActivityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6F1D61FC0BBD600958811 /* ActivityPostController.swift */; };
 		EED190EE1F8ACF56009BDBB5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED190ED1F8ACF56009BDBB5 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +63,8 @@
 		EE1AF57D1F66165D0024AA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE1AF57F1F66165D0024AA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCommentCell.swift; sourceTree = "<group>"; };
+		EE3B55C41FBBE4A500219DFC /* ActivityComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityComment.swift; sourceTree = "<group>"; };
 		EE77E0901F7082140055745A /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EE77E0921F7091150055745A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE98C25E1F73297000056C80 /* MyTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTeamViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +75,8 @@
 		EEA5110B1F82DB0100EC97C9 /* ChannelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelListViewController.swift; sourceTree = "<group>"; };
 		EEA5110E1F82DD0F00EC97C9 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		EEA511101F82E27A00EC97C9 /* CreateChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateChannelCell.swift; sourceTree = "<group>"; };
+		EEC6F1D41FC0BB8800958811 /* ActivityCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCommentController.swift; sourceTree = "<group>"; };
+		EEC6F1D61FC0BBD600958811 /* ActivityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPostController.swift; sourceTree = "<group>"; };
 		EED190ED1F8ACF56009BDBB5 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +117,7 @@
 				EEA5110E1F82DD0F00EC97C9 /* Channel.swift */,
 				A8E0DA7F1F8D9ED1005AFB0E /* ActivityFeed.swift */,
 				EE0AA0F11F9E636700F0A486 /* Inventory.swift */,
+				EE3B55C41FBBE4A500219DFC /* ActivityComment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -116,11 +125,10 @@
 		EE0747DF1F69E4020055CC52 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EEC6F1D31FC0BB7800958811 /* Activity Controllers */,
 				EE0AA0EE1F9D849E00F0A486 /* Inventory Controllers */,
 				EEA5110D1F82DB0900EC97C9 /* Chat Controllers */,
 				EE98C26A1F7C7E0D00056C80 /* Login Controllers */,
-				A829F1091F929D6800B7AC82 /* ActivitySelectedController.swift */,
-				EE0747E11F69E4B50055CC52 /* ActivityViewController.swift */,
 				EE98C25E1F73297000056C80 /* MyTeamViewController.swift */,
 			);
 			name = Controller;
@@ -135,6 +143,7 @@
 				EE0AA0EF1F9E607A00F0A486 /* InventoryCell.swift */,
 				EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */,
 				EE0AA0F91FAAD31A00F0A486 /* UnitCell.swift */,
+				EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -208,6 +217,17 @@
 				EED190ED1F8ACF56009BDBB5 /* ChatViewController.swift */,
 			);
 			name = "Chat Controllers";
+			sourceTree = "<group>";
+		};
+		EEC6F1D31FC0BB7800958811 /* Activity Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A829F1091F929D6800B7AC82 /* ActivitySelectedController.swift */,
+				EE0747E11F69E4B50055CC52 /* ActivityViewController.swift */,
+				EEC6F1D41FC0BB8800958811 /* ActivityCommentController.swift */,
+				EEC6F1D61FC0BBD600958811 /* ActivityPostController.swift */,
+			);
+			name = "Activity Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,10 +395,14 @@
 				EE98C25F1F73297000056C80 /* MyTeamViewController.swift in Sources */,
 				EE1AF5741F66165D0024AA01 /* AppDelegate.swift in Sources */,
 				A8562AD01F8D31D100419B62 /* ActivityViewCell.swift in Sources */,
+				EE3B55C31FBBE3DB00219DFC /* ActivityCommentCell.swift in Sources */,
 				EEA511111F82E27A00EC97C9 /* CreateChannelCell.swift in Sources */,
 				EE0AA0F41F9E98A800F0A486 /* ChannelCell.swift in Sources */,
 				EE98C2661F79D33B00056C80 /* MyTeam.swift in Sources */,
+				EEC6F1D71FC0BBD600958811 /* ActivityPostController.swift in Sources */,
 				EE0747E21F69E4B50055CC52 /* ActivityViewController.swift in Sources */,
+				EE3B55C51FBBE4A500219DFC /* ActivityComment.swift in Sources */,
+				EEC6F1D51FC0BB8800958811 /* ActivityCommentController.swift in Sources */,
 				EE0AA0F21F9E636700F0A486 /* Inventory.swift in Sources */,
 				A829F10A1F929D6800B7AC82 /* ActivitySelectedController.swift in Sources */,
 				EE98C26C1F7C7E4600056C80 /* InventoryViewController.swift in Sources */,

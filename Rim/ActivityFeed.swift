@@ -22,12 +22,12 @@ public class ActivityFeed: NSObject {
     var userID: String?
     var postID: String?
     
-    init(username: String?, company: String?, profileImageUrl: String?, timeStamp: String?, userPic: String?, priority: String?, postID: String?) {
+    init(username: String?, company: String?, profileImageUrl: String?, timeStamp: String?, userPic: String?, postID: String?) {
         self.username = username
         self.company =  company
         self.timeStamp = timeStamp
         self.profileImageUrl = profileImageUrl
-        self.priorityTag = priority
+
         
         self.postID = postID
     }
