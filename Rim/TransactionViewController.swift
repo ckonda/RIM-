@@ -20,7 +20,7 @@ class TransactionViewController: UIViewController, UITextFieldDelegate {
         
         if let itemName = productName?.text, let number = productAmount?.text {
             
-            if itemName.characters.count > 0, number.characters.count > 0 {
+            if itemName.count > 0, number.count > 0 {
                 deletePost()
                 print("Transaction in progress")
                 

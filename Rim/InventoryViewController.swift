@@ -26,6 +26,8 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
         
+        self.hideKeyboardWhenTappedAround()
+        
         searchBar.placeholder = "Search"
         
         tableView.delegate = self

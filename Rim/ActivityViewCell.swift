@@ -9,23 +9,29 @@
 import Foundation
 import UIKit
 
-public class ActivityViewCell: UITableViewCell {
+public class ActivityViewCell: UITableViewCell
+{
     
     @IBOutlet var activityImage: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userTeam: UILabel!
     @IBOutlet var timeStamp: UILabel!
     @IBOutlet var userPic: UIImageView!
-    @IBOutlet var priority: UILabel!
+    @IBOutlet var amount: UILabel!
+    @IBOutlet weak var commentIcon: UIImageView!//beak
+    @IBOutlet weak var item: UILabel!
     
-   public override func awakeFromNib() {
+    
+    
+    public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-   public override func setSelected(_ selected: Bool, animated: Bool) {
+    public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
+    
 }
+
