@@ -16,6 +16,8 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     var ref: DatabaseReference!
     
     private lazy var Ref: DatabaseReference = Database.database().reference().child("Inventory")
+    private lazy var activityRef: DatabaseReference = Database.database().reference().child("Activity")
+    
     @IBOutlet weak var itemName: UITextField!
 
     @IBOutlet weak var numberofItems: UITextField!
@@ -143,22 +145,24 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                 if let profileImageUrl = metadata?.downloadURL()?.absoluteString, let timeStamp = self.getCurrentDate().stringDate,
                     let shipDate = self.getCurrentDate().shipDate, let item = self.itemName.text, let convertedAmount = Int(self.numberofItems.text!) {
     
-                    let MyTeamRef = self.Ref.childByAutoId()//
+                    let inventory = self.Ref.childByAutoId()// creating autp id for inventory
+                    let activity = self.activityRef.childByAutoId()//creating auto id for activity
                    
                     let product = [//to make sure the team aligns with each company
                         "profileImageUrl": profileImageUrl,
-                        "timestamp": timeStamp,
-                        "shipdate": shipDate,
+                        "timeStamp": timeStamp,
+                        "shipDate": shipDate,
                         "itemName": item,
                         "units": self.unitType,
                         "amount": convertedAmount,
-                        "inventoryID": MyTeamRef.key,
+                        "inventoryID": inventory.key,
                         "userID": AppDelegate.user.userID!,
-                        "username": AppDelegate.user.username!,
+                        "userName": AppDelegate.user.username!,
                         "company": AppDelegate.user.company!
                     ] as [String: Any]
                     
-                    MyTeamRef.setValue(product)
+                    inventory.setValue(product)//under auto Id, we will insert JSON to inventory feed
+                    activity.setValue(product)//activity Feed
                 }
             })
         } else {

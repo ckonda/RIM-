@@ -58,7 +58,8 @@ class ActivityPostController: UIViewController, UITextFieldDelegate {
                 "timestamp": timeStamp,
                 "userID": userID,
                 "postID": postRef.key,
-                "post": post
+                "post": post,
+                "userName" : AppDelegate.user.username!
                 ] as [String: Any]
             
             postRef.setValue(status)//value placed in firebase JSON

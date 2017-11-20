@@ -24,6 +24,8 @@
 		EE1AF57B1F66165D0024AA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57A1F66165D0024AA01 /* Assets.xcassets */; };
 		EE1AF57E1F66165D0024AA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF57C1F66165D0024AA01 /* LaunchScreen.storyboard */; };
 		EE1AF58A1F661C6B0024AA01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */; };
+		EE35CAD81FC0F4CD0099C6CE /* ActivityPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35CAD71FC0F4CD0099C6CE /* ActivityPostModel.swift */; };
+		EE35CADA1FC0F99D0099C6CE /* ActivityPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35CAD91FC0F99D0099C6CE /* ActivityPostCell.swift */; };
 		EE3B55C31FBBE3DB00219DFC /* ActivityCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */; };
 		EE3B55C51FBBE4A500219DFC /* ActivityComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3B55C41FBBE4A500219DFC /* ActivityComment.swift */; };
 		EE77E0911F7082140055745A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE77E0901F7082140055745A /* RegisterViewController.swift */; };
@@ -63,6 +65,8 @@
 		EE1AF57D1F66165D0024AA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE1AF57F1F66165D0024AA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1AF5891F661C6B0024AA01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EE35CAD71FC0F4CD0099C6CE /* ActivityPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPostModel.swift; sourceTree = "<group>"; };
+		EE35CAD91FC0F99D0099C6CE /* ActivityPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPostCell.swift; sourceTree = "<group>"; };
 		EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCommentCell.swift; sourceTree = "<group>"; };
 		EE3B55C41FBBE4A500219DFC /* ActivityComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityComment.swift; sourceTree = "<group>"; };
 		EE77E0901F7082140055745A /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 				A8E0DA7F1F8D9ED1005AFB0E /* ActivityFeed.swift */,
 				EE0AA0F11F9E636700F0A486 /* Inventory.swift */,
 				EE3B55C41FBBE4A500219DFC /* ActivityComment.swift */,
+				EE35CAD71FC0F4CD0099C6CE /* ActivityPostModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				EE0AA0F31F9E98A800F0A486 /* ChannelCell.swift */,
 				EE0AA0F91FAAD31A00F0A486 /* UnitCell.swift */,
 				EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */,
+				EE35CAD91FC0F99D0099C6CE /* ActivityPostCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 			files = (
 				EE98C2631F7982FE00056C80 /* MyTeamCell.swift in Sources */,
 				EE0AA0F61F9FF26500F0A486 /* TransactionViewController.swift in Sources */,
+				EE35CAD81FC0F4CD0099C6CE /* ActivityPostModel.swift in Sources */,
 				EEA5110F1F82DD0F00EC97C9 /* Channel.swift in Sources */,
 				EE0AA0F01F9E607A00F0A486 /* InventoryCell.swift in Sources */,
 				EE98C2691F79DBC900056C80 /* Extensions.swift in Sources */,
@@ -400,6 +407,7 @@
 				EE0AA0F41F9E98A800F0A486 /* ChannelCell.swift in Sources */,
 				EE98C2661F79D33B00056C80 /* MyTeam.swift in Sources */,
 				EEC6F1D71FC0BBD600958811 /* ActivityPostController.swift in Sources */,
+				EE35CADA1FC0F99D0099C6CE /* ActivityPostCell.swift in Sources */,
 				EE0747E21F69E4B50055CC52 /* ActivityViewController.swift in Sources */,
 				EE3B55C51FBBE4A500219DFC /* ActivityComment.swift in Sources */,
 				EEC6F1D51FC0BB8800958811 /* ActivityCommentController.swift in Sources */,

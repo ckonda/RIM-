@@ -16,7 +16,7 @@ struct Inventory {
     let shipDate: String?
     var itemName: String?
     var unitType: String? //unit types
-    var quantity: Double?//old amount
+    var quantity: Int?//old amount
     let userID: String?//
     let productID: String?//old inventory ID
     let company: String?
