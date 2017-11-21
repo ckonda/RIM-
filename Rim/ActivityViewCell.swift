@@ -12,14 +12,13 @@ import UIKit
 public class ActivityViewCell: UITableViewCell
 {
     
-    @IBOutlet var activityImage: UIImageView!
-    @IBOutlet var userName: UILabel!
-    @IBOutlet var userTeam: UILabel!
+//    @IBOutlet var activityImage: UIImageView!
     @IBOutlet var timeStamp: UILabel!
     @IBOutlet var userPic: UIImageView!
     @IBOutlet var amount: UILabel!
     @IBOutlet weak var commentIcon: UIImageView!//beak
-    @IBOutlet weak var item: UILabel!
+    @IBOutlet weak var itemName: UILabel!
+    @IBOutlet weak var unitType: UILabel!
     
     
     

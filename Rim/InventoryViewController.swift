@@ -75,7 +75,7 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
                                         shipDate: feed["shipdate"] as? String,
                                         itemName: feed["itemName"] as? String,
                                         unitType: feed["units"] as? String,
-                                        quantity: feed["amount"] as? Double,
+                                        quantity: feed["amount"] as? Int,
                                         userID: feed["userID"] as? String,
                                         productID: feed["inventoryID"] as? String,
                                         company: feed["company"] as? String)

@@ -10,26 +10,25 @@ import Foundation
 import UIKit
 
 public class ActivityFeed: NSObject {
-    //var activityImage: String?
+
     var profileImageUrl: String?
-    var priorityTag: String?
-    var username: String?
-    var company: String?
+    var userName: String?
     var timeStamp: String?
-    var item_name: String?
+    var itemName: String?
     var position: String?
-    var password: String?
     var userID: String?
     var postID: String?
+    var unitType: String?
+    var amount: Int?
     
-    init(username: String?, company: String?, profileImageUrl: String?, timeStamp: String?, userPic: String?, postID: String?) {
-        self.username = username
-        self.company =  company
+    init(userName: String?, itemName: String?, profileImageUrl: String?, timeStamp: String?, unitType: String?, amount: Int?) {
+        self.userName = userName
         self.timeStamp = timeStamp
         self.profileImageUrl = profileImageUrl
-
+        self.itemName = itemName
+        self.unitType = unitType
+        self.amount = amount
         
-        self.postID = postID
     }
 
 }
