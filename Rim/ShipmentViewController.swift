@@ -143,8 +143,9 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                 if let profileImageUrl = metadata?.downloadURL()?.absoluteString, let timeStamp = self.getCurrentDate().stringDate,
                     let shipDate = self.getCurrentDate().shipDate, let item = self.itemName.text, let convertedAmount = Int(self.numberofItems.text!) {
     
-                    let MyTeamRef = self.Ref.childByAutoId()//
+                    let MyTeamRef = self.Ref.childByAutoId() // Setting AutoID reference
                    
+                    // JSON Dictionary
                     let product = [//to make sure the team aligns with each company
                         "profileImageUrl": profileImageUrl,
                         "timestamp": timeStamp,

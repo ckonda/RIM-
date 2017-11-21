@@ -57,14 +57,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                     print("Snapshot is nil hence no data returned");
                     return;
                 }
-                //                let info = information.value as? [String: AnyObject]
-                //                let username = info?["userID"] as! String?
-                //                let company = info?["userTeam"] as! String?
-                //                let position = info?["userTeam"] as! String?
-                //                let profileImageUrl = info?["userPic"] as! String?
-                //                let priority = info?["priority"] as! String?
-                //                let timeStamp = info?["timeStamp"] as! String?
-                
+ 
                 let info = information.value as? [String: AnyObject]
                 let username = "Tester"
                 let item_name = info?["itemName"] as! String?
