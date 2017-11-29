@@ -17,6 +17,15 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     var feed = [ActivityFeed]()
     var posts = [ActivityPostModel]()//empty model to populate
     
+    //:: Test 2D array
+
+    
+    var complete_feed = [
+        [ActivityFeed](),
+        [ActivityPostModel]()
+    ] as [AnyObject]
+    var cFeedIndex: Int!
+    
     private lazy var feedRef: DatabaseReference = Database.database().reference().child("Activity")         //:: Reference variable initialized to our Firebase reference
      private lazy var postRef: DatabaseReference = Database.database().reference().child("ActivityPost")
     var databaseHandle: DatabaseHandle? //:: Will retrieve reference from update feeds (fetchInfo())
@@ -26,11 +35,14 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func activitySegmentedSelect(_ sender: UISegmentedControl) {
+        
         if sender.selectedSegmentIndex == 0 {
             selectedSegment = 1
         } else {
             selectedSegment = 2
         }
+
+        cFeedIndex = sender.selectedSegmentIndex
         
         self.tableView.reloadData()//reload data when view changes
         
@@ -48,7 +60,8 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         tapButton = UITapGestureRecognizer(target: self, action: #selector(ActivityViewController.showActivity(recognizer:)))
         fetchFeed()
         fetchPosts()
-      //  fetchInfo()//DIOS HAS A HORSE DICK
+        cFeedIndex = 0
+  
     }
     
     func fetchFeed() {
@@ -119,57 +132,9 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                     }
     }
     
-//    func fetchInfo()
-//    {
-//        //:: Set up reference for our Firebase (specifically to Users branch)
-//        ref = Database.database().reference().child("Inventory")
-//
-//        //:: Retrieve (temporarily) user info
-//        //:: child (Users) - observe the "Users" tab in Firebase
-//        //:: .childAdded - updates user list incase new users were added
-//
-//        databaseHandle = ref.observe(DataEventType.value, with: { (snapshot) in
-//            //:: Executed code when a new "User" has been added
-//            //:: Take the data from snapshot and append it inside the feed array
-//            self.feed.removeAll();
-//            for information in snapshot.children.allObjects as! [DataSnapshot]
-//            {
-//                guard let firebaseResponse = snapshot.value as? [String: Any] else
-//                {
-//                    print("Snapshot is nil hence no data returned");
-//                    return;
-//                }
-//                //                let info = information.value as? [String: AnyObject]
-//                //                let username = info?["userID"] as! String?
-//                //                let company = info?["userTeam"] as! String?
-//                //                let position = info?["userTeam"] as! String?
-//                //                let profileImageUrl = info?["userPic"] as! String?
-//                //                let priority = info?["priority"] as! String?
-//                //                let timeStamp = info?["timeStamp"] as! String?
-//
-//                let info = information.value as? [String: AnyObject]
-//                let username = "Tester"
-//                let item_name = info?["itemName"] as! String?
-//                let company = "Test"
-//                let profileImageUrl = info?["profileImageUrl"] as! String?
-//                let item_amount = info?["amount"] as! String?
-//                let timeStamp = info?["timestamp"] as! String?
-//
-//                let activity = ActivityFeed(username: username, company: company, profileImageUrl: profileImageUrl, timeStamp: timeStamp, userPic: "", postID: nil)
-//
-//
-//                self.feed.append(activity)
-//            }
-//            // Gotta Read More About This ****
-//            DispatchQueue.main.async
-//                {
-//                    self.tableView.reloadData()  //:: Continously Update Information From Firebase
-//            }
-//        })
-//    }
-    
     func showActivity(recognizer: UITapGestureRecognizer)
     {
+        print("Clicked...")
         performSegue(withIdentifier: "showActivityComment", sender: self)  //segue to new controller
     }
     
@@ -177,76 +142,142 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if selectedSegment == 1 {
+        if cFeedIndex == 0 {
             return feed.count
         } else {
             return posts.count
         }
-        
-        //return feed.count
+     
     }
     
     func tableView (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let feedCell = tableView.dequeueReusableCell(withIdentifier: "actFeedCell") as! ActivityViewCell
         let postCell = tableView.dequeueReusableCell(withIdentifier: "actPostCell") as! ActivityPostCell
+
+       // if cFeedIndex == 0 {
+            let feedObject = feed[indexPath.row]
+            ///****
+            ///////////////// Allocating data from firebase to the FEED OBJECT CELL
+            feedCell.itemName.text = feedObject.itemName
+            feedCell.amount.text = String(describing: feedObject.amount!)
+            feedCell.unitType.text = feedObject.unitType
+//            let dateformatter = DateFormatter()
+//            dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+//            dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+//            dateformatter.locale = NSLocale.current
+//            let dateFromString = dateformatter.date(from: feedObject.timeStamp!)
+//            let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+            
+            feedCell.timeStamp.text = "10 minutes ago"
+            
+            if let profileImage = feedObject.profileImageUrl {
+                feedCell.userPic.loadImageUsingCacheWithUrlString(urlString: profileImage)
+            }
+       // }
         
-        let feedObject = feed[indexPath.row]
-        let postObject = posts[indexPath.row]//accesser to model objects to populate cell
-        ///****
-        ///////////////// Allocating data from firebase to the FEED OBJECT CELL
-        feedCell.itemName.text = feedObject.itemName
-        feedCell.amount.text = String(describing: feedObject.amount!)
-        
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-        let dateFromString = dateformatter.date(from: feedObject.timeStamp!)
-        let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
-        feedCell.timeStamp.text = timeAgo
-        
-        feedCell.unitType.text = feedObject.unitType
-        
-        if let profileImage = feedObject.profileImageUrl {
-            feedCell.userPic.loadImageUsingCacheWithUrlString(urlString: profileImage)
-        }
-        //*****
-        //////////////////NOW Allocating data from firebase to the POST OBJECT CELL
-        
-        postCell.activityUserName.text = postObject.userName
-        postCell.activityPost.text = postObject.userPost
-        
-        let postDateString = dateformatter.date(from: postObject.userTimestamp!) //new var to create the post timestamp
-        let postTimeStamp = self.timeAgoSinceDate(postDateString!, numericDates: true)
-        postCell.activityTimeStamp.text = postTimeStamp
-        
-        if let profileImage = postObject.userProfileImage {
-            postCell.activityUserImage.loadImageUsingCacheWithUrlString(urlString: profileImage)
-        }
-        //////////// finished creating post block
-        //****
-        
-        if selectedSegment == 1 {
+      //  else if cFeedIndex == 1 {
+            let postObject = posts[indexPath.row]//accesser to model objects to populate cell
+            
+            //*****
+            //////////////////NOW Allocating data from firebase to the POST OBJECT CELL
+            
+            postCell.activityUserName.text = postObject.userName
+            postCell.activityPost.text = postObject.userPost
+//            let dateformatter = DateFormatter()
+//            dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+//            dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+//            dateformatter.locale = NSLocale.current
+//            let postDateString = dateformatter.date(from: postObject.userTimestamp!) //new var to create the post timestamp
+//            let postTimeStamp = self.timeAgoSinceDate(postDateString!, numericDates: true)
+//            postCell.activityTimeStamp.text = postTimeStamp
+            postCell.activityTimeStamp.text = "20 minutes ago"
+            
+            if let profileImage = postObject.userProfileImage {
+                postCell.activityUserImage.loadImageUsingCacheWithUrlString(urlString: profileImage)
+            }
+            //////////// finished creating post block
+            //****
+  
+       // }
+        if selectedSegment == 1 {//logic to return cell we need
             return feedCell
         } else {
             return postCell
         }
+       
+    }
+    
+    //:: Retrieving Index of Selected Table Row Cell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //segemented control logic
+        if selectedSegment == 1 {//passing data to feed cell if we need anything there
+            performSegue(withIdentifier: "showActivityFeedComment", sender: self)
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        } else { //passing data to the post comment section on user tap of cell
+            print("on user click to post comment section, will create")
+            
+        }
+    
+//        let index = indexPath.row
+//        //:: Instantiate a type of "ActivityCommentController" (check storyboard ID)
+//        let activityCommentControllerAccessor = self.storyboard?.instantiateViewController(withIdentifier: "ActivityCommentController") as! ActivityCommentController
+//        //:: Access ActivityCommentController's labels (name,timeStamp,etc.)
+//        //:: Then set the labels equal to values inside the ActivityFeedObject (using index for Feed Array)
+//        guard let feedUserName = self.feed[index].userName else{
+//            print("No value in Feed Object User Name\n");
+//            return
+//        }
+//        guard let feedActivityItemName = self.feed[index].itemName else {
+//            print("No value in Feed Object Item\n");
+//            return
+//        }
+//        guard let feedItemAmount = self.feed[index].amount else {
+//            print("No Value in Feed Object amount");
+//            return
+//        }
+////        guard let feedTimeStamp = feed[index].timeStamp else {
+////            print("No Value in Feed Time Stamp");
+////            return
+////        }
+//
+//        activityCommentControllerAccessor.activityUserName = feedUserName
+//        activityCommentControllerAccessor.activityItemName = feedActivityItemName
+//        activityCommentControllerAccessor.activityItemAmount = String(describing: feedItemAmount)
+        //activityCommentControllerAccessor.setLabels()
+//        activityCommentControllerAccessor.timeStamp.text = feedTimeStamp
+        
+//        print("\(activityCommentControllerAccessor.userName.text)\n")
+//        print("\(activityCommentControllerAccessor.activityInfo.text)\n")
+//        print("\(activityCommentControllerAccessor.itemAmount.text)\n")
+//        print("\(feedUserName)\n")
+//        print("\(feedActivityItemName)\n")
+//        print("\(feedItemAmount)\n")
+//        print("\(feedTimeStamp)\n")
+        print("Supposedly finished initialization")
+        
     }
     
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        //:: If Segue Destination is validly set towards ActivitySelected Controller (casted)
-        if let activity_selected  = segue.destination as? ActivitySelectedController
-        {
-            let indexPath: NSIndexPath = tableView.indexPathForSelectedRow! as NSIndexPath //:: Attain index path based on selected row from TableView
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if selectedSegment == 1{
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let activityFeedCommentView = segue.destination as? ActivityCommentController
+                
+                activityFeedCommentView?.activityUserName = feed[indexPath.row].userName
+                activityFeedCommentView?.activityItemName = feed[indexPath.row].itemName
+                activityFeedCommentView?.activityItemAmount = feed[indexPath.row].amount
+                activityFeedCommentView?.activityTimeStamp = feed[indexPath.row].timeStamp
+   
+            }
             
-//            //:: Set ActivitySelected information as that attained by the Feed Array on the selected TableView cell
-//            activity_selected.username = feed[indexPath.row].username
-//            activity_selected.userteam = feed[indexPath.row].company
-//            activity_selected.timestamp = feed[indexPath.row].timeStamp
+        } else {
             
         }
+        
+   
     }
     
     func timeAgoSinceDate(_ date: Date, numericDates: Bool = false) -> String {//returns string of time of message sent

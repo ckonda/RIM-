@@ -9,6 +9,19 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
+		<key>Rim_SIM.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>EE1AF56F1F66165D0024AA01</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>
