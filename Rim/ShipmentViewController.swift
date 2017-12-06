@@ -17,6 +17,7 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     private lazy var Ref: DatabaseReference = Database.database().reference().child("Inventory")
     private lazy var activityRef: DatabaseReference = Database.database().reference().child("Activity")
+    private lazy var commentsRef: DatabaseReference = Database.database().reference().child("Comments")
     
     @IBOutlet weak var itemName: UITextField!
 
@@ -145,9 +146,17 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                 if let profileImageUrl = metadata?.downloadURL()?.absoluteString, let timeStamp = self.getCurrentDate().stringDate,
                     let shipDate = self.getCurrentDate().shipDate, let item = self.itemName.text, let convertedAmount = Int(self.numberofItems.text!) {
     
+
                     let inventory = self.Ref.childByAutoId()// creating autp id for inventory
                     let activity = self.activityRef.childByAutoId()//creating auto id for activity
+
+                    let commentKey = activity.key//string key for activity
+                    
+                    let commentRef = self.commentsRef.child(commentKey)
+                    
+
                    
+                    // JSON Dictionary
                     let product = [//to make sure the team aligns with each company
                         "profileImageUrl": profileImageUrl,
                         "timeStamp": timeStamp,
@@ -155,14 +164,23 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
                         "itemName": item,
                         "units": self.unitType,
                         "amount": convertedAmount,
-                        "inventoryID": inventory.key,
+                        "inventoryID": activity.key, //can be used to stick the comments section
                         "userID": AppDelegate.user.userID!,
                         "userName": AppDelegate.user.username!,
-                        "company": AppDelegate.user.company!
+                        "company": AppDelegate.user.company!,
+                    ] as [String: Any]
+                    
+                    let commentBlock = [
+                        "text": "Hello"
                     ] as [String: Any]
                     
                     inventory.setValue(product)//under auto Id, we will insert JSON to inventory feed
                     activity.setValue(product)//activity Feed
+                    
+                    commentRef.setValue(commentBlock)
+                    
+                    
+    
                 }
             })
         } else {

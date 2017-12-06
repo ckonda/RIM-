@@ -16,8 +16,8 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
     private lazy var Ref: DatabaseReference = Database.database().reference().child("Inventory")
     
     var inventModel = [Inventory]()
-    
     var filteredData = [Inventory]()
+    
     var isSearching = false
 
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
                     let object = Inventory(profileImageURL: feed["profileImageUrl"] as? String,
                                         shipmentSentUsername: feed["username"] as? String,
                                         timeStamp: feed["timestamp"] as? String,
-                                        shipDate: feed["shipdate"] as? String,
+                                        shipDate: feed["shipDate"] as? String,
                                         itemName: feed["itemName"] as? String,
                                         unitType: feed["units"] as? String,
                                         quantity: feed["amount"] as? Int,

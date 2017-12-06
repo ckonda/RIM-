@@ -17,17 +17,18 @@ public class ActivityFeed: NSObject {
     var itemName: String!
     var position: String!
     var userID: String!
-    var postID: String!
+    var inventoryID: String!
     var unitType: String!
     var amount: Int!
     
-    init(userName: String!, itemName: String!, profileImageUrl: String!, timeStamp: String!, unitType: String!, amount: Int!) {
+    init(userName: String!, itemName: String!, profileImageUrl: String!, timeStamp: String!, unitType: String!, amount: Int!, inventoryID: String! ) {
         self.userName = userName
         self.timeStamp = timeStamp
         self.profileImageUrl = profileImageUrl
         self.itemName = itemName
         self.unitType = unitType
         self.amount = amount
+        self.inventoryID = inventoryID
     }
 
 }

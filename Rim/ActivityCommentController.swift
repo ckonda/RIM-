@@ -11,69 +11,78 @@ import Firebase
 import FirebaseStorage
 import FirebaseDatabase
 
-class ActivityCommentController: UITableViewController {
-
+class ActivityCommentController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    private lazy var Ref: DatabaseReference = Database.database().reference().child("Comments")
     
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var itemAmount: UILabel!
     @IBOutlet weak var activityInfo: UILabel!
     @IBOutlet weak var timeStamp: UILabel!
-
+    @IBOutlet weak var commentsImage: UIImageView!
     
-    var commentsArr = [ActivityComment]()
+    @IBOutlet weak var tableView: UITableView!
+    
     var databaseRef: DatabaseReference!
-    var storageRef: StorageReference!
     
-    public var activityUserName = String()
-    public var activityItemAmount = Int()
-    public var activityItemName = String()
-    public var activityTimeStamp = String()
+    var activityUserName = String()
+    var activityItemAmount = Int()
+    var activityItemName = String()
+    var activityTimeStamp = String()
+    var activityFeedID = String() //id of the comment post
+    var activityFeedImageURL = String()
     
-    var activity_comments = [ActivityComment]()
-    
+    var activityComments = [ActivityComment]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //setLabels()
-        databaseRef = Database.database().reference().child("Comments")
-        observeComments()
-    
+//        observeComment()// placed in the previous vc to populate before view loads
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        commentsImage.layer.cornerRadius = commentsImage.frame.size.width/2
+        commentsImage.clipsToBounds = true
+        commentsImage.layer.borderColor = UIColor.white.cgColor
+        commentsImage.layer.borderWidth = 1
+        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+  //  populateLabels()
+    }
+    
+    func populateLabels(){
+        
+        guard !activityUserName.isEmpty else {
+            print("There was no username passed")
+            return
+        }
+        
+        userName.text = activityUserName
+        itemAmount.text = String(describing: activityItemAmount)
+        activityInfo.text = activityItemName
+        timeStamp.text = activityTimeStamp
+        
+        Storage.storage().reference(forURL: activityFeedImageURL).downloadURL { (data, error) in
+            self.commentsImage.loadImageUsingCacheWithUrlString(urlString: self.activityFeedImageURL)
+        }
+    }
+
     override func awakeFromNib() {
         print("Comment Controller Awake From Nib")
         let _ = self.view
     }
-//    func setLabels()
-//    {
-//        self.userName.text = activityUserName
-//        self.itemAmount.text = activityItemAmount
-//        self.activityInfo.text = activityInformation
-//
-//        print("Insed SetLabels:\n")
-//        print("\(self.userName.text)\n")
-//        print("\(self.itemAmount.text)\n")
-//        print("\(self.activityInfo.text)\n")
-//        print("Finished Printing...")
-////        guard let userName.text = activityUserName else {
-////            print("In ActivityCommentController: Found Nil in User Name\n")
-////            return
-////        }
-////        guard let itemAmount.text = activityItemAmount else {
-////            print("In ActivityCommentController: Found Nil in Item Amount\n")
-////            return
-////        }
-////        guard let activityInfo.text = activityInformation else {
-////            print("In ActivityCommentController: Found Nil in Activity Information\n")
-////            return
-////        }
-//    }
-    func start()
-    {
-        self.activityInfo.text = ""
-        self.userName.text = ""
-        self.itemAmount.text = ""
-        self.timeStamp.text = ""
+
+    func getCurrentDate() -> String? {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let stringDate = dateFormatter.string(from: date)
+        
+        return stringDate
     }
+    
     @IBAction func addComment(_ sender: Any) {
         let commentAlert = UIAlertController(title: "New Comment", message:"Enter Your Comment", preferredStyle: .alert)
         
@@ -81,53 +90,76 @@ class ActivityCommentController: UITableViewController {
         
         commentAlert.addAction(UIAlertAction(title: "Send", style: .default, handler: { (action:UIAlertAction) in
             if let commentContent = commentAlert.textFields?.first?.text{
-                let comment = ActivityComment(content: commentContent, username: Firebase.Auth.auth().currentUser!.uid)
-                let commentReference = self.databaseRef.child(commentContent.lowercased())
-                commentReference.setValue(comment.toAnyObject())
+                //comment JSON logic to be placed in firebase here
+                let commentID = self.Ref.child(self.activityFeedID).childByAutoId()
+
+                let commentBlock = [
+                    "comment": commentContent,
+                    "timeStamp": self.getCurrentDate()!,
+                    "userName": AppDelegate.user.username!,
+                    "profileImageURL": AppDelegate.user.profileImageUrl!
+                    ] as [String: Any]
+
+                commentID.setValue(commentBlock)
+                
             }
         }))
         
-        commentAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-        
-    
+
+        commentAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler:nil))
         
         self.present(commentAlert, animated:true, completion: nil)
-        
     }
     
-    
-    func observeComments()
-    {
-        databaseRef.observe(.value, with: { (snapshot: DataSnapshot) in
-            var newComments = [ActivityComment]()
-            for comment in snapshot.children
-            {
-                let commentObject = ActivityComment(snapshot:comment as! DataSnapshot)
-                newComments.append(commentObject)
+    func observeComment() {
+        
+        Ref.child(activityFeedID).observe(DataEventType.value, with: { (snapshot: DataSnapshot) in
+            
+            guard let commentData = snapshot.children.allObjects as? [DataSnapshot] else {
+                print("Could not retrieve objects")
+                return
             }
-            self.activity_comments = newComments
+
+            for comment in commentData {
+                guard let comments = comment.value as? [String: AnyObject] else {
+                    print("Failed to cast inventory as dictionary")
+                    continue
+                }
+                let commentObject = ActivityComment(profileImageURL: comments["profileImageURL"] as? String,
+                                                    comment: comments["comment"] as? String,
+                                                    username: comments["userName"] as? String,
+                                                    timeStamp: comments["timeStamp"] as? String)
+                print(commentObject.comment)
+                self.activityComments.insert(commentObject, at: 0)
+            }
             self.tableView.reloadData()
         })
+        
     }
     
+  
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return activity_comments.count
+        return activityComments.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140 // height for each row column to be at
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! ActivityCommentCell
 
-        // Configure the cell...
-        let comment = activity_comments[indexPath.row]
-        cell.textLabel?.text = comment.content
-        cell.detailTextLabel?.text = comment.username
+        let comment = activityComments[indexPath.row]
         
+        cell.userName.text = comment.username
+        cell.postTime.text = comment.timeStamp
+        cell.commentContent.text = comment.comment
+        
+        if let profileImage = comment.profileImageURL {
+            cell.userImage.loadImageUsingCacheWithUrlString(urlString: profileImage)
+        }
         
         return cell
     }

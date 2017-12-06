@@ -32,6 +32,10 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
         return channels.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExistingChannel", for: indexPath)

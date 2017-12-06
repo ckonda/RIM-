@@ -1,4 +1,3 @@
-//
 //  Inventory.swift
 //  Rim
 //

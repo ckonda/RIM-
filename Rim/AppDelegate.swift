@@ -25,6 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //dylan was here lets create blue screens!
         FirebaseApp.configure()
         
+        //place font here
+        let appearance = UINavigationBar.appearance()
+        let font = UIFont(name: "Raleway-Light", size: 25)!
+        appearance.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.white,
+            NSFontAttributeName : font
+        ]
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        
+        
+        
         return true
     }
 
