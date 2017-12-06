@@ -17,37 +17,32 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     var feed = [ActivityFeed]()
     var posts = [ActivityPostModel]()//empty model to populate
     
-    //:: Test 2D array
-
-    
     var complete_feed = [
         [ActivityFeed](),
         [ActivityPostModel]()
     ] as [AnyObject]
-    var cFeedIndex: Int!
+    
+    var cFeedIndex: Int!//invalid
     
     private lazy var feedRef: DatabaseReference = Database.database().reference().child("Activity")         //:: Reference variable initialized to our Firebase reference
      private lazy var postRef: DatabaseReference = Database.database().reference().child("ActivityPost")
     var databaseHandle: DatabaseHandle? //:: Will retrieve reference from update feeds (fetchInfo())
     
-    var selectedSegment = 1
+    var selectedSegment = 0//1
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func activitySegmentedSelect(_ sender: UISegmentedControl) {
         
         if sender.selectedSegmentIndex == 0 {
-            selectedSegment = 1
+            selectedSegment = 0
         } else {
-            selectedSegment = 2
+            selectedSegment = 1
         }
-
-        cFeedIndex = sender.selectedSegmentIndex
         
         self.tableView.reloadData()//reload data when view changes
         
     }
-    
     
     var tapButton: UITapGestureRecognizer!
     var superIndexPath: Int!
@@ -56,18 +51,28 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         tableView.delegate = self
-        tableView.dataSource = self;
+        tableView.dataSource = self
+    
         tapButton = UITapGestureRecognizer(target: self, action: #selector(ActivityViewController.showActivity(recognizer:)))
+      
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
         fetchFeed()
         fetchPosts()
-        cFeedIndex = 0
-  
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//        print("the count is \(feed.count)")
+//        print("count is \(posts.count)")
+//    }
     
     func fetchFeed() {
         
         feedRef.observe(DataEventType.value, with: { snapshot in
-            self.feed.removeAll() // empty object
+           // self.feed.removeAll() // empty object
             guard let retrievedObjects = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Could not retrieve objects")
                 return
@@ -83,9 +88,11 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                 let object = ActivityFeed(userName: feed["userName"] as? String,
                                           itemName: feed["itemName"] as? String,
                                           profileImageUrl: feed["profileImageUrl"] as? String,
-                                          timeStamp: feed["timestamp"] as? String,
+                                          timeStamp: feed["timeStamp"] as? String,
                                           unitType: feed["units"] as? String,
-                                          amount: feed["amount"] as? Int)
+                                          amount: feed["amount"] as? Int,
+                                          inventoryID: feed["inventoryID"] as? String)
+                
                 self.feed.insert(object, at: 0)//populate model with fetched firebase data
             }
         })
@@ -102,6 +109,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         //:: PostRef will observe the child "Activty Post" in Firebase
         //:: Then will store their values inside an object : receivedPostObjects
         postRef.observe(DataEventType.value, with:{  snapshot in
+           // self.posts.removeAll()
             guard let receivedPostObjects = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Failed to receive Activity Post Objects");
                 return
@@ -126,27 +134,37 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             }
         })
                     // Gotta Read More About This ****
-                    DispatchQueue.main.async
-                        {
+                    DispatchQueue.main.async {
                             self.tableView.reloadData()  //:: Continously Update Information From Firebase
                     }
     }
     
-    func showActivity(recognizer: UITapGestureRecognizer)
-    {
+    func showActivity(recognizer: UITapGestureRecognizer) {
         print("Clicked...")
         performSegue(withIdentifier: "showActivityComment", sender: self)  //segue to new controller
     }
     
     
     
-    func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if cFeedIndex == 0 {
+    func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if selectedSegment == 0 {//0
+            print("feed CounT: \(feed.count)")
             return feed.count
-        } else {
+        }
+        else {
+             print("post CounT: \(posts.count)")
             return posts.count
         }
+        
+//        if selectedSegment == 1 { //logic to return cell we need
+//            print("Feed CounT: \(feed.count)")
+//            return feed.count
+//        } else {
+//
+//            print("Post CounT: \(posts.count)")
+//            return posts.count
+//        }
+        
      
     }
     
@@ -155,10 +173,12 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         let feedCell = tableView.dequeueReusableCell(withIdentifier: "actFeedCell") as! ActivityViewCell
         let postCell = tableView.dequeueReusableCell(withIdentifier: "actPostCell") as! ActivityPostCell
 
-       // if cFeedIndex == 0 {
-            let feedObject = feed[indexPath.row]
+        
             ///****
             ///////////////// Allocating data from firebase to the FEED OBJECT CELL
+        if (selectedSegment == 0){
+            print("Entered Feed")
+        let feedObject = feed[indexPath.row]
             feedCell.itemName.text = feedObject.itemName
             feedCell.amount.text = String(describing: feedObject.amount!)
             feedCell.unitType.text = feedObject.unitType
@@ -168,15 +188,16 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
 //            dateformatter.locale = NSLocale.current
 //            let dateFromString = dateformatter.date(from: feedObject.timeStamp!)
 //            let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
-            
             feedCell.timeStamp.text = "10 minutes ago"
             
             if let profileImage = feedObject.profileImageUrl {
                 feedCell.userPic.loadImageUsingCacheWithUrlString(urlString: profileImage)
             }
-       // }
-        
+        }
+        //Post Objects Load Here
       //  else if cFeedIndex == 1 {
+        else {
+            print("Entered Feed")
             let postObject = posts[indexPath.row]//accesser to model objects to populate cell
             
             //*****
@@ -200,7 +221,8 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             //****
   
        // }
-        if selectedSegment == 1 {//logic to return cell we need
+        }
+        if selectedSegment == 0 { //logic to return cell we need
             return feedCell
         } else {
             return postCell
@@ -210,14 +232,14 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     
     //:: Retrieving Index of Selected Table Row Cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         //segemented control logic
-        if selectedSegment == 1 {//passing data to feed cell if we need anything there
+        if selectedSegment == 0 {//passing data to feed cell if we need anything there
             performSegue(withIdentifier: "showActivityFeedComment", sender: self)
             tableView.deselectRow(at: indexPath, animated: true)
             
         } else { //passing data to the post comment section on user tap of cell
-            print("on user click to post comment section, will create")
+            //print("on user click to post comment section, will create")
+            tableView.deselectRow(at: indexPath, animated: true)
             
         }
     
@@ -256,27 +278,39 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
 //        print("\(feedActivityItemName)\n")
 //        print("\(feedItemAmount)\n")
 //        print("\(feedTimeStamp)\n")
-        print("Supposedly finished initialization")
+      //  print("Supposedly finished initialization")
         
     }
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if selectedSegment == 1{
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let activityFeedCommentView = segue.destination as? ActivityCommentController
+        if selectedSegment == 0{
+            
+            if segue.identifier == "showActivityFeedComment" {
                 
-                activityFeedCommentView?.activityUserName = feed[indexPath.row].userName
-                activityFeedCommentView?.activityItemName = feed[indexPath.row].itemName
-                activityFeedCommentView?.activityItemAmount = feed[indexPath.row].amount
-                activityFeedCommentView?.activityTimeStamp = feed[indexPath.row].timeStamp
-   
+                if let indexPath = self.tableView.indexPathForSelectedRow {
+                    guard let activityFeedCommentView = segue.destination as? ActivityCommentController else { return }
+                    print("Segue destination found: \(segue.destination != nil)")
+                    
+                    activityFeedCommentView.activityUserName = feed[indexPath.row].userName as String
+                    activityFeedCommentView.activityItemName = feed[indexPath.row].itemName as String
+                    activityFeedCommentView.activityItemAmount = feed[indexPath.row].amount as Int
+                    activityFeedCommentView.activityTimeStamp = feed[indexPath.row].timeStamp as String
+                    activityFeedCommentView.activityFeedID = feed[indexPath.row].inventoryID as String
+                    activityFeedCommentView.activityFeedImageURL = feed[indexPath.row].profileImageUrl as String
+                    
+                    activityFeedCommentView.observeComment()
+                    activityFeedCommentView.populateLabels()
+                    
+                    print("Activity feed test:\(activityFeedCommentView.activityUserName)")
+                }
             }
             
         } else {
-            
+
+
         }
-        
+    
    
     }
     
