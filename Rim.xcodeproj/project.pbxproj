@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3286DC950F72B781DC643EA2 /* Pods_Rim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5A56860AE27C1F8F296C96D /* Pods_Rim.framework */; };
 		A829F10A1F929D6800B7AC82 /* ActivitySelectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829F1091F929D6800B7AC82 /* ActivitySelectedController.swift */; };
+		A847FE4F1FD7D022005B4BB9 /* PostCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A847FE4E1FD7D022005B4BB9 /* PostCommentController.swift */; };
+		A847FE511FD87DD3005B4BB9 /* PostCommentCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A847FE501FD87DD1005B4BB9 /* PostCommentCellTableViewCell.swift */; };
 		A8562AD01F8D31D100419B62 /* ActivityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8562ACF1F8D31D100419B62 /* ActivityViewCell.swift */; };
 		A8E0DA801F8D9ED1005AFB0E /* ActivityFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E0DA7F1F8D9ED1005AFB0E /* ActivityFeed.swift */; };
 		EE0747E21F69E4B50055CC52 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0747E11F69E4B50055CC52 /* ActivityViewController.swift */; };
@@ -54,6 +56,8 @@
 		74B2F8EAA5552B7925D4D723 /* Pods-Rim.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rim.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rim/Pods-Rim.debug.xcconfig"; sourceTree = "<group>"; };
 		855CBB49954BB31B25518234 /* Pods-Rim.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rim.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rim/Pods-Rim.release.xcconfig"; sourceTree = "<group>"; };
 		A829F1091F929D6800B7AC82 /* ActivitySelectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySelectedController.swift; sourceTree = "<group>"; };
+		A847FE4E1FD7D022005B4BB9 /* PostCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentController.swift; sourceTree = "<group>"; };
+		A847FE501FD87DD1005B4BB9 /* PostCommentCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentCellTableViewCell.swift; sourceTree = "<group>"; };
 		A8562ACF1F8D31D100419B62 /* ActivityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewCell.swift; sourceTree = "<group>"; };
 		A8E0DA7F1F8D9ED1005AFB0E /* ActivityFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeed.swift; sourceTree = "<group>"; };
 		D5A56860AE27C1F8F296C96D /* Pods_Rim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +168,7 @@
 				EE0AA0F91FAAD31A00F0A486 /* UnitCell.swift */,
 				EE3B55C21FBBE3DB00219DFC /* ActivityCommentCell.swift */,
 				EE35CAD91FC0F99D0099C6CE /* ActivityPostCell.swift */,
+				A847FE501FD87DD1005B4BB9 /* PostCommentCellTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				EE0747E11F69E4B50055CC52 /* ActivityViewController.swift */,
 				EEC6F1D41FC0BB8800958811 /* ActivityCommentController.swift */,
 				EEC6F1D61FC0BBD600958811 /* ActivityPostController.swift */,
+				A847FE4E1FD7D022005B4BB9 /* PostCommentController.swift */,
 			);
 			name = "Activity Controllers";
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				EE98C25F1F73297000056C80 /* MyTeamViewController.swift in Sources */,
 				EE1AF5741F66165D0024AA01 /* AppDelegate.swift in Sources */,
 				A8562AD01F8D31D100419B62 /* ActivityViewCell.swift in Sources */,
+				A847FE511FD87DD3005B4BB9 /* PostCommentCellTableViewCell.swift in Sources */,
 				EE3B55C31FBBE3DB00219DFC /* ActivityCommentCell.swift in Sources */,
 				EEA511111F82E27A00EC97C9 /* CreateChannelCell.swift in Sources */,
 				EE0AA0F41F9E98A800F0A486 /* ChannelCell.swift in Sources */,
@@ -454,6 +461,7 @@
 				EE77E0931F7091150055745A /* User.swift in Sources */,
 				EEA5110C1F82DB0100EC97C9 /* ChannelListViewController.swift in Sources */,
 				A8E0DA801F8D9ED1005AFB0E /* ActivityFeed.swift in Sources */,
+				A847FE4F1FD7D022005B4BB9 /* PostCommentController.swift in Sources */,
 				EE77E0911F7082140055745A /* RegisterViewController.swift in Sources */,
 				EE0AA0FA1FAAD31A00F0A486 /* UnitCell.swift in Sources */,
 			);

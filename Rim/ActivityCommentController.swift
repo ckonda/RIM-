@@ -82,7 +82,7 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
         
         return stringDate
     }
-    
+    //:: Code Referenced from Brian Advent YouTube channel
     @IBAction func addComment(_ sender: Any) {
         let commentAlert = UIAlertController(title: "New Comment", message:"Enter Your Comment", preferredStyle: .alert)
         
@@ -110,7 +110,7 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
         
         self.present(commentAlert, animated:true, completion: nil)
     }
-    
+    //:: Code Referenced from Brian Advent YouTube channel
     func observeComment() {
         
         Ref.child(activityFeedID).observe(DataEventType.value, with: { (snapshot: DataSnapshot) in

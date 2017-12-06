@@ -16,13 +16,15 @@ public class ActivityPostModel: NSObject
     var userTimestamp: String?
     var userProfileImage: String?
     var userName: String?
+    var postID : String?
     
-    init(userPost: String?, userTimestamp: String?, userProfileImage: String?, userName: String?)
+    init(userPost: String?, userTimestamp: String?, userProfileImage: String?, userName: String?, postID: String?)
     {
         self.userPost = userPost
         self.userTimestamp = userTimestamp
         self.userProfileImage = userProfileImage
         self.userName = userName
+        self.postID = postID
     }
     
     

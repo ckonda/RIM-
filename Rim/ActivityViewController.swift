@@ -78,7 +78,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         
 
         feedRef.observe(DataEventType.value, with: { snapshot in
-           // self.feed.removeAll() // empty object
+            self.feed.removeAll() // empty object
             guard let retrievedObjects = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Could not retrieve objects")
                 return
@@ -115,7 +115,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         //:: PostRef will observe the child "Activty Post" in Firebase
         //:: Then will store their values inside an object : receivedPostObjects
         postRef.observe(DataEventType.value, with:{  snapshot in
-           // self.posts.removeAll()
+            self.posts.removeAll()
             guard let receivedPostObjects = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Failed to receive Activity Post Objects");
                 return
@@ -133,7 +133,8 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             let postObject = ActivityPostModel(userPost: uniquePost["post"] as? String,
                                                userTimestamp: uniquePost["timestamp"] as? String,
                                                userProfileImage: uniquePost["profileImageUrl"] as? String,
-                                               userName: uniquePost["userName"] as? String)
+                                               userName: uniquePost["userName"] as? String,
+                                               postID: uniquePost["postID"] as? String)
             
                 //:: Then they will be inserted to the posts array
             self.posts.insert(postObject, at: 0)
@@ -164,14 +165,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             return posts.count
         }
         
-//        if selectedSegment == 1 { //logic to return cell we need
-//            print("Feed CounT: \(feed.count)")
-//            return feed.count
-//        } else {
-//
-//            print("Post CounT: \(posts.count)")
-//            return posts.count
-//        }
+
         
      
     }
@@ -205,7 +199,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         //Post Objects Load Here
       //  else if cFeedIndex == 1 {
         else {
-            print("Entered Feed")
+            print("Entered Posts")
             let postObject = posts[indexPath.row]//accesser to model objects to populate cell
             
             //*****
@@ -247,6 +241,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             
         } else { //passing data to the post comment section on user tap of cell
             //print("on user click to post comment section, will create")
+//            performSegue(withIdentifier: "postCommentSegue", sender: self)
             tableView.deselectRow(at: indexPath, animated: true)
             
         }
@@ -296,7 +291,6 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             
             if segue.identifier == "showActivityFeedComment" {
                 
-
                 if let indexPath = self.tableView.indexPathForSelectedRow {
                     guard let activityFeedCommentView = segue.destination as? ActivityCommentController else { return }
                     print("Segue destination found: \(segue.destination != nil)")
@@ -317,7 +311,23 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
         } else {
-
+            
+            if segue.identifier == "postCommentSegue"{
+                
+                if let indexPath = self.tableView.indexPathForSelectedRow {
+                    guard let activityPostCommentView = segue.destination as? PostCommentController else {return}
+                    print("Segue Destination Found: \(segue.destination != nil)")
+                    
+                    activityPostCommentView.activityPostID = posts[indexPath.row].postID as! String
+                    activityPostCommentView.activityPostUserName = posts[indexPath.row].userName as! String
+                    activityPostCommentView.activityPostTimeStamp = posts[indexPath.row].userTimestamp as! String
+                    activityPostCommentView.activityPostImageURL = posts[indexPath.row].userProfileImage as! String
+                    activityPostCommentView.activityPostContent = posts[indexPath.row].userPost as! String
+                    activityPostCommentView.observeComments()
+                    activityPostCommentView.populateLabels()
+                }
+                
+            }
 
         }
     
