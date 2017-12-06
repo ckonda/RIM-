@@ -25,6 +25,12 @@ public class ActivityViewCell: UITableViewCell
     public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        userPic.layer.cornerRadius = userPic.frame.size.width/2
+        userPic.clipsToBounds = true
+        userPic.layer.borderColor = UIColor.white.cgColor
+        userPic.layer.borderWidth = 1
+        
     }
     
     public override func setSelected(_ selected: Bool, animated: Bool) {

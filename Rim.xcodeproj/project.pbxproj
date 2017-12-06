@@ -38,6 +38,13 @@
 		EEA5110C1F82DB0100EC97C9 /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA5110B1F82DB0100EC97C9 /* ChannelListViewController.swift */; };
 		EEA5110F1F82DD0F00EC97C9 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA5110E1F82DD0F00EC97C9 /* Channel.swift */; };
 		EEA511111F82E27A00EC97C9 /* CreateChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA511101F82E27A00EC97C9 /* CreateChannelCell.swift */; };
+		EEA8FBBB1FD766820047545F /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBB91FD766760047545F /* Raleway-Regular.ttf */; };
+		EEA8FBBC1FD766870047545F /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBBA1FD7667C0047545F /* Raleway-Light.ttf */; };
+		EEA8FBBD1FD767440047545F /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBB41FD764B30047545F /* Montserrat-Medium.ttf */; };
+		EEA8FBBE1FD767440047545F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBB51FD764C10047545F /* Montserrat-Regular.ttf */; };
+		EEA8FBBF1FD767440047545F /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBB61FD7656C0047545F /* Quicksand-Regular.ttf */; };
+		EEA8FBC01FD767440047545F /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBB71FD765740047545F /* Quicksand-Light.ttf */; };
+		EEA8FBC11FD767440047545F /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8FBB81FD765AC0047545F /* Muli-Regular.ttf */; };
 		EEC6F1D51FC0BB8800958811 /* ActivityCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6F1D41FC0BB8800958811 /* ActivityCommentController.swift */; };
 		EEC6F1D71FC0BBD600958811 /* ActivityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6F1D61FC0BBD600958811 /* ActivityPostController.swift */; };
 		EED190EE1F8ACF56009BDBB5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED190ED1F8ACF56009BDBB5 /* ChatViewController.swift */; };
@@ -79,6 +86,13 @@
 		EEA5110B1F82DB0100EC97C9 /* ChannelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelListViewController.swift; sourceTree = "<group>"; };
 		EEA5110E1F82DD0F00EC97C9 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		EEA511101F82E27A00EC97C9 /* CreateChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateChannelCell.swift; sourceTree = "<group>"; };
+		EEA8FBB41FD764B30047545F /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		EEA8FBB51FD764C10047545F /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		EEA8FBB61FD7656C0047545F /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
+		EEA8FBB71FD765740047545F /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.ttf"; sourceTree = "<group>"; };
+		EEA8FBB81FD765AC0047545F /* Muli-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Muli-Regular.ttf"; sourceTree = "<group>"; };
+		EEA8FBB91FD766760047545F /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		EEA8FBBA1FD7667C0047545F /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
 		EEC6F1D41FC0BB8800958811 /* ActivityCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCommentController.swift; sourceTree = "<group>"; };
 		EEC6F1D61FC0BBD600958811 /* ActivityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPostController.swift; sourceTree = "<group>"; };
 		EED190ED1F8ACF56009BDBB5 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +199,7 @@
 		EE1AF5721F66165D0024AA01 /* Rim */ = {
 			isa = PBXGroup;
 			children = (
+				EEA8FBAF1FD75C910047545F /* Fonts */,
 				EE98C2671F79DBBA00056C80 /* Helpers */,
 				EE0747DE1F69E3F50055CC52 /* Model */,
 				EE0747E01F69E4110055CC52 /* View */,
@@ -223,6 +238,20 @@
 				EED190ED1F8ACF56009BDBB5 /* ChatViewController.swift */,
 			);
 			name = "Chat Controllers";
+			sourceTree = "<group>";
+		};
+		EEA8FBAF1FD75C910047545F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EEA8FBB41FD764B30047545F /* Montserrat-Medium.ttf */,
+				EEA8FBB51FD764C10047545F /* Montserrat-Regular.ttf */,
+				EEA8FBB61FD7656C0047545F /* Quicksand-Regular.ttf */,
+				EEA8FBB71FD765740047545F /* Quicksand-Light.ttf */,
+				EEA8FBB81FD765AC0047545F /* Muli-Regular.ttf */,
+				EEA8FBB91FD766760047545F /* Raleway-Regular.ttf */,
+				EEA8FBBA1FD7667C0047545F /* Raleway-Light.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		EEC6F1D31FC0BB7800958811 /* Activity Controllers */ = {
@@ -300,6 +329,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEA8FBBD1FD767440047545F /* Montserrat-Medium.ttf in Resources */,
+				EEA8FBBE1FD767440047545F /* Montserrat-Regular.ttf in Resources */,
+				EEA8FBBF1FD767440047545F /* Quicksand-Regular.ttf in Resources */,
+				EEA8FBC01FD767440047545F /* Quicksand-Light.ttf in Resources */,
+				EEA8FBC11FD767440047545F /* Muli-Regular.ttf in Resources */,
+				EEA8FBBC1FD766870047545F /* Raleway-Light.ttf in Resources */,
+				EEA8FBBB1FD766820047545F /* Raleway-Regular.ttf in Resources */,
 				EE1AF58A1F661C6B0024AA01 /* GoogleService-Info.plist in Resources */,
 				EE1AF57E1F66165D0024AA01 /* LaunchScreen.storyboard in Resources */,
 				EE1AF57B1F66165D0024AA01 /* Assets.xcassets in Resources */,
@@ -487,7 +523,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+>>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -531,7 +571,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+>>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -546,7 +590,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B4YS4N473A;
 				INFOPLIST_FILE = Rim/Info.plist;
+<<<<<<< HEAD
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+>>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MAC.Rim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -561,7 +609,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B4YS4N473A;
 				INFOPLIST_FILE = Rim/Info.plist;
+<<<<<<< HEAD
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+>>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MAC.Rim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
