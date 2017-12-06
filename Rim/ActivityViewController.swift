@@ -19,18 +19,13 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     
     //:: Test 2D array
 
-    
-    var complete_feed = [
-        [ActivityFeed](),
-        [ActivityPostModel]()
-    ] as [AnyObject]
     var cFeedIndex: Int!
     
     private lazy var feedRef: DatabaseReference = Database.database().reference().child("Activity")         //:: Reference variable initialized to our Firebase reference
      private lazy var postRef: DatabaseReference = Database.database().reference().child("ActivityPost")
     var databaseHandle: DatabaseHandle? //:: Will retrieve reference from update feeds (fetchInfo())
     
-    var selectedSegment = 1
+    var selectedSegment = 0
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -42,7 +37,6 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             selectedSegment = 2
         }
 
-        cFeedIndex = sender.selectedSegmentIndex
         
         self.tableView.reloadData()//reload data when view changes
         
@@ -142,7 +136,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if cFeedIndex == 0 {
+        if selectedSegment == 0 {
             return feed.count
         } else {
             return posts.count
@@ -269,7 +263,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                 activityFeedCommentView?.activityUserName = feed[indexPath.row].userName
                 activityFeedCommentView?.activityItemName = feed[indexPath.row].itemName
                 activityFeedCommentView?.activityItemAmount = feed[indexPath.row].amount
-                activityFeedCommentView?.activityTimeStamp = feed[indexPath.row].timeStamp
+//                activityFeedCommentView?.activityTimeStamp = feed[indexPath.row].timeStamp
    
             }
             

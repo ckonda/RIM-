@@ -87,6 +87,10 @@ class ActivityCommentController: UITableViewController {
             }
         }))
         
+        commentAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        
+    
+        
         self.present(commentAlert, animated:true, completion: nil)
         
     }
