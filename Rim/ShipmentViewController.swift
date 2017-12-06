@@ -149,14 +149,12 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
 
                     let inventory = self.Ref.childByAutoId()// creating autp id for inventory
                     let activity = self.activityRef.childByAutoId()//creating auto id for activity
-<<<<<<< HEAD
 
-=======
                     let commentKey = activity.key//string key for activity
                     
                     let commentRef = self.commentsRef.child(commentKey)
                     
->>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
+
                    
                     // JSON Dictionary
                     let product = [//to make sure the team aligns with each company
