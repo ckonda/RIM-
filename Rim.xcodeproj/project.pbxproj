@@ -278,7 +278,7 @@
 				EE1AF56E1F66165D0024AA01 /* Resources */,
 				53D762D2460885C28F77A5C3 /* [CP] Embed Pods Frameworks */,
 				C2A35AD907E0799B73045265 /* [CP] Copy Pods Resources */,
-				EE0AA0FB1FABE1C000F0A486 /* Run Script */,
+				EE0AA0FB1FABE1C000F0A486 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -407,14 +407,13 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rim/Pods-Rim-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EE0AA0FB1FABE1C000F0A486 /* Run Script */ = {
+		EE0AA0FB1FABE1C000F0A486 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -523,11 +522,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-=======
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
->>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -571,11 +566,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-=======
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
->>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -590,11 +581,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B4YS4N473A;
 				INFOPLIST_FILE = Rim/Info.plist;
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-=======
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
->>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MAC.Rim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -609,11 +596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B4YS4N473A;
 				INFOPLIST_FILE = Rim/Info.plist;
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-=======
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
->>>>>>> 0bba400000427d20640c12bf9cd52a9a1ecb3a98
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MAC.Rim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
