@@ -9,7 +9,8 @@ import UIKit
 
 public class ActivityPostCell: UITableViewCell {
     
-    @IBOutlet weak var activityPost: UILabel!
+    @IBOutlet weak var activityPost: UITextView! //change to text view
+    
     @IBOutlet weak var activityUserName: UILabel!
     @IBOutlet weak var activityTimeStamp: UILabel!
     @IBOutlet weak var activityUserImage: UIImageView!

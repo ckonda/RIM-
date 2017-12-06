@@ -72,7 +72,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
     func fetchFeed() {
         
         feedRef.observe(DataEventType.value, with: { snapshot in
-           // self.feed.removeAll() // empty object
+            self.feed.removeAll() // empty object
             guard let retrievedObjects = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Could not retrieve objects")
                 return
@@ -109,7 +109,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         //:: PostRef will observe the child "Activty Post" in Firebase
         //:: Then will store their values inside an object : receivedPostObjects
         postRef.observe(DataEventType.value, with:{  snapshot in
-           // self.posts.removeAll()
+            self.posts.removeAll()
             guard let receivedPostObjects = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Failed to receive Activity Post Objects");
                 return
@@ -177,18 +177,19 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             ///****
             ///////////////// Allocating data from firebase to the FEED OBJECT CELL
         if (selectedSegment == 0){
-            print("Entered Feed")
+
         let feedObject = feed[indexPath.row]
             feedCell.itemName.text = feedObject.itemName
             feedCell.amount.text = String(describing: feedObject.amount!)
             feedCell.unitType.text = feedObject.unitType
-//            let dateformatter = DateFormatter()
-//            dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-//            dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-//            dateformatter.locale = NSLocale.current
-//            let dateFromString = dateformatter.date(from: feedObject.timeStamp!)
-//            let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
-            feedCell.timeStamp.text = "10 minutes ago"
+            
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+            dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+            dateformatter.locale = NSLocale.current
+            let dateFromString = dateformatter.date(from: feedObject.timeStamp!)
+            let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+            feedCell.timeStamp.text = timeAgo
             
             if let profileImage = feedObject.profileImageUrl {
                 feedCell.userPic.loadImageUsingCacheWithUrlString(urlString: profileImage)
@@ -197,7 +198,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         //Post Objects Load Here
       //  else if cFeedIndex == 1 {
         else {
-            print("Entered Feed")
+
             let postObject = posts[indexPath.row]//accesser to model objects to populate cell
             
             //*****
@@ -205,14 +206,14 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
             
             postCell.activityUserName.text = postObject.userName
             postCell.activityPost.text = postObject.userPost
-//            let dateformatter = DateFormatter()
-//            dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-//            dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
-//            dateformatter.locale = NSLocale.current
-//            let postDateString = dateformatter.date(from: postObject.userTimestamp!) //new var to create the post timestamp
-//            let postTimeStamp = self.timeAgoSinceDate(postDateString!, numericDates: true)
-//            postCell.activityTimeStamp.text = postTimeStamp
-            postCell.activityTimeStamp.text = "20 minutes ago"
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+            dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+            dateformatter.locale = NSLocale.current
+            let postDateString = dateformatter.date(from: postObject.userTimestamp!) //new var to create the post timestamp
+            let postTimeStamp = self.timeAgoSinceDate(postDateString!, numericDates: true)
+            postCell.activityTimeStamp.text = postTimeStamp
+  
             
             if let profileImage = postObject.userProfileImage {
                 postCell.activityUserImage.loadImageUsingCacheWithUrlString(urlString: profileImage)
