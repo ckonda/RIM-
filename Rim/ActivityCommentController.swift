@@ -36,7 +36,6 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setLabels()
 //        observeComment()// placed in the previous vc to populate before view loads
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,6 +44,9 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
         commentsImage.clipsToBounds = true
         commentsImage.layer.borderColor = UIColor.white.cgColor
         commentsImage.layer.borderWidth = 1
+        
+        addCommentOutlet.layer.cornerRadius = 10
+        addCommentOutlet.clipsToBounds = true
         
     }
     
@@ -82,6 +84,10 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
         
         return stringDate
     }
+    
+    
+    @IBOutlet weak var addCommentOutlet: UIButton!
+    
     //:: Code Referenced from Brian Advent YouTube channel
     @IBAction func addComment(_ sender: Any) {
         let commentAlert = UIAlertController(title: "New Comment", message:"Enter Your Comment", preferredStyle: .alert)
@@ -114,7 +120,7 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
     func observeComment() {
         
         Ref.child(activityFeedID).observe(DataEventType.value, with: { (snapshot: DataSnapshot) in
-            
+            self.activityComments.removeAll()
             guard let commentData = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("Could not retrieve objects")
                 return
@@ -144,8 +150,12 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
         return activityComments.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140 // height for each row column to be at
+        return 100 // height for each row column to be at
     }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,8 +164,16 @@ class ActivityCommentController: UIViewController, UITableViewDelegate, UITableV
         let comment = activityComments[indexPath.row]
         
         cell.userName.text = comment.username
-        cell.postTime.text = comment.timeStamp
         cell.commentContent.text = comment.comment
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+        dateformatter.locale = NSLocale.current
+        let postDateString = dateformatter.date(from: comment.timeStamp) //new var to create the post timestamp
+        let postTime = self.timeAgoSinceDate(postDateString!, numericDates: true)
+        cell.postTime.text = postTime
+        
         
         if let profileImage = comment.profileImageURL {
             cell.userImage.loadImageUsingCacheWithUrlString(urlString: profileImage)

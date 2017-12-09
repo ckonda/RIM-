@@ -139,7 +139,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         
                         AppDelegate.user.initialize(username: name, email: self.emailTextField.text, password: self.passwordTextField.text, userID: uid, profileImageUrl: profileImageUrl, position: position, company: company)
                         
-                        let MyTeamRef = self.ref.child("MyTeam").child(uid)
+                        let MyTeamRef = self.ref.child("myTeam").child(uid)
                         
                         let teamJSON = [//to make sure the team aligns with each company
                             "position": position,

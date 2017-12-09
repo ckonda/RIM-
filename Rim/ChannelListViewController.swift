@@ -22,10 +22,16 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func createChannelButton(_ sender: Any) {
     }
     
+    @IBOutlet weak var createChannelButtonOutlet: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         observeChannels()
         self.hideKeyboardWhenTappedAround()//when view is tapped outside of the box, dismiss
+        
+        createChannelButtonOutlet.layer.cornerRadius = 15
+        createChannelButtonOutlet.clipsToBounds = true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,10 +58,10 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 timeQuery.observe(DataEventType.value, with: { (snapshot) in
                     switch snapshot.childrenCount {
-                    case 1:
+                    case 2:
                         print("Channel was created, not populated")
                         channelCell.timeStamp.text = ""
-                    case 2:
+                    case 3:
                         timeQuery2.observeSingleEvent(of: DataEventType.childAdded, with: { (snapshot) in
                             guard let time = snapshot.value as? [String: Any] else {
                                 print("error on time snapshot")//guard if does not caputure time JSON
@@ -96,40 +102,12 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 let channelNames = snapshot.value as? [String: AnyObject]
                 
-//                if snapshot.childSnapshot(forPath: "messages").exists(){
-//                    print("theres messags")
-//                    newRef.child("messages").queryLimited(toLast: 1)
-//
-//                    let timeStamp = snapshot.childSnapshot(forPath: "messages")
-//                    print(timeStamp!)
-//
-//                }else{
-//
-//                    print("no messages yet")
-//                }
-////
-//                print(timeExists!)
-//                guard let timeStamp = snapshot.childSnapshot(forPath: "messages").value as? [String: AnyObject] else {
-//                    print("No timestamp here")
-//                    return
-//                }
-//
-//                guard let newTimeStamp = timeStamp["timestamp"] as? String else {
-//                    print("can't find timestamp")
-//                    return
-//                }
-//                print(newTimeStamp)
-                
-//                if let newTimeStamp = timeStamp["timestamp"] as? String {
-//                    print(newTimeStamp)
-//                }
-//
-                if let name = channelNames?["channelName"] as? String {
+                if let name = channelNames?["channelName"] as? String, let companyName = channelNames?["company"] as? String {
          
-                    let isUnique = !self.channels.contains { channel in//bug fix to stop channel load duplication
+                    let isUnique = !self.channels.contains { channel in //bug fix to stop channel load duplication
                         return channel.channelID == id
                     }
-                    if isUnique {
+                    if isUnique && (AppDelegate.user.company?.lowercased() == companyName.lowercased()) { //company comparison to match
                         self.channels.insert(Channel(channelName: name, channelID: id, mostRecentTimestamp: nil), at: 0)
                     }
                 }
@@ -159,7 +137,7 @@ class ChannelListViewController: UIViewController, UITableViewDataSource, UITabl
             
             if let channelName = newChannelTextField?.text, channelName != "" {
                 let newChannelRef = channelRef.childByAutoId() //storing channel name on button action to Firebase
-                let channelItem = ["channelName": channelName]
+                let channelItem = ["channelName": channelName,"company": AppDelegate.user.company]
                 newChannelRef.setValue(channelItem)
                 
                 let channel = Channel( //json package for firebase

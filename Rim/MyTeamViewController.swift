@@ -50,7 +50,7 @@ class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                             position: team["position"] as! String?,
                                             company: company)
                     
-                    if AppDelegate.user.company == company {//checks if it is the same company
+                    if AppDelegate.user.company?.lowercased() == company?.lowercased() {//checks if it is the same company
                         self.teamModel.insert(teamObject, at: 0)
                     }
                 }
@@ -67,6 +67,10 @@ class MyTeamViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     @IBOutlet weak var tableView: UITableView!

@@ -20,9 +20,14 @@ class ActivityPostController: UIViewController, UITextFieldDelegate {
         postStatus.layer.borderWidth = 1.0
         postStatus.layer.cornerRadius = 5
         
+        postButtonOutlet.layer.cornerRadius = 10
+        postButtonOutlet.clipsToBounds = true
+     
+        
     }
   @IBOutlet weak var postStatus: UITextView!
 
+    @IBOutlet weak var postButtonOutlet: UIButton!
     @IBAction func postButton(_ sender: Any) {
         
         sendPostToFirebase()
@@ -59,7 +64,8 @@ class ActivityPostController: UIViewController, UITextFieldDelegate {
                 "userID": userID,
                 "postID": postRef.key,
                 "post": post,
-                "userName" : AppDelegate.user.username!
+                "userName" : AppDelegate.user.username!,
+                "company": AppDelegate.user.company! //comapny name added
                 ] as [String: Any]
             
             postRef.setValue(status)//value placed in firebase JSON

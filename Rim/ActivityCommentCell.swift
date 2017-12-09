@@ -18,6 +18,11 @@ class ActivityCommentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        userImage.layer.cornerRadius = userImage.frame.size.width/2
+        userImage.clipsToBounds = true
+        userImage.layer.borderColor = UIColor.white.cgColor
+        userImage.layer.borderWidth = 1
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

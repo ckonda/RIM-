@@ -21,6 +21,13 @@ public class MyTeamCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    public override func awakeFromNib() {
+        profileImage.layer.cornerRadius = profileImage.frame.size.width/2
+        profileImage.clipsToBounds = true
+        profileImage.layer.borderColor = UIColor.white.cgColor
+        profileImage.layer.borderWidth = 1
+    }
+    
     public func configure(name: String, position: String, profileImage: UIImage) {
         
         self.name.text = name

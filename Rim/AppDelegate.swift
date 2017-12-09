@@ -34,9 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         UIApplication.shared.statusBarStyle = .lightContent
         
-        
-        
-        
         return true
     }
 

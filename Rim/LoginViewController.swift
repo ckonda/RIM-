@@ -19,6 +19,12 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         emailtextField.delegate = self
         passwordtextField.delegate = self
 
+        loginButtonOutlet.layer.cornerRadius = 10
+        loginButtonOutlet.clipsToBounds = true
+        registerButtonOutlet.layer.cornerRadius = 10
+        registerButtonOutlet.clipsToBounds = true
+        
+        
     }
     @IBOutlet weak var emailtextField: UITextField!
     
@@ -82,14 +88,17 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         })
         //self.performSegue(withIdentifier: "gotoMain", sender: self)
     }
-
+    
+    @IBOutlet weak var loginButtonOutlet: UIButton!
+    
     @IBAction func loginButton(_ sender: Any) {
 
         handleLogin()//auth with username and password
         
     }
 
-    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var registerButtonOutlet: UIButton!
+    
     @IBAction func registerButton(_ sender: Any) {
         
         performSegue(withIdentifier: "gotoRegister", sender: self)

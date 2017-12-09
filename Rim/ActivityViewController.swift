@@ -99,7 +99,12 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                                           amount: feed["amount"] as? Int,
                                           inventoryID: feed["inventoryID"] as? String)
                 
-                self.feed.insert(object, at: 0)//populate model with fetched firebase data
+                let companyName = feed["company"] as? String
+                
+                if AppDelegate.user.company?.lowercased() == companyName?.lowercased() {
+                     self.feed.insert(object, at: 0)//populate model with fetched firebase data
+                }
+                
             }
         })
         
@@ -136,8 +141,13 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                                                userName: uniquePost["userName"] as? String,
                                                postID: uniquePost["postID"] as? String)
             
+                let companyName = uniquePost["company"] as? String
                 //:: Then they will be inserted to the posts array
-            self.posts.insert(postObject, at: 0)
+                if AppDelegate.user.company?.lowercased() == companyName?.lowercased() {
+                    self.posts.insert(postObject, at: 0)
+                }
+                
+            
             }
         })
                     // Gotta Read More About This ****
@@ -245,46 +255,10 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
         } else { //passing data to the post comment section on user tap of cell
             //print("on user click to post comment section, will create")
 //            performSegue(withIdentifier: "postCommentSegue", sender: self)
+            performSegue(withIdentifier: "postCommentSegue", sender: self)
             tableView.deselectRow(at: indexPath, animated: true)
             
         }
-    
-//        let index = indexPath.row
-//        //:: Instantiate a type of "ActivityCommentController" (check storyboard ID)
-//        let activityCommentControllerAccessor = self.storyboard?.instantiateViewController(withIdentifier: "ActivityCommentController") as! ActivityCommentController
-//        //:: Access ActivityCommentController's labels (name,timeStamp,etc.)
-//        //:: Then set the labels equal to values inside the ActivityFeedObject (using index for Feed Array)
-//        guard let feedUserName = self.feed[index].userName else{
-//            print("No value in Feed Object User Name\n");
-//            return
-//        }
-//        guard let feedActivityItemName = self.feed[index].itemName else {
-//            print("No value in Feed Object Item\n");
-//            return
-//        }
-//        guard let feedItemAmount = self.feed[index].amount else {
-//            print("No Value in Feed Object amount");
-//            return
-//        }
-////        guard let feedTimeStamp = feed[index].timeStamp else {
-////            print("No Value in Feed Time Stamp");
-////            return
-////        }
-//
-//        activityCommentControllerAccessor.activityUserName = feedUserName
-//        activityCommentControllerAccessor.activityItemName = feedActivityItemName
-//        activityCommentControllerAccessor.activityItemAmount = String(describing: feedItemAmount)
-        //activityCommentControllerAccessor.setLabels()
-//        activityCommentControllerAccessor.timeStamp.text = feedTimeStamp
-        
-//        print("\(activityCommentControllerAccessor.userName.text)\n")
-//        print("\(activityCommentControllerAccessor.activityInfo.text)\n")
-//        print("\(activityCommentControllerAccessor.itemAmount.text)\n")
-//        print("\(feedUserName)\n")
-//        print("\(feedActivityItemName)\n")
-//        print("\(feedItemAmount)\n")
-//        print("\(feedTimeStamp)\n")
-      //  print("Supposedly finished initialization")
         
     }
     
@@ -325,7 +299,7 @@ class ActivityViewController: UIViewController, UITableViewDelegate, UITableView
                     activityPostCommentView.activityPostUserName = posts[indexPath.row].userName as! String
                     activityPostCommentView.activityPostTimeStamp = posts[indexPath.row].userTimestamp as! String
                     activityPostCommentView.activityPostImageURL = posts[indexPath.row].userProfileImage as! String
-                    activityPostCommentView.activityPostContent = posts[indexPath.row].userPost as! String
+                    activityPostCommentView.activityPostContent = posts[indexPath.row].userPost as! String!
                     activityPostCommentView.observeComments()
                     activityPostCommentView.populateLabels()
                 }

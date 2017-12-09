@@ -16,6 +16,9 @@ class TransactionViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var Ref: DatabaseReference = Database.database().reference().child("Inventory")
     
+    
+    @IBOutlet weak var sendButtonOutlet: UIButton!
+    
     @IBAction func sendButton(_ sender: Any) {
         
         if let itemName = productName?.text, let number = productAmount?.text {
@@ -52,6 +55,9 @@ class TransactionViewController: UIViewController, UITextFieldDelegate {
         productAmount.layer.borderColor = UIColor(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0).cgColor
         productAmount.layer.borderWidth = 1.0
         productAmount.layer.cornerRadius = 5
+        
+        sendButtonOutlet.layer.cornerRadius = 10
+        sendButtonOutlet.clipsToBounds = true
         
     }
     

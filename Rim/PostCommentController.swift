@@ -47,6 +47,9 @@ class PostCommentController : UIViewController, UITableViewDelegate, UITableView
         postUserPic.clipsToBounds = true
         postUserPic.layer.borderColor = UIColor.white.cgColor
         postUserPic.layer.borderWidth = 1
+        
+        addCommentOutlet.layer.cornerRadius = 10
+        addCommentOutlet.clipsToBounds = true
     
     }
     
@@ -66,7 +69,15 @@ class PostCommentController : UIViewController, UITableViewDelegate, UITableView
         }
         
         postUserName.text = activityPostUserName
-        postTimeStamp.text = activityPostTimeStamp
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+        dateformatter.locale = NSLocale.current
+        let postDateString = dateformatter.date(from: activityPostTimeStamp) //new var to create the post timestamp
+        let postTime = self.timeAgoSinceDate(postDateString!, numericDates: true)
+        postTimeStamp.text = postTime
+        
         postContent.text = activityPostContent
         
         Storage.storage().reference(forURL: activityPostImageURL).downloadURL { (data, error) in
@@ -79,6 +90,10 @@ class PostCommentController : UIViewController, UITableViewDelegate, UITableView
         print("Post Comment Controller Awake From Nib")
         let _ = self.view
     }
+    
+    
+    @IBOutlet weak var addCommentOutlet: UIButton!
+    
     //:: Code Referenced from Brian Advent YouTube channel
     @IBAction func addComment(_ sender: UIButton) {
         //:: Initializing Alert Box
@@ -113,7 +128,7 @@ class PostCommentController : UIViewController, UITableViewDelegate, UITableView
     func observeComments() {
         //:: Checking the Comments from Respective Post ID
         Ref.child(activityPostID).observe(DataEventType.value, with: {(snapshot: DataSnapshot) in
-            
+            self.postComments.removeAll() // remove from cache
             //:: Retrieving all data and storing it into array
             guard let commentData =
             snapshot.children.allObjects as? [DataSnapshot] else {
@@ -146,7 +161,11 @@ class PostCommentController : UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140 // height for each row column to be at
+        return 110 // height for each row column to be at
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true) 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,7 +173,16 @@ class PostCommentController : UIViewController, UITableViewDelegate, UITableView
         
         let comment = postComments[indexPath.row]
         cell.username.text = comment.username
-        cell.timeStamp.text = comment.timeStamp
+        
+        //set date here for the comment.timestamp
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+        dateformatter.locale = NSLocale.current
+        let dateFromString = dateformatter.date(from: comment.timeStamp!)
+        let timeAgo: String = self.timeAgoSinceDate((dateFromString)!, numericDates: true)
+        cell.timeStamp.text = timeAgo
+        
         cell.comment.text = comment.comment
         
         if let profilePic = comment.profileImageURL {

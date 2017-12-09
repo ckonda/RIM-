@@ -4,7 +4,6 @@
 //
 //  Created by Chatan Konda on 10/24/17.
 //  Copyright © 2017 Apple. All rights reserved.
-//
 
 import UIKit
 import Firebase
@@ -19,9 +18,9 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
     private lazy var activityRef: DatabaseReference = Database.database().reference().child("Activity")
     private lazy var commentsRef: DatabaseReference = Database.database().reference().child("Comments")
     
-    @IBOutlet weak var itemName: UITextField!
+    @IBOutlet weak var itemName: UITextView!
 
-    @IBOutlet weak var numberofItems: UITextField!
+    @IBOutlet weak var numberofItems: UITextView!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
@@ -43,14 +42,22 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
    
         self.collectionView.reloadData()
         
-        itemName.delegate = self
-        numberofItems.delegate = self
+        itemName.layer.borderColor = UIColor(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0).cgColor
+        itemName.layer.borderWidth = 1.0
+        itemName.layer.cornerRadius = 5
+        
+        numberofItems.layer.borderColor = UIColor(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0).cgColor
+        numberofItems.layer.borderWidth = 1.0
+        numberofItems.layer.cornerRadius = 5
+        
+        sendButtonOutlet.layer.cornerRadius = 10
+        sendButtonOutlet.clipsToBounds = true
         
         numberofItems.keyboardType = UIKeyboardType.numberPad
         
         picturePicker.isUserInteractionEnabled = true
         picturePicker.addGestureRecognizer(tapGestureRecognizer)
-
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +80,8 @@ class ShipmentViewController: UIViewController, UIImagePickerControllerDelegate,
         return true
         
     }
+    
+    @IBOutlet weak var sendButtonOutlet: UIButton!
     
     @IBAction func sendButton(_ sender: Any) {
         
@@ -202,14 +211,23 @@ extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewData
         if let label = cell.viewWithTag(100) as? UILabel {
             
             label.text = collectionData[indexPath.row]
+            
+            label.textColor = UIColor.init(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+//            if cell.isSelected {
+//                label.textColor = UIColor.white//to make text white
+//            }
+            
         }
         
         if indexPath.row == 0 {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
             cell.layer.borderColor = UIColor.gray.cgColor
+            
+            
         } else {
             
             cell.layer.borderColor = UIColor.white.cgColor
+            
         }
         
         return cell
@@ -223,6 +241,13 @@ extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewData
         if cell.isSelected {
             cell.layer.borderColor = UIColor(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
+//            cell.layer.backgroundColor = UIColor(red: 0.0/255.0, green: 172.0/255.0, blue: 237.0/255.0, alpha: 1.0).cgColor
+            
+            cell.layer.cornerRadius = cell.frame.size.width * 0.25
+            
+            
+
+            
             
             switch indexPath.row {
             case 0:
@@ -249,6 +274,7 @@ extension ShipmentViewController: UICollectionViewDelegate, UICollectionViewData
         
         cell.layer.borderColor = UIColor.white.cgColor
         
+        cell.layer.backgroundColor = UIColor.white.cgColor
         collectionView.deselectItem(at: indexPath, animated: true)
         
     }

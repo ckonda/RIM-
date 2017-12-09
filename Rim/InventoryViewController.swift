@@ -71,7 +71,7 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
                     
                     let object = Inventory(profileImageURL: feed["profileImageUrl"] as? String,
                                         shipmentSentUsername: feed["username"] as? String,
-                                        timeStamp: feed["timestamp"] as? String,
+                                        timeStamp: feed["timeStamp"] as? String,
                                         shipDate: feed["shipDate"] as? String,
                                         itemName: feed["itemName"] as? String,
                                         unitType: feed["units"] as? String,
@@ -96,7 +96,7 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
                         print("There is no company")
                         return
                     }
-                    if AppDelegate.user.company == company {
+                    if AppDelegate.user.company?.lowercased() == company.lowercased() {
                         let formattedShippingDate = dateFormatter.date(from: shippingDate)
                         if currentDate! >= formattedShippingDate! {
                             self.inventModel.insert(object, at: 0)
@@ -134,6 +134,68 @@ class InventoryViewController: UIViewController, UISearchBarDelegate {
             tableView.reloadData()
         }
     }
+    func timeAgoSinceDate(_ date: Date, numericDates: Bool = false) -> String {//returns string of time of message sent
+        let calendar = Calendar.current
+        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
+        let now = Date()
+        let earliest = now < date ? now : date
+        let latest = (earliest == now) ? date : now
+        let components = calendar.dateComponents(unitFlags, from: earliest, to: latest)
+        
+        if components.year! >= 2 {
+            return "\(components.year!) years ago"
+        } else if components.year! >= 1 {
+            if numericDates {
+                return "1 year ago"
+            } else {
+                return "Last year"
+            }
+        } else if components.month! >= 2 {
+            return "\(components.month!) months ago"
+        } else if components.month! >= 1 {
+            if numericDates {
+                return "1 month ago"
+            } else {
+                return "Last month"
+            }
+        } else if components.weekOfYear! >= 2 {
+            return "\(components.weekOfYear!) weeks ago"
+        } else if components.weekOfYear! >= 1 {
+            if numericDates {
+                return "1 week ago"
+            } else {
+                return "Last week"
+            }
+        } else if components.day! >= 2 {
+            return "\(components.day!) days ago"
+        } else if components.day! >= 1 {
+            if numericDates {
+                return "1 day ago"
+            } else {
+                return "Yesterday"
+            }
+        } else if components.hour! >= 2 {
+            return "\(components.hour!) hours ago"
+        } else if components.hour! >= 1 {
+            if numericDates {
+                return "1 hour ago"
+            } else {
+                return "An hour ago"
+            }
+        } else if components.minute! >= 2 {
+            return "\(components.minute!) minutes ago"
+        } else if components.minute! >= 1 {
+            if numericDates {
+                return "1 minute ago"
+            } else {
+                return "A minute ago"
+            }
+        } else if components.second! >= 3 {
+            return "\(components.second!) seconds ago"
+        } else {
+            return "Just now"
+        }
+    }
 }
 extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -141,6 +203,10 @@ extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
             return filteredData.count
         }
         return inventModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {//deselect te row once selected, maybe segue in future?
@@ -153,6 +219,12 @@ extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         //implement of search bar filtration
         let product: Inventory// to conform cell for at to the isSearching
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        dateformatter.timeZone = NSTimeZone(abbreviation: "PT+0:00") as TimeZone!
+        dateformatter.locale = NSLocale.current
+        
         if isSearching {
             print("\(filteredData.count)")
             product = filteredData[indexPath.row]
@@ -160,14 +232,20 @@ extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
             cell.inventoryName.text = product.itemName
             cell.amount.text = String(describing: product.quantity!)
             cell.units.text = product.unitType
-            cell.timeStamp.text = product.timeStamp
+            let productDateString = dateformatter.date(from: product.timeStamp!) //new var to create the post timestamp
+            let shippedTime = self.timeAgoSinceDate(productDateString!, numericDates: true)
+            
+            cell.timeStamp.text = shippedTime//product.timeStamp
         } else {
             print("\(filteredData.count)")
             product = inventModel[indexPath.row]
             cell.inventoryName.text = product.itemName
             cell.amount.text = String(describing: product.quantity!)
             cell.units.text = product.unitType
-            cell.timeStamp.text = product.timeStamp
+            
+            let productDateString = dateformatter.date(from: product.timeStamp!) //new var to create the post timestamp
+            let shippedTime = self.timeAgoSinceDate(productDateString!, numericDates: true)
+            cell.timeStamp.text = shippedTime//product.timeStamp
             
 //            job = jobData[indexPath.row]
 //            cell.postLabel.text = job.jobName
@@ -181,4 +259,7 @@ extension InventoryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    
+    
+    
 }
